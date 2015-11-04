@@ -1,0 +1,263 @@
+@-webkit-keyframes rotate180 {
+  from {
+    -webkit-transform: rotate(-180deg)
+  }
+  to {
+    -webkit-transform: rotate(0deg)
+  }
+}
+
+@-moz-keyframes rotate180 {
+  from {
+    -moz-transform: rotate(-180deg)
+  }
+  to {
+    -moz-transform: rotate(0deg)
+  }
+}
+
+@keyframes rotate180 {
+  from {
+    transform: rotate(-180deg)
+  }
+  to {
+    transform: rotate(0deg)
+  }
+}
+
+.w-joblist {
+  width: 990px;
+  margin: auto;
+  font-size: 14px;
+
+  .job-child {
+    padding: 0 2px;
+    border-bottom: 1px solid #eee;
+    &:hover {
+      .buf {
+        transition: .5s transform;
+        transform: rotate(360deg);
+      }
+    }
+  }
+  .strong {
+    border: 2px solid #ef8217;
+    .job-child {
+      padding: 0;
+      &:last-child {
+        border: 0;
+      }
+    }
+  }
+
+  .base {
+    height: 43px;
+    padding: 12px 0 0 0;
+    line-height: 2.4em;
+    overflow: hidden;
+    list-style: none;
+    margin: 0;
+    li {
+      float: left;
+    }
+
+    .job {
+      width: 388px;
+      margin-right: 20px;
+      * {
+        vertical-align: top;
+      }
+      input {
+        width: 14px;
+        margin: 12px 8px 0;
+        *margin-top: 6px;
+      }
+      a {
+        max-width: 266px;
+      }
+    }
+    .hotel {
+      width: 226px;
+      margin-right: 20px;
+      a {
+        display: inline-block;
+        width: 168px;
+      }
+      i {
+        display: inline-block;
+        width: 34px;
+        background: url(jobnum.png) no-repeat center;
+        vertical-align: top;
+        text-align: center;
+        color: #fff;
+        margin-left: 6px;
+      }
+    }
+    .area {
+      width: 135px;
+    }
+    .timer {
+      width: 133px;
+    }
+    .craze {
+      i {
+        display: block;
+        width: 24px;
+        height: 24px;
+        margin-top: 4px;
+        background: url(p1.png) no-repeat;
+        &.p2 {
+          background-image: url(p2.png);
+        }
+        &.p3 {
+          background-image: url(p3.png);
+        }
+      }
+    }
+
+    a, span, i {
+      color: #333;
+      display: inline-block;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .job {
+      font-size: 16px;
+      a {
+        color: #2a7ac9;
+      }
+      .buf {
+        color: #e81e1e;
+      }
+      .call {
+        display: inline-block;
+        width: 24px;
+        height: 22px;
+        background: url(phone.png) no-repeat center;
+        vertical-align: -6px;
+        *vertical-align: -10px;
+        cursor: pointer;
+      }
+    }
+
+    /*i {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: red;
+      vertical-align: -5px;
+    }*/
+  }
+
+  .attr {
+    color: #999;
+    line-height: 28px;
+    float: left;
+    width: 836px;
+    i {
+      margin-right: 20px;
+    }
+    p {
+      margin: 8px 0 14px;
+      line-height: 24px;
+      color: #333;
+    }
+  }
+
+  .all {
+    padding-left: 30px;
+    display: none;
+  }
+
+  .operate {
+    float: right;
+    line-height: 26px;
+    text-align: center;
+    margin-right: 9px;
+    .apply, .collect {
+      display: block;
+      width: 88px;
+      height: 26px;
+      margin-top: 9px;
+      cursor: pointer;
+      position: relative;
+    }
+    .apply {
+      background: #ffa145;
+      border: 1px solid #ff8a18;
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      border-radius: 3px;
+      color: #fff;
+      z-index: 1;
+      i {
+        display: inline-block;
+        width: 12px;
+        height: 6px;
+        background: url(va.png) 0 -6px;
+        margin: 0 0 2px 3px;
+        overflow: hidden;
+      }
+      &:hover {
+        i {
+          background-position: 0 0;
+        }
+      }
+    }
+    .collect {
+      width: 90px;
+      color: #666;
+      i {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        background: url(ms.png);
+        margin-right: 3px;
+        vertical-align: -2px;
+      }
+      &:hover {
+        font-weight: bold;
+        text-decoration: underline;
+        i {
+          background: url(msa.png);
+        }
+      }
+    }
+    .popbox {
+      position: absolute;
+      right: -2px;
+      top: 26px;
+      color: #333;
+      text-align: left;
+      line-height: 26px;
+      cursor: default;
+      strong {
+        color: #ef8217;
+      }
+      .pop {
+        width: 169px;
+        height: 58px;
+        padding: 8px 0 0 25px;
+        background: #fffaf5;
+        border: 1px solid #e6cbb0;
+        margin-top: 2px;
+        span {
+          display: inline-block;
+          cursor: pointer;
+        }
+      }
+      em {
+        width: 6px;
+        height: 12px;
+        margin: 0;
+        background: url(popr.png);
+        position: absolute;
+        left: 15px;
+        top: 18px;
+        overflow: hidden;
+      }
+    }
+  }
+}

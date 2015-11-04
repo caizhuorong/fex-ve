@@ -1,0 +1,138 @@
+.transiton (@s) {
+  -webkit-transition: @s;
+  -moz-transition: @s;
+  -ms-transition: @s;
+  -o-transition: @s;
+  transition: @s;
+}
+
+.w-recommend {
+  padding-top: 4px;
+  a {
+    color: #333;
+  }
+
+  .rec-title {
+    padding: 24px 0 13px;
+    line-height: 19px;
+    *line-height: 23px;
+    border-bottom: 2px solid #f0841f;
+    position: relative;
+    h3, p {
+      margin: 0 26px 0 0;
+      display: inline;
+    }
+    h3 {
+      font-size: 20px;
+      color: #333;
+      i {
+        font-size: 24px;
+        color: #ef8217;
+      }
+    }
+    p {
+      font-size: 18px;
+      color: #aaa;
+    }
+    &:after {
+      content: '';
+      display: block;
+      width: 10px;
+      height: 10px;
+      background: #f0841f;
+      -webkit-transform: rotate(45deg);
+      -moz-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      -o-transform: rotate(45deg);
+      transform: rotate(45deg);
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      border-radius: 50%;
+      position: absolute;
+      right: 30px;
+      bottom: -6px;
+    }
+  }
+
+  .rec-main {
+    background: #f8f8f8;
+    padding: 29px 0 16px 20px;
+  }
+
+  .list {
+    overflow: hidden;
+    a {
+      float: left;
+      height: 34px;
+      line-height: 34px;
+      border: 1px solid #dcdcdc;
+      -webkit-border-radius: 4px;
+      -moz-border-radius: 4px;
+      border-radius: 4px;
+      padding: 0 11px;
+      margin: 0 12px 14px 0;
+      text-align: center;
+      .transiton(background .2s);
+      &.sign {
+        color: #ef8f32;
+      }
+      &:hover {
+        background: #ffa245;
+        border-color: #ffa245;
+        color: #fff;
+      }
+    }
+    &.big {
+      margin-right: -15px;
+      a {
+        margin-right: 20px;
+        padding: 0 15px;
+      }
+    }
+  }
+  .list-b {
+    overflow: hidden;
+    h4 {
+      margin: 0 0 14px;
+      font-size: 16px;
+      line-height: 18px;
+      color: #333;
+      width: 100%;
+    }
+    .ch-list {
+      i {
+        display: inline-block;
+        width: 140px;
+        height: 30px;
+      }
+      a {
+        font-size: 14px;
+        color: #666;
+      }
+    }
+    a {
+      display: inline-block;
+      line-height: 24px;
+      .transiton(color .15s);
+      max-width: 93%;
+      &:hover {
+        color: #ef8f32;
+        text-decoration: underline;
+      }
+    }
+    .line {
+      display: block;
+      height: 11px;
+      _height: 9px;
+      overflow: hidden;
+      border-bottom: 1px dashed #dcdcdc;
+      margin: 0 14px 17px 0;
+      clear: both;
+      &.last {
+        border: 0;
+        margin: 0;
+        height: 5px;
+      }
+    }
+  }
+}

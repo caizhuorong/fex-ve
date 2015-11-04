@@ -1,0 +1,91 @@
+.w-search {
+  padding: 54px 0 36px;
+  background: #fffaf5;
+  font-size: 16px;
+
+  .search {
+    width: 990px;
+    margin: auto;
+    overflow: hidden;
+  }
+  .form-box {
+    width: 1050px;
+    overflow: hidden;
+  }
+
+  .work-mode {
+    margin-left: 20px;
+    label {
+      background: url(radio.png) no-repeat 4px 11px;
+      padding: 0 4px 0 28px;
+      margin-right: 24px;
+      cursor: pointer;
+      display: inline-block;
+      line-height: 2.4em;
+      &.active {
+        background-position: 4px -29px;
+      }
+    }
+  }
+
+  .form-bottom {
+    text-align: center;
+    padding-top: 32px;
+  }
+
+  .submit {
+    width: 168px;
+    height: 48px;
+    background: #ef8217;
+    font-size: 20px;
+    color: #fff;
+    border: 0;
+    margin-right: 20px;
+  }
+
+  .clear-form {
+    color: #666;
+    text-decoration: underline;
+    background: none;
+    border: none;
+  }
+  .select {
+    float: left;
+    width: 263px;
+    height: 36px;
+    line-height: 36px;
+    padding: 5px 0;
+    background: #fff;
+    border: 1px solid #dedede;
+    margin: 0 57px 20px 20px;
+    cursor: default;
+    position: relative;
+    em {
+      width: 55px;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: url(select.png) no-repeat right 0;
+    }
+    i {
+      margin-left: 15px;
+      display: inline-block;
+      width: 75%;
+    }
+    &.active {
+      em {
+        background-position: right -46px;
+      }
+    }
+  }
+}
+
+
+
+.cw-droplist-i.w-search-drop {
+  li {
+    margin: 0 4px;
+    padding: 0 12px;
+  }
+}

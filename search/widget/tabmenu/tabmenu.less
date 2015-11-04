@@ -1,0 +1,41 @@
+.w-tabmenu {
+  width: 990px;
+  margin: auto;
+  border-bottom: 1px solid #ef8217;
+  .tabmenu {
+    float: left;
+    margin: 0;
+    overflow: hidden;
+    background: #dedede;
+    li {
+      float: left;
+      width: 96px;
+      height: 38px;
+      line-height: 38px;
+      text-align: center;
+      border-top: 1px solid #dedede;
+      margin-right: 1px;
+      background: #fff;
+      &:first-child {
+        border-left: 1px solid #dedede;
+      }
+      &.hover, &.active {
+        background: #ef8217;
+        border-top-color: #ef8217;
+        color: #fff;
+        cursor: default;
+        -webkit-transition: background-color .2s;
+        -moz-transition: background-color .2s;
+        -ms-transition: background-color .2s;
+        -o-transition: background-color .2s;
+        transition: background-color .2s;
+        &:first-child {
+          border-left: 1px solid #ef8217;
+        }
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+}

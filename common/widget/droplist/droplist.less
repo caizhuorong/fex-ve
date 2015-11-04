@@ -1,0 +1,32 @@
+.cw-droplist-i {
+  border: 1px solid #ffa246;
+  background: #fff;
+  padding: 1px 0 2px;
+  overflow: auto;
+  position: absolute;
+  z-index: 30;
+  color: #333;
+  line-height: 30/14em;
+  //box-shadow: rgba(255, 144, 0, .3) 0 0 48px;
+
+  span {
+
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+  li {
+    margin: 0 2px;
+    //transition: .1s background, .1s color;
+    cursor: default;
+    padding: 0 0.429em 0;
+
+  }
+  &.active {
+    li.hover {
+      color: #fff;
+      background: #ffa145;
+    }
+  }
+}
