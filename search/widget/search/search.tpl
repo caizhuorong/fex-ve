@@ -41,7 +41,7 @@
                     <input type="hidden" name="gender">
                 </span>
                 <span control="select" class="select" id="rations_quarters" data-v="rations_quarters">
-                    <i pla="企业类型">食宿情况</i>
+                    <i pla="食宿情况">食宿情况</i>
                     <em></em>
                     <input type="hidden" name="rations_quarters">
                 </span>
