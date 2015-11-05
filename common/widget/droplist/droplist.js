@@ -15,14 +15,20 @@ var H = require('common:widget/helper/helper.js'),
 
 function drop($dom, data, style) {
     var v = $dom.data('v'),
-        $i = $dom.children('i');
+        $i = $dom.children('i'),
+        callback = arguments[arguments.length-1];
 
     $i.width($i.width()).addClass('ellipsis');
+
     if (!cache[v]) {
         cache[v] = new SELECT(data[v] || data, style);
     }
     cache[v].$me = $dom;
     cache[v].tpl.attr('dropid', v);
+
+    if (typeof callback == "function") {
+        cache[v].callback = callback;
+    }
     return cache[v];
 }
 

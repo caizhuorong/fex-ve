@@ -11,7 +11,9 @@ require.async(['../drop.js'], function (droplist) {
 
     $('.w-screen [control=select]').on('click', function (ev) {
         var $self = $(this),
-            $tpl = drop($self, droplist, 'w-search-drop');
+            $tpl = drop($self, droplist, 'w-search-drop', function () {
+
+            });
 
         if ($self.hasClass('active')) {
             $tpl.hide();
