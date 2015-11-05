@@ -14,8 +14,10 @@ var H = require('common:widget/helper/helper.js'),
 
 
 function drop($dom, data, style) {
-    var v = $dom.data('v');
+    var v = $dom.data('v'),
+        $i = $dom.children('i');
 
+    $i.width($i.width()).addClass('ellipsis');
     if (!cache[v]) {
         cache[v] = new SELECT(data[v] || data, style);
     }

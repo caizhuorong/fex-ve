@@ -12,9 +12,9 @@
     <i class="clear"></i>
 
     <div class="drops">
-        <span control="select" class="select" id="work_year" data-v="work_year">
+        <span control="select" class="select" id="job_add_time" data-v="job_add_time">
             <i pla="发布日期">发布日期</i>
-            <input type="hidden" name="work_year">
+            <input type="hidden" name="job_add_time">
         </span>
 
         <span control="select" class="select" id="work_year" data-v="work_year">
@@ -22,19 +22,19 @@
             <input type="hidden" name="work_year">
         </span>
 
-        <span control="select" class="select" id="work_year" data-v="work_year">
+        <span control="select" class="select" id="salary" data-v="salary">
             <i pla="月薪范围">月薪范围</i>
-            <input type="hidden" name="work_year">
+            <input type="hidden" name="salary">
         </span>
 
-        <span control="select" class="select" id="work_year" data-v="work_year">
+        <span control="select" class="select" id="degree" data-v="degree">
             <i pla="学历要求">学历要求</i>
-            <input type="hidden" name="work_year">
+            <input type="hidden" name="degree">
         </span>
 
-        <span control="select" class="select" id="work_year" data-v="work_year">
+        <span control="select" class="select" id="work_mode" data-v="work_mode">
             <i pla="职位性质">职位性质</i>
-            <input type="hidden" name="work_year">
+            <input type="hidden" name="work_mode">
         </span>
 
         <span control="select" class="select" id="rations_quarters" data-v="rations_quarters">
@@ -46,10 +46,13 @@
             <input type="hidden" name="gender">
         </span>
 
-        <span control="select" class="select" id="work_year" data-v="work_year">
+        <span control="select" class="select" id="contact_display_status" data-v="contact_display_status">
             <i pla="联系方式公开程度">联系方式公开程度</i>
-            <input type="hidden" name="work_year">
+            <input type="hidden" name="contact_display_status">
         </span>
     </div>
 
 </div>
+
+
+{%script%}require('screen'){%/script%}
