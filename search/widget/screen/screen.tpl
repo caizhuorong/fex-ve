@@ -3,7 +3,7 @@
     <div class="screen">
         共<i class="num">8638</i>个职位，在结果中筛选：
         <input type="text" placeholder="请输入关键字">
-        <a href="javascript:;">排除</a>
+        <a class="btn-n1" href="javascript:;">排除</a>
     </div>
     <div class="child">
         <span>餐饮<i></i></span>

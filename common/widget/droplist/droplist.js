@@ -8,7 +8,7 @@ var H = require('common:widget/helper/helper.js'),
     out = setTimeout,
     cache = {},
     SELECT = function (data, style) {
-        this.create(data).tpl.addClass(style);
+        this.create(data);
     },
     fn = SELECT.prototype;
 
@@ -19,12 +19,11 @@ function drop($dom, data, style) {
         callback = arguments[arguments.length-1];
 
     $i.width($i.width()).addClass('ellipsis');
-
     if (!cache[v]) {
-        cache[v] = new SELECT(data[v] || data, style);
+        cache[v] = new SELECT(data[v] || data);
     }
     cache[v].$me = $dom;
-    cache[v].tpl.attr('dropid', v);
+    cache[v].tpl.attr('dropid', v).removeClass().addClass('cw-droplist-i ' + style);
 
     if (typeof callback == "function") {
         cache[v].callback = callback;
