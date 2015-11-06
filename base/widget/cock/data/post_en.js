@@ -28,6 +28,7 @@ module.exports = {
     "0509": "Golf Coach",
     "0510": "Golf Club Caddie",
     "0511": "Golf Baggage Boy/Starter/Marshal",
+    "0512": "Golf Practice Field Director",
     "0601": "Travel Agency General Manager",
     "0602": "Deputy General Manager/General Manager Assistant",
     "0603": "Travel Agency Receptionist",

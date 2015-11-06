@@ -24,6 +24,8 @@ for (var i = 0, len = postTxt.length; i < len; i++) {
     post.push([]);
     postMap.push([]);
     postTxt[i] = postTxt[i].split('\t');
+
+    console.log(postTxt[i], i);
     postMap[i][0] = list[postTxt[i][1]].match(/^.{2}/)[0] + '00';
     postMap[i][1] = [];
     for (var x = 0, xlen = postTxt[i].length; x < xlen; x++) {
