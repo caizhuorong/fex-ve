@@ -11,4 +11,6 @@ $doc.on('mouseenter', li, function () {
     $(this).addClass('hover');
 }).on('mouseleave', li, function () {
     $(this).removeClass('hover');
+}).on('click', li, function () {
+    $(this).addClass('active').siblings('li').removeClass('active');
 });
