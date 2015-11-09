@@ -21,7 +21,7 @@
     {%body%}
         {%block name="content"%}{%/block%}
 
-        <script src="{%uri name="common:static/jquery.js"%}"></script>
+        <script src="{%uri name='common:static/jquery.js'%}"></script>
     {%/body%}
 
 {%/html%}

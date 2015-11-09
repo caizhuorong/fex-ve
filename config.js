@@ -26,7 +26,7 @@ fis.match('*.png', {
 
 
 
-/*
+
 // 启用 fis-spriter-csssprites 插件
 fis.match('::package', {
     spriter: fis.plugin('csssprites')
@@ -37,4 +37,3 @@ fis.match('*.{less,css,sass,scss}', {
     useSprite: true,
     packTo: '/pkg/all.css'
 });
-*/
