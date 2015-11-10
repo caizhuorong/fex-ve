@@ -1,7 +1,6 @@
 <section class="w-recommend">
     <div class="rec-title">
-        <h3>{%$data.title.t%}</h3>
-
+        <h3>{%$data.title.t|escape:none%}</h3>
         <p>{%$data.title.p%}</p>
     </div>
     <div class="rec-main">

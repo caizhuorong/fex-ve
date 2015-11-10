@@ -1,8 +1,10 @@
 <?php
 
-include('common.php');
+require_once('common.php');
 
 $fis_data = [
+    'data' => $GLOBALS['fcData'],
+
     'title' => '酒店餐饮旅游职位搜索_最佳东方',
     'keyworks' => '职位搜索,高级搜索,找工作',
     'description' => '最佳东方职位搜索专为个人提供最全最新最准确的酒店、餐饮、旅游企业职位招聘信息的高级搜索服务，方便个人进行职位搜索，体验到职位搜索的快捷性和高匹配性。',

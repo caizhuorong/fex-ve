@@ -15,7 +15,12 @@
     {%widget name='search:widget/screen/screen.tpl'%}
 
     {%widget name='search:widget/tabmenu/tabmenu.tpl'%}
-    {%widget name='search:widget/joblist/joblist.tpl'%}
+    {%widget name='search:widget/joblist/joblist.tpl' data=$data.arr_result top=$data.top_job_num%}
+
+    {%script%}
+        data = {%json_encode($data.arr_result)%}
+        console.table(data);
+    {%/script%}
 
     {%* 页面内容 *%}
 

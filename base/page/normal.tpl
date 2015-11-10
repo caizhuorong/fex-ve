@@ -1,10 +1,12 @@
+{%*{%if $_GET['callback']%}{%json_encode($data)%}{%return%}{%/if%}*%}
+
 <!DOCTYPE html>
 {%* 使用html插件替换普通html标签，同时注册JS组件化库 *%}
 {%html framework="common:static/mod.js"%}
 {%* 使用head插件替换head标签，主要为控制加载同步静态资源使用 *%}
 {%head%}
 	<meta charset="utf-8"/>
-	<link rel="dns-prefetch" href="//f3.v.veimg.cn">
+	<link rel="dns-prefetch" href="//fex.v.veimg.cn">
 	<link rel="dns-prefetch" href="//sso.veryeast.cn">
 	<title>{%$title%}</title>
 	<meta name="keyworks" content="{%$keyworks%}">
