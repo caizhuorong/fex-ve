@@ -13,4 +13,13 @@ $doc.on('mouseenter', li, function () {
     $(this).removeClass('hover');
 }).on('click', li, function () {
     $(this).addClass('active').siblings('li').removeClass('active');
+
+    $.ajax({
+        url: '',
+        data: '',
+        done: function(data) {
+
+        },
+        fail: function (err) {}
+    });
 });
