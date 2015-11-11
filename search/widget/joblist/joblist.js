@@ -38,6 +38,16 @@ $joblist.on('mouseenter', '.job-child', function () {
 });
 
 
+
+
+$joblist.find('.attr .brief').each(function () {
+    var $self = $(this);
+
+    $self.html(H.substring($self.text(), 220));
+});
+
+
+
 if (!$('body').css('maxWidth')) {
     $('.w-joblist .job-child .base').each(function () {
         var $self = $(this),
@@ -63,6 +73,8 @@ $joblist.on('mouseenter', '.operate .apply', function () {
     clearTimeout(joblistTimer);
     $popbox.remove();
 });
+
+
 
 
 

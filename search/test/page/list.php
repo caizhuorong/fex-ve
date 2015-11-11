@@ -106,3 +106,23 @@ $fis_data = [
         ]
     ]
 ];
+
+
+
+
+function utf8_strcut($str, $start, $length=null) {
+    preg_match_all('/./us', $str, $match);
+    $chars = is_null($length)? array_slice($match[0], $start ) : array_slice($match[0], $start, $length);
+
+    unset($str);
+
+    return implode('', $chars);
+}
+
+
+
+
+foreach ($fis_data['data']['arr_result'] as $key => $val) {
+    $fis_data['data']['arr_result'][$key]['job_description'] = strip_tags($val['job_description']);
+}
+

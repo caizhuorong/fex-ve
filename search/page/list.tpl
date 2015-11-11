@@ -19,7 +19,7 @@
 
     {%script%}
         data = {%json_encode($data.arr_result)%}
-        console.table(data);
+        console.log(data);
     {%/script%}
 
     {%* 页面内容 *%}

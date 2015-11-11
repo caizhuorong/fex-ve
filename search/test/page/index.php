@@ -3,7 +3,7 @@
 require_once('common.php');
 
 $fis_data = [
-    'data' => $GLOBALS['fcData'],
+    data => $GLOBALS['fcData'],
 
     'title' => '酒店餐饮旅游职位搜索_最佳东方',
     'keyworks' => '职位搜索,高级搜索,找工作',
