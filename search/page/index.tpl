@@ -11,6 +11,7 @@
 
     {%* 页面内容 *%}
     {%widget name='search:widget/search/search.tpl'%}
+
     <section class="index-main">
         <div class="m-left">
             {%foreach from=$recommend item="item"%}

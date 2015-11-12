@@ -1,11 +1,14 @@
 <?php
 
+require_once('drop.php');
+
 $public_data = [
     'logo' => [
         'link' => '',
         'img' => '',
         'alt' => '杭州东方网升科技股份有限公司'
     ],
+
     'header' => [
         ['title' => '首页', 'link' => '#'],
         '|',
@@ -21,6 +24,7 @@ $public_data = [
         '|',
         ['title' => '校园招聘', 'link' => '#']
     ],
+
     'nav' => [
         ['title' => '我的最佳东方', 'link' => '#'],
         '|',
@@ -29,5 +33,8 @@ $public_data = [
         ['title' => '简历管理', 'link' => '#'],
         '|',
         ['title' => '职位管理', 'link' => '#']
-    ]
+    ],
+
+    'DROPDATA' => $DROPDATA,
+    'DROPDATA_INDEX' => $DROPDATA_INDEX
 ];

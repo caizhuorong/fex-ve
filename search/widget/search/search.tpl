@@ -71,6 +71,5 @@
 </section>
 
 
-
-
+{%script%}window.DROPDATA = {%json_encode($DROPDATA)%};{%/script%}
 {%script%}require('search.js'){%/script%}
