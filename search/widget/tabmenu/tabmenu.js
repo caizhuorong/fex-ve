@@ -15,10 +15,10 @@ $doc.on('mouseenter', li, function () {
     $(this).addClass('active').siblings('li').removeClass('active');
 
     $.ajax({
-        url: '',
+        url: './',
         data: '',
         done: function(data) {
-
+            console.log(data);
         },
         fail: function (err) {}
     });
