@@ -7,12 +7,12 @@
                     <em></em>
                     <input type="hidden" name="company_industry">
                 </span>
-                <span control="select" class="select" id="company_type" data-v="company_type_hotel">
+                <span control="select" class="select" id="company_type" data-v="company_type">
                     <i pla="企业类型">企业类型</i>
                     <em></em>
                     <input type="hidden" name="company_type">
                 </span>
-                <span control="select" class="select" id="star_level" data-v="star_level_hotel">
+                <span control="select" class="select" id="star_level" data-v="star_level">
                     <i pla="星级">星级</i>
                     <em></em>
                     <input type="hidden" name="star_level">

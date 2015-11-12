@@ -8,6 +8,15 @@
         <li>竞争少</li>
         <li>电话直聘</li>
     </ul>
+
+    <div class="tabright">
+
+
+        <div class="pages">
+            <div class="page"></div>
+        </div>
+    </div>
+
     <i class="clear"></i>
 
 </div>

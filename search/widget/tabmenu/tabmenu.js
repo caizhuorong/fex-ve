@@ -15,11 +15,22 @@ $doc.on('mouseenter', li, function () {
     $(this).addClass('active').siblings('li').removeClass('active');
 
     $.ajax({
-        url: './',
+        url: './job_list',
         data: '',
-        done: function(data) {
-            console.log(data);
+        success: function(data) {
+            //console.log(data);
         },
-        fail: function (err) {}
+        error: function (err) {}
     });
+});
+
+
+require('common:components/pagination/pagination.js');
+
+$('.pages').pagination({
+    url: './job_list',
+    $page: $('.page'),
+    fillContent: function(data) {
+        console.log(data);
+    }
 });

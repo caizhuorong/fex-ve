@@ -1,3 +1,5 @@
+
+
 {%extends file="base/page/normal.tpl"%}
 
 {%block name='block_head_static'%}

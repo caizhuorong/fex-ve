@@ -5,10 +5,7 @@
         <input type="text" placeholder="请输入关键字">
         <a class="btn-n1" href="javascript:;">排除</a>
     </div>
-    <div class="child">
-        <span>餐饮<i></i></span>
-        <span>服务员<i></i></span>
-    </div>
+    <div class="child"></div>
     <i class="clear"></i>
 
     <div class="drops">

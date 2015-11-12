@@ -3,63 +3,69 @@
  * Created by TC-62 on 2015/11/5.
  */
 
+
+// 这里配置三级联动的依赖关系
+$DROPDATA_CHILDREN_MAP = [
+    company_type_hotel => [1, 2, 3, 4],
+    company_type_din => [],
+    company_type_property => [],
+    star_level_hotel => [],
+    star_level_property => []
+];
+
+
+// 这里是下拉列表
 $DROPDATA = [
+    // 行业
     company_industry => [
         [0, '不限'],
         [1, '酒店业', 'company_type_hotel'],
         [2, '餐饮业', 'company_type_din'],
         [3, '娱乐业', 'company_type_din'],
-        [4, '物业', 'company_type_property'],
-        [5, '高尔夫'],
-        [6, '温泉'],
-        [7, '邮轮'],
-        [8, '旅行社'],
-        [9, '旅游/酒店用品服务商'],
-        [10, '旅游/酒店网络服务商'],
-        [11, '其他行业']
+        [7, '物业', 'company_type_property'],
+        [8, '高尔夫'],
+        [9, '温泉'],
+        [10, '邮轮'],
+        [4, '旅行社'],
+        [5, '旅游/酒店用品服务商'],
+        [11, '旅游/酒店网络服务商'],
+        [6, '其他行业']
     ],
 
-    company_type_hotel => [
+
+    // 企业类型
+    company_type => [
         [0, '不限'],
         [1, '国际品牌酒店', 'star_level_hotel'],
         [2, '国内品牌酒店', 'star_level_hotel'],
-        [3, '精品酒店'],
-        [4, '单体酒店', 'star_level_hotel'],
-        [5, '经济品牌酒店']
+        [7, '精品酒店'],
+        [3, '单体酒店', 'star_level_hotel'],
+        [4, '经济品牌酒店'],
+
+        [5, '餐饮/娱乐总部'],
+        [6, '单体餐饮/娱乐'],
+
+        [8, '商业物业', 'star_level_property'],
+        [9, '工业物业', 'star_level_property'],
+        [10, '机关物业', 'star_level_property'],
+        [11, '住宅物业', 'star_level_property'],
+        [12, '农林牧渔物业', 'star_level_property'],
+        [13, '其他物业', 'star_level_property']
     ],
 
-    company_type_din => [
-        [0, '不限'],
-        [1, '餐饮/娱乐总部'],
-        [2, '单体餐饮/娱乐']
+
+    star_level => [
+        [0, '未评'],
+        [5, '五星/准五星'],
+        [4, '四星/准四星'],
+        [3, '三星级及以下'],
+
+        [16, '一级资质'],
+        [17, '二级资质'],
+        [18, '三级资质']
     ],
 
-    company_type_property => [
-        [0, '不限'],
-        [1, '商业物业', 'star_level_property'],
-        [2, '工业物业', 'star_level_property'],
-        [3, '机关物业', 'star_level_property'],
-        [4, '住宅物业', 'star_level_property'],
-        [5, '农林牧渔物业', 'star_level_property'],
-        [5, '其他物业', 'star_level_property']
-    ],
-
-    star_level_hotel => [
-        [0, '不限'],
-        [1, '五星/准五星'],
-        [2, '四星/准四星'],
-        [3, '三星级及以下']
-    ],
-
-    star_level_property => [
-        [0, '不限'],
-        [1, '一级资质'],
-        [2, '二级资质'],
-        [3, '三级资质'],
-        [3, '未评']
-    ],
-
-// ----------
+    // ----------
     work_year => [
         [0, '不限'],
         [1, '一年以上'],
@@ -69,6 +75,7 @@ $DROPDATA = [
         [5, '八年以上'],
         [6, '十年以上']
     ],
+
 
     salary => [
         [0, '不限'],
@@ -81,16 +88,19 @@ $DROPDATA = [
         [8, '10000以上']
     ],
 
+
     is_construct => [
         [0, '不限'],
         [1, '筹建中']
     ],
+
 
     gender => [
         [0, '不限'],
         [1, '男性优先'],
         [2, '女性优先']
     ],
+
 
     rations_quarters => [
         [0, '不限'],
@@ -99,6 +109,7 @@ $DROPDATA = [
         [3, '提供吃'],
         [4, '提供住']
     ],
+
 
     degree => [
         [0, '不限'],
@@ -110,6 +121,7 @@ $DROPDATA = [
         [6, '博士']
     ],
 
+
     work_mode => [
         [0, '不限'],
         [1, '全职'],
@@ -118,6 +130,8 @@ $DROPDATA = [
         [4, '临时']
     ],
 
+
+    // 发布日期
     job_add_time => [
         [0, '不限'],
         [1, '今日最新'],
@@ -129,6 +143,7 @@ $DROPDATA = [
         [7, '近两月']
     ],
 
+
     contact_display_status => [
         [0, '不限'],
         [1, '电话公开'],
@@ -138,8 +153,6 @@ $DROPDATA = [
     ]
 
 ];
-
-
 
 
 function arrar_index($arr)
