@@ -1,5 +1,3 @@
-{%*{%if $_GET['callback']%}{%json_encode($data)%}{%return%}{%/if%}*%}
-
 <!DOCTYPE html>
 {%* 使用html插件替换普通html标签，同时注册JS组件化库 *%}
 {%html framework="common:static/mod.js"%}

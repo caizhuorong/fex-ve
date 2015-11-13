@@ -108,5 +108,3 @@ foreach ($fis_data['data']['arr_result'] as $key => $val) {
     $fis_data['data']['arr_result'][$key]['job_description'] = strip_tags($val['job_description']);
 }
 
-//var_dump($fis_data);die;
-

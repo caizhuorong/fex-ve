@@ -5,7 +5,6 @@
 {%/block%}
 
 {%block name='content'%}
-
     {%widget name='search:widget/header/header.tpl'%}
     {%widget name='base:widget/nav/nav.tpl' call='nav' data=$nav%}
 

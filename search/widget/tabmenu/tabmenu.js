@@ -16,9 +16,24 @@ $doc.on('mouseenter', li, function () {
 
     $.ajax({
         url: './job_list',
-        data: '',
+        method: 'post',
+        data: {
+            funtype:'0000',
+            funtype_text:'职位类别不限',
+            jobarea:'0000',
+            jobarea_text:'工作地点不限',
+            keyword_scope:'job_name',
+            key_words:'服务员',
+            job_add_time:0,
+            company_type:0,
+            work_year_min:0,
+            work_year_max:1000,
+            salary_min:0,
+            salary_max:1000000,
+            form_src:'local'
+        },
         success: function(data) {
-            //console.log(data);
+            console.log(data.message);
         },
         error: function (err) {}
     });
@@ -27,10 +42,13 @@ $doc.on('mouseenter', li, function () {
 
 require('common:components/pagination/pagination.js');
 
+/*
 $('.pages').pagination({
     url: './job_list',
     $page: $('.page'),
+    //data: {},
     fillContent: function(data) {
         console.log(data);
     }
 });
+*/

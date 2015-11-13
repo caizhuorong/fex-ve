@@ -27,7 +27,6 @@ require.async(['base:components/layer/layer.js'], function (layer) {
     $screen.on('click', '.screen .btn-n1', function () {
         var $input = $(this).siblings('input'),
             val = $input.val().trim();
-
         if (val != '') {
             $screen.find('.child').append('<span>' + $input.val().trim() + '<i></i></span>');
         } else {
