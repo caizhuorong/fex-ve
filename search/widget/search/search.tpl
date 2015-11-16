@@ -1,6 +1,6 @@
 <section class="w-search">
     <div class="search">
-        <form id="job-search-form" action="/job_search/job_list" dataType="json">
+        <form id="job-search-form" action="/job_search/job_list" dataType="json" config="{a:15}">
             <div class="form-box">
                 <span control="select" class="select" id="company_industry" data-v="company_industry">
                     <i pla="行业类别">行业类别</i>
