@@ -1,6 +1,6 @@
 <section class="w-search">
     <div class="search">
-        <form action="">
+        <form id="job-search-form" action="" dataType="json">
             <div class="form-box">
                 <span control="select" class="select" id="company_industry" data-v="company_industry">
                     <i pla="行业类别">行业类别</i>
@@ -32,7 +32,7 @@
                 <span control="select" class="select" id="is_construct" data-v="is_construct">
                     <i pla="筹建状态">筹建状态</i>
                     <em></em>
-                    <input type="hidden" name="company_industry">
+                    <input type="hidden" name="is_construct">
                 </span>
 
                 <span control="select" class="select" id="gender" data-v="gender">
