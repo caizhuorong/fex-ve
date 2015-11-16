@@ -48,16 +48,16 @@ fn.submit = function (callback) {
         $form = me.$form;
 
     if (callback) {
-        // 常规数据
-
         $.ajax({
-            url: $form.attr('action') + '?' + $form.serialize(),
+            url: $form.attr('action'),
             methed: $form.attr('methed'),
             dataType: $form.attr('dataType') || 'json',
-            data: H.object($form.attr('config')),
+            data: $form.serialize() + '&' + $.param(H.object($form.attr('config'))),
             success: callback
         });
     } else {
+        // 没有支持config属性，以后有用到的时候再写吧
+        // 但理论上说这是不可能的
         $form.submit();
     }
 };

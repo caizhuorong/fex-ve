@@ -10,7 +10,7 @@
     {%widget name='base:widget/nav/nav.tpl' call='nav' data=$nav%}
 
     {%* 页面内容 *%}
-    {%widget name='search:widget/search/search.tpl'%}
+    {%widget name='search:widget/search/search.tpl' method='post'%}
 
     <section class="index-main">
         <div class="m-left">

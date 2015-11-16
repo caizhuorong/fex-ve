@@ -17,8 +17,8 @@
     {%widget name='search:widget/joblist/joblist.tpl' data=$data.arr_result top=$data.top_job_num%}
 
     {%script%}
-        data = {%json_encode($data.arr_result)%}
-        console.log(data);
+        window._DATA = {%json_encode($data.arr_result)%}
+        window._POST = {%json_encode($_POST)%}
     {%/script%}
 
     {%* 页面内容 *%}

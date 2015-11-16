@@ -1,6 +1,6 @@
 <section class="w-search">
     <div class="search">
-        <form id="job-search-form" action="/job_search/job_list" dataType="json" config="{a:15}">
+        <form id="job-search-form" action="/job_search/job_list" method="{%$method|default:'get'%}" dataType="json" config="{a:15}">
             <div class="form-box">
                 <span control="select" class="select" id="company_industry" data-v="company_industry">
                     <i pla="行业类别">行业类别</i>
@@ -62,6 +62,7 @@
                 </div>
             </div>
 
+
             <div class="form-bottom">
                 <input type="submit" class="submit J_submit" value="找工作">
                 <a href="javascript:;" class="clear-form">清空搜索条件</a>
@@ -72,4 +73,4 @@
 
 
 {%script%}window.DROPDATA = {%json_encode($DROPDATA)%};{%/script%}
-{%script%}require('search.js'){%/script%}
+{%script%}require('search.js').callback = null{%/script%}

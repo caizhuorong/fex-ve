@@ -31,23 +31,23 @@ fis.match('*.png', {
 
 
 /*
-// 启用 fis-spriter-csssprites 插件
-fis.match('::package', {
-    spriter: fis.plugin('csssprites')
-});
-// 对 CSS 进行图片合并
-fis.match('*.{less,css,sass,scss}', {
-    // 给匹配到的文件分配属性 `useSprite`
-    useSprite: true,
-    packTo: '/pkg/all.css'
-});
+ // 启用 fis-spriter-csssprites 插件
+ fis.match('::package', {
+ spriter: fis.plugin('csssprites')
+ });
+ // 对 CSS 进行图片合并
+ fis.match('*.{less,css,sass,scss}', {
+ // 给匹配到的文件分配属性 `useSprite`
+ useSprite: true,
+ packTo: '/pkg/all.css'
+ });
+
+
+
+
+ fis.match('*.{js,css,less,sass,scss,png,jpg,jpeg,gif}', {
+ domain: '//fex.v.veimg.cn'
+ });
  */
-
-
-
-fis.match('*.{js,css,less,sass,scss,png,jpg,jpeg,gif}', {
-    domain: '//fex.v.veimg.cn'
-});
-
 
 
