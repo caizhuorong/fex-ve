@@ -21,12 +21,12 @@ $doc.on('mouseenter', li, function () {
 require('common:components/pagination/pagination.js');
 
 /*
-$('.pages').pagination({
-    url: './job_list',
-    $page: $('.page'),
-    //data: {},
-    fillContent: function(data) {
-        console.log(data);
-    }
-});
-*/
+ $('.pages').pagination({
+ url: './job_list',
+ $page: $('.page'),
+ //data: {},
+ fillContent: function(data) {
+ console.log(data);
+ }
+ });
+ */

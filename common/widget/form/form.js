@@ -51,10 +51,10 @@ fn.submit = function (callback) {
         // 常规数据
 
         $.ajax({
-            url: $form.attr('action'),
+            url: $form.attr('action') + '?' + $form.serialize(),
             methed: $form.attr('methed'),
             dataType: $form.attr('dataType') || 'json',
-            data: me.data(),
+            data: H.object($form.attr('config')),
             success: callback
         });
     } else {
