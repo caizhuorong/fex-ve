@@ -45,18 +45,37 @@ fn.event = function () {
 
 fn.submit = function (callback) {
     var me = this,
-        $form = me.$form;
+        $form = me.$form,
+        data = {};
+
+    $.each($form.serializeArray(), function (key, item) {
+        // 数值为空不显示
+        if (item.value != '') {
+            if (item.name.match(/(?:\[\])$/)) {
+                var i = item.name.match(/(.*)(?:\[\])$/)[1];
+                if (!data[i]) {
+                    data[i] = []
+                }
+                data[i].push(item.value);
+            } else {
+                data[item.name] = item.value;
+            }
+        }
+    });
+    data = $.extend(H.object($form.attr('formdata')), data);
 
     if (callback) {
         $.ajax({
             url: $form.attr('action'),
             methed: $form.attr('methed'),
             dataType: $form.attr('dataType') || 'json',
-            data: $form.serialize() + '&' + $.param(H.object($form.attr('config'))),
+            data:  data,
             success: callback
         });
+    } else if ($form.attr('method') == 'get') {
+        location.href = $form.attr('action') + '?' + $.param(data);
     } else {
-        // 没有支持config属性，以后有用到的时候再写吧
+        // 没有支持formdata属性，以后有用到的时候再写吧
         // 但理论上说这是不可能的
         $form.submit();
     }

@@ -1,6 +1,13 @@
 <section class="w-search">
     <div class="search">
-        <form id="job-search-form" action="/job_search/job_list" method="{%$method|default:'get'%}" dataType="json" config="{a:15}">
+        <form id="job-search-form" action="/job_search/job_list" method="{%$method|default:'get'%}" dataType="json" formdata="{form_src:'local'}" config="{}">
+            {%*<input type="hidden" name="funtype" value="0000">
+            <input type="hidden" name="jobarea" value="0000">*%}
+            <input type="hidden" name="form_src" value="local">
+            <input type="hidden" name="keyword_scope" value="job_name">
+            <input type="hidden" name="key_words" value="服务员">
+
+
             <div class="form-box">
                 <span control="select" class="select" id="company_industry" data-v="company_industry">
                     <i pla="行业类别">行业类别</i>
@@ -54,7 +61,7 @@
 
                 <div class="work-mode">
                     职位性质：
-                    <span><input type="checkbox" class="hide" name="work_mode[]" value="0"> 不限</span>
+                    <span><input type="checkbox" class="hide" name="work_mode[]" value=""> 不限</span>
                     <span><input type="checkbox" class="hide" name="work_mode[]" value="1"> 全职</span>
                     <span><input type="checkbox" class="hide" name="work_mode[]" value="2"> 兼职</span>
                     <span><input type="checkbox" class="hide" name="work_mode[]" value="3"> 实习</span>
