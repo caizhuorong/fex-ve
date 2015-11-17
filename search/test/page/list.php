@@ -4,6 +4,7 @@ require_once('common.php');
 
 $fis_data = array_merge($public_data, [
     'data' => $GLOBALS['fcData'],
+    '_GET' => $_GET,
     '_POST' => $_POST,
 
     'title' => '酒店餐饮旅游职位搜索_最佳东方',

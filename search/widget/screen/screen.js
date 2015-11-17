@@ -24,15 +24,21 @@ require.async(['base:components/layer/layer.js'], function (layer) {
     });
 
 
+
+    var tipsConfig = {tips: [1, '#FF9900'], time: 2400};
     $screen.on('click', '.screen .btn-n1', function () {
         var $input = $(this).siblings('input'),
+            $child = $screen.find('.child'),
             val = $input.val().trim();
-        if (val != '') {
-            $screen.find('.child').append('<span>' + $input.val().trim() + '<i></i></span>');
+        if ($child.find('span').length == 4) {
+            layer.tips('最多只支持4个关键字！', $child, tipsConfig);
+        } else if (val == '') {
+            layer.tips('这里什么都木有！', $input, tipsConfig);
         } else {
-            layer.tips('这里什么都木有！', $input, {tips: [1, '#FF9900'], time: 2000});
+            $child.append('<span>' + $input.val().trim() + '<i></i></span>');
+            $input.val('');
         }
-        $input.val('').focus();
+        $input.focus();
     }).on('click', '.child span i', function () {
         $(this).parent().animate({'opacity': 0}, 200, function () {
             $(this).remove()
@@ -42,8 +48,6 @@ require.async(['base:components/layer/layer.js'], function (layer) {
             $screen.find('.screen .btn-n1').click();
         }
     });
-
-
 
 
 });
