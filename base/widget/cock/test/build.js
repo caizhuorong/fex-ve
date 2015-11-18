@@ -34,5 +34,5 @@ for (i = 0, len = postTxt.length; i < len; i++) {
 }
 
 
-fs.writeFileSync('../postmap.js', 'module.exports=' + JSON.stringify(postMap) + ';');
+fs.writeFileSync('../data/postmap.js', 'module.exports=' + JSON.stringify(postMap) + ';');
 console.log('done!');

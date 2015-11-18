@@ -578,4 +578,4 @@ ja['370100']='Nationwide';
 
 var fs = require('fs');
 
-fs.writeFileSync('../post_en.js', 'module.exports=' + JSON.stringify(ja) + ';');
+fs.writeFileSync('../data/post_en.js', 'module.exports=' + JSON.stringify(ja) + ';');
