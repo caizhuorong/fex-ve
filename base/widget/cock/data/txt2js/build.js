@@ -1,9 +1,12 @@
+// 将产品给定的文本数据转换为对应的ID
+
 var fs = require('fs'),
     postlist = require('../post_zh-cn.js'),
     postTxt = fs.readFileSync('post.txt').toString(),
     list = {},
     post = [],
-    postMap = [];
+    postMap = [],
+    i;
 
 
 for(i in postlist) {
@@ -13,7 +16,7 @@ for(i in postlist) {
 
 postTxt = postTxt.split(/\r?\n/);
 
-for (var i = 0, len = postTxt.length; i < len; i++) {
+for (i = 0, len = postTxt.length; i < len; i++) {
     post.push([]);
     postMap.push([]);
     postTxt[i] = postTxt[i].split('\t');
