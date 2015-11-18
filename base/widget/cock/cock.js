@@ -6,12 +6,13 @@
 
 var tpl = require('common:components/tpl/tpl.js'),
     layer = require('layer'),
+    postmap = require('data/postmap.js'),
     postlist = require('data/post_zh-cn.js');
 
 
 function Cock() {
 
-    console.log( postlist );
+    console.log( postmap, postlist );
 
 }
 
