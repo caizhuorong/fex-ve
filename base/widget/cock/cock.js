@@ -12,8 +12,6 @@ var tpl = require('common:components/tpl/tpl.js'),
 
 function Cock() {
 
-    console.log( postmap, postlist );
-
 }
 
 
