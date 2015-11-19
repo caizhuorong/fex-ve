@@ -41,13 +41,13 @@ fis.match('*.png', {
  useSprite: true,
  packTo: '/pkg/all.css'
  });
- */
+
 
 
 
  fis.match('*.{js,css,less,sass,scss,png,jpg,jpeg,gif}', {
  domain: '//fex.v.veimg.cn'
  });
-
+ */
 
 
