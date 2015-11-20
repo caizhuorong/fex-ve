@@ -19,9 +19,9 @@ $joblist.on('mouseenter', '.job-child', function () {
 }).on('dblclick', '.job-child', function () {
     var $input = $(this).find('.job input');
     if ($input.prop('checked')) {
-        $input.prop('checked', false)
+        $input.prop('checked', false);
     } else {
-        $input.prop('checked', true)
+        $input.prop('checked', true);
     }
 }).on('click', function () {
     var me = this;
