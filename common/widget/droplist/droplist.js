@@ -13,6 +13,13 @@ var H = require('common:widget/helper/helper.js'),
     fn = SELECT.prototype;
 
 
+/**
+ * 对外接口
+ * @param $dom control="select"
+ * @param data 渲染列表所需的数据
+ * @param style .cw-droplist-i的自定义class，可用于自定义样式
+ * @returns {*}
+ */
 function drop($dom, data, style) {
     var v = $dom.data('v'),
         $i = $dom.children('i'),
@@ -35,11 +42,10 @@ function drop($dom, data, style) {
 /**
  * 渲染option列表
  * @param data
- * @param cls
  * @returns {*|jQuery}
  */
 fn.create = function (data) {
-    var $tpl = $('<div class="cw-droplist-i"><!--<span>hello world</span>--><ul>'),
+    var $tpl = $('<div class="cw-droplist-i"><ul>'),
         $ul = $tpl.children('ul'),
         $tmp;
 
@@ -74,6 +80,11 @@ fn.show = function () {
 };
 
 
+/**
+ * 工具单个元素的高度动态计算列表高度
+ * @param num  指定一页显示的列数
+ * @returns {number}  列表的高度（px）
+ */
 fn.height = function (num) {
     var $dom = this.$me,
         height = $dom.height() * (num || 10),
@@ -83,6 +94,11 @@ fn.height = function (num) {
 };
 
 
+/**
+ * 初始化drop的尺寸包括宽，高，字体大小，行高
+ * @param num
+ * @returns {SELECT}
+ */
 fn.resize = function (num) {
     var $dom = this.$me;
     this.tpl.css({
@@ -95,20 +111,24 @@ fn.resize = function (num) {
 };
 
 
-fn.move = function (num, type) {
+/**
+ * 将列表移动到当前按钮的位置
+ * @param type
+ * @returns {SELECT}
+ */
+fn.move = function (type) {
     var $dom = this.$me,
         me = this,
         $tpl = me.tpl,
         offset = $dom.offset(),
         height, top;
 
-    me.resize(num);
-
     height = $tpl.height();
     top = offset.top - (height - $dom.innerHeight()) / 2;
 
     switch (type) {
         case 1  :
+            // 上下展开效果。列表将相对于select纵向居中显示
             me.resize($dom.innerHeight() / $dom.height());
 
             $tpl
@@ -127,6 +147,7 @@ fn.move = function (num, type) {
                 });
             break;
         default :
+            // 就很俗的效果，一般人都知道的那种
             me.tpl.css({
                 left: offset.left,
                 top: offset.top + $dom.innerHeight() + 3,
@@ -141,7 +162,6 @@ fn.move = function (num, type) {
 /**
  * 绑定各种默认事件
  */
-
 $body.on('mouseenter', li, function () {
     $(this).addClass('hover');
 }).on('mouseleave', li, function () {
@@ -156,6 +176,9 @@ $body.on('mouseenter', li, function () {
 });
 
 
+/**
+ * 在一些情况下，也需要隐藏列表，局的的看下面绑定的事件吧
+ */
 var dropHide = function () {
     $('[control=select]').removeClass('active');
     $body.children('.cw-droplist-i').removeClass('active').hide();

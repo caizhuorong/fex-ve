@@ -33,8 +33,8 @@ function items(list) {
 
     for (i = 0; i < list.length; i++) {
         if (util.isArray(list[0]) && util.isArray(list[1])) {
+            // 子集列表
             item[i] = items(list[i]);
-            // console.log(item[i]);
         } else if (util.isString(list[0]) && util.isArray(list[1])) {
             if (!i) {
                 // 标题
