@@ -38,18 +38,18 @@ function items(list) {
         } else if (util.isString(list[0]) && util.isArray(list[1])) {
             if (!i) {
                 // 标题
-                item = {
-                    k: post_cn[list[1][0]].match(/^\d{2}/)[0] + '00',
-                    t: list[0],
-                    l: items(list[1])
-                };
+                item = [
+                    post_cn[list[1][0]].match(/^\d{2}/)[0] + '00',
+                    list[0],
+                    items(list[1])
+                ];
             }
         } else {
             // 列表
-            item[i] = {
-                k: post_cn[list[i]],
-                t: list[i]
-            };
+            item[i] = [
+                post_cn[list[i]],
+                list[i]
+            ];
         }
     }
 
@@ -60,7 +60,7 @@ function items(list) {
 // console.log(items(postTxt));
 
 
-fs.writeFileSync('../../data/post_zh-cn.js', 'module.exports=' + JSON.stringify(items(postTxt)).replace(/\"(\w)\"\:/g, "$1:") + ';');
+fs.writeFileSync('../../data/post_zh-cn.js', 'module.exports=' + JSON.stringify(items(postTxt))/*.replace(/\"(\w)\"\:/g, "$1:")*/ + ';');
 
 
 console.log((new Date).valueOf() - timen + 'ms', 'done!');
