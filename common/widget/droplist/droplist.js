@@ -7,10 +7,10 @@ var H = require('common:widget/helper/helper.js'),
     li = '.cw-droplist-i li',
     out = setTimeout,
     cache = {},
-    SELECT = function (data, style) {
+    SELECT = function (data) {
         this.create(data);
     },
-    fn = SELECT.prototype;
+    api = SELECT.prototype;
 
 
 /**
@@ -44,7 +44,7 @@ function drop($dom, data, style) {
  * @param data
  * @returns {*|jQuery}
  */
-fn.create = function (data) {
+api.create = function (data) {
     var $tpl = $('<div class="cw-droplist-i"><ul>'),
         $ul = $tpl.children('ul'),
         $tmp;
@@ -60,14 +60,14 @@ fn.create = function (data) {
 };
 
 
-fn.hide = function () {
+api.hide = function () {
     this.$me.removeClass('active');
     this.tpl.removeClass('active').hide();
     return this;
 };
 
 
-fn.show = function () {
+api.show = function () {
     var me = this;
     dropHide();
     me.$me.addClass('active');
@@ -84,7 +84,7 @@ fn.show = function () {
  * @param num  指定一页显示的列数
  * @returns {number}  列表的高度（px）
  */
-fn.height = function (num) {
+api.height = function (num) {
     var $dom = this.$me,
         height = $dom.height() * (num || 10),
         ulHeight = this.tpl.find('ul li').length * $dom.height();
@@ -98,7 +98,7 @@ fn.height = function (num) {
  * @param num
  * @returns {SELECT}
  */
-fn.resize = function (num) {
+api.resize = function (num) {
     var $dom = this.$me;
     this.tpl.css({
         width: $dom.innerWidth(),
@@ -115,7 +115,7 @@ fn.resize = function (num) {
  * @param type
  * @returns {SELECT}
  */
-fn.move = function (type) {
+api.move = function (type) {
     var $dom = this.$me,
         me = this,
         $tpl = me.tpl,

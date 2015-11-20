@@ -14,7 +14,7 @@ fis.match("{/doc/**,/.idea,/widget/*/test/*}", {
 });
 
 
-fis.match('*.{tmpl}', {
+fis.match('{*,**/*}.tmpl', {
     optimizer: fis.plugin('html-compress')
 });
 
