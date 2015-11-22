@@ -20,22 +20,24 @@ var H = require('common:widget/helper/helper.js'),
  * @param style .cw-droplist-i的自定义class，可用于自定义样式
  * @returns {*}
  */
-function drop($dom, data, style) {
+function drop($dom, data, style, nc) {
     var v = $dom.data('v'),
         $i = $dom.children('i'),
-        callback = arguments[arguments.length - 1];
+        callback = arguments[arguments.length - 1],
+        sl;
 
     $i.width($i.width()).addClass('ellipsis');
     if (!cache[v]) {
-        cache[v] = new SELECT(data[v] || data);
+        sl = new SELECT(data[v] || data);
     }
-    cache[v].$me = $dom;
-    cache[v].tpl.attr('dropid', v).removeClass().addClass('cw-droplist-i ' + style);
+    sl.$me = $dom;
+    sl.tpl.attr('dropid', v).removeClass().addClass('cw-droplist-i ' + style);
 
     if (typeof callback == "function") {
-        cache[v].callback = callback;
+        sl.callback = callback;
     }
-    return cache[v];
+    if (!nc)cache[v] = sl;
+    return sl;
 }
 
 
