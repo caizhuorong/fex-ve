@@ -103,16 +103,10 @@ require.async(['base:components/layer/layer.js'], function (layer) {
     /**
      *
      */
-    /**
-    var selectletter = __inline('view/selectletter.tmpl');
-    layer.open({
-        content: selectletter,
-        area: '480px',
-        btn: false
-    });
-    */
 
-    /*$(document).on('click', '.w-joblist-sl [control=select]', function (ev) {
+
+
+    $(document).on('click', '.w-joblist-sl [control=select]', function (ev) {
         var $self = $(this),
             $tpl = drop($self, DROPDATA, 'w-joblist-sl-droplist-i', true);
 
@@ -122,18 +116,27 @@ require.async(['base:components/layer/layer.js'], function (layer) {
             $tpl.resize(12).move(0);
         }
         ev.stopPropagation();
-    });*/
+    });
 
 
+    var selectletter = __inline('view/selectletter.tmpl');
     $joblist.on('click', '.apply', function (ev) { // 立即申请
+        layer.open({
+            content: selectletter,
+            area: '480px',
+            btn: false
+        });
 
-        $.ajax({
-            url: '',
+
+        /**
+         $.ajax({
+            url: '/pop_new/apply_job',
             dataType: 'json',
             success: function (data) {
 
             }
         });
+         */
     }).on('click', '.pop span', function (ev) {
         $.ajax({
             url: '',

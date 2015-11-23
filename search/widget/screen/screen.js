@@ -9,7 +9,7 @@ var drop = require('common:widget/droplist/droplist.js'),
 require.async(['base:components/layer/layer.js'], function (layer) {
 
 
-    $screen.find('[control=select]').on('click', function (ev) {
+    $screen.on('click', '[control=select]', function (ev) {
         var $self = $(this),
             $tpl = drop($self, DROPDATA, 'w-screen-drop', function () {
 
@@ -18,7 +18,7 @@ require.async(['base:components/layer/layer.js'], function (layer) {
         if ($self.hasClass('active')) {
             $tpl.hide();
         } else {
-            $tpl.move(12, 1);
+            $tpl.resize(12).move(1);
         }
         ev.stopPropagation();
     });

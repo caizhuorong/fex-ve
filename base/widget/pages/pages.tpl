@@ -1,4 +1,4 @@
-<div class="page-inner">
+<div class="ve-page-inner">
     <a href="#" class="page-start"></a>
     <a href="#">1</a><span>...</span>
     <a href="#">5</a><a href="#">6</a>

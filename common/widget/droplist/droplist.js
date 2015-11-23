@@ -10,8 +10,13 @@ var H = require('common:widget/helper/helper.js'),
     SELECT = function (data) {
         this.create(data);
     },
-    api = SELECT.prototype;
-
+    api = SELECT.prototype,
+    def = {
+        $dom: null,
+        data: null,
+        style: '',
+        cache: true
+    };
 
 /**
  * 对外接口
@@ -26,12 +31,12 @@ function drop($dom, data, style, nc) {
         callback = arguments[arguments.length - 1];
 
     $i.width($i.width()).addClass('ellipsis');
-    if (!cache[v]) {
+    /*if (!cache[v]) {
         cache[v] = new SELECT(data[v] || data);
-    }
+    }*/
+    cache[v] = new SELECT(data[v] || data);
     cache[v].$me = $dom;
     cache[v].tpl.attr('dropid', v).removeClass().addClass('cw-droplist-i ' + style);
-    cache[v].nc = nc;
 
     if (typeof callback == "function") {
         cache[v].callback = callback;
@@ -62,9 +67,8 @@ api.create = function (data) {
 
 
 api.hide = function () {
-    var me = this;
-    me.$me.removeClass('active');
-    me.tpl.removeClass('active').hide();
+    this.$me.removeClass('active');
+    this.tpl.removeClass('active').remove();
     return this;
 };
 
@@ -181,7 +185,7 @@ $body.on('mouseenter', li, function () {
  */
 var dropHide = function () {
     $('[control=select]').removeClass('active');
-    $body.children('.cw-droplist-i').removeClass('active').hide();
+    $body.children('.cw-droplist-i').removeClass('active').remove();
 };
 $doc.on('click', dropHide);
 $win.on('resize', dropHide);
