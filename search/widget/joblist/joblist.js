@@ -46,7 +46,7 @@ $joblist.find('.attr .brief').each(function () {
     $self.html(H.substring($self.text(), 220));
 });
 
-// 低版本单行多行
+// 低版本单行兼容
 if (!$('body').css('maxWidth')) {
     $('.w-joblist .job-child').each(function () {
         var $self = $(this),
@@ -103,14 +103,16 @@ require.async(['base:components/layer/layer.js'], function (layer) {
     /**
      *
      */
+    /**
     var selectletter = __inline('view/selectletter.tmpl');
     layer.open({
         content: selectletter,
         area: '480px',
         btn: false
     });
+    */
 
-    $(document).on('click', '.w-joblist-sl [control=select]', function (ev) {
+    /*$(document).on('click', '.w-joblist-sl [control=select]', function (ev) {
         var $self = $(this),
             $tpl = drop($self, DROPDATA, 'w-joblist-sl-droplist-i', true);
 
@@ -120,7 +122,7 @@ require.async(['base:components/layer/layer.js'], function (layer) {
             $tpl.resize(12).move(0);
         }
         ev.stopPropagation();
-    });
+    });*/
 
 
     $joblist.on('click', '.apply', function (ev) { // 立即申请

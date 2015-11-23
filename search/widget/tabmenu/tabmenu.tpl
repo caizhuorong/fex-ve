@@ -10,11 +10,7 @@
     </ul>
 
     <div class="tabright">
-
-
-        <div class="pages">
-            <div class="page"></div>
-        </div>
+        {%widget name="base:widget/pages/pages.tpl"%}
     </div>
 
     <i class="clear"></i>

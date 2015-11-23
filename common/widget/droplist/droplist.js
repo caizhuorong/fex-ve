@@ -62,6 +62,7 @@ api.create = function (data) {
 
 
 api.hide = function () {
+    var me = this;
     me.$me.removeClass('active');
     me.tpl.removeClass('active').hide();
     return this;
