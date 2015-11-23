@@ -23,21 +23,20 @@ var H = require('common:widget/helper/helper.js'),
 function drop($dom, data, style, nc) {
     var v = $dom.data('v'),
         $i = $dom.children('i'),
-        callback = arguments[arguments.length - 1],
-        sl;
+        callback = arguments[arguments.length - 1];
 
     $i.width($i.width()).addClass('ellipsis');
     if (!cache[v]) {
-        sl = new SELECT(data[v] || data);
+        cache[v] = new SELECT(data[v] || data);
     }
-    sl.$me = $dom;
-    sl.tpl.attr('dropid', v).removeClass().addClass('cw-droplist-i ' + style);
+    cache[v].$me = $dom;
+    cache[v].tpl.attr('dropid', v).removeClass().addClass('cw-droplist-i ' + style);
+    cache[v].nc = nc;
 
     if (typeof callback == "function") {
-        sl.callback = callback;
+        cache[v].callback = callback;
     }
-    if (!nc)cache[v] = sl;
-    return sl;
+    return cache[v];
 }
 
 
@@ -63,8 +62,8 @@ api.create = function (data) {
 
 
 api.hide = function () {
-    this.$me.removeClass('active');
-    this.tpl.removeClass('active').hide();
+    me.$me.removeClass('active');
+    me.tpl.removeClass('active').hide();
     return this;
 };
 

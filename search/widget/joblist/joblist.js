@@ -110,14 +110,14 @@ require.async(['base:components/layer/layer.js'], function (layer) {
         btn: false
     });
 
-    $('.w-joblist-sl').on('click', '[control=select]', function (ev) {
+    $(document).on('click', '.w-joblist-sl [control=select]', function (ev) {
         var $self = $(this),
-            $tpl = drop($self, DROPDATA, 'w-search-drop');
+            $tpl = drop($self, DROPDATA, 'w-joblist-sl-droplist-i', true);
 
         if ($self.hasClass('active')) {
             $tpl.hide();
         } else {
-            $tpl.resize(12).move(1);
+            $tpl.resize(12).move(0);
         }
         ev.stopPropagation();
     });
