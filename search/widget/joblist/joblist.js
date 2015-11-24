@@ -2,8 +2,8 @@
  * Created by TC-62 on 2015/10/22.
  */
 
-var template = require('common:components/tpl/tpl.js'),
-    drop = require('common:widget/droplist/droplist.js'),
+var tpl = require('common:components/tpl/tpl.js'),
+    drop = require('widget/droplist/droplist.js'),
     H = require('common:widget/helper/helper.js'),
     selectTimer,
     $joblist = $('.w-joblist');
@@ -86,6 +86,16 @@ require.async(['base:components/layer/layer.js'], function (layer) {
     //layer.message({right: '<h4>请先选择求职信！</h4>', bottom: '您今日还可以申请<strong>19</strong>个职位，已申请<strong>1</strong>个。请认真投递哟~', icon: 2}, {title: '请选择求职信'});
 
 
+    var message = function (data) {
+        if (data.status == 2) {
+            // login;
+        } else {
+            var msg = data.message;
+            layer.message({right: msg.right, bottom: msg.bottom || undefined, icon: msg.icon || 0}, {title: msg.title});
+        }
+    };
+
+
     /**
      * 电话直聘
      */
@@ -101,50 +111,81 @@ require.async(['base:components/layer/layer.js'], function (layer) {
 
 
     /**
-     *
+     * 选择求职信列表
      */
 
 
-
+    var jsldata = [];
     $(document).on('click', '.w-joblist-sl [control=select]', function (ev) {
         var $self = $(this),
-            $tpl = drop($self, DROPDATA, 'w-joblist-sl-droplist-i', true);
+            $tpl = drop({
+                $dom: $self,
+                data: jsldata,
+                skin: 'w-joblist-drop',
+                zIndex: parseInt($self.closest('.layui-layer').css('zIndex')) + 1,
+                cache: false
+            }, function (val) {
+                console.log(val);
+            });
 
-        if ($self.hasClass('active')) {
-            $tpl.hide();
-        } else {
-            $tpl.resize(12).move(0);
-        }
+        $self.hasClass('active') ? $tpl.hide() : $tpl.resize(12).move(1)
         ev.stopPropagation();
     });
 
 
+    /**
+     * 申请职位
+     */
     var selectletter = __inline('view/selectletter.tmpl');
+
     $joblist.on('click', '.apply', function (ev) { // 立即申请
-        layer.open({
-            content: selectletter,
-            area: '480px',
-            btn: false
-        });
-
-
-        /**
-         $.ajax({
-            url: '/pop_new/apply_job',
-            dataType: 'json',
-            success: function (data) {
-
-            }
-        });
-         */
+        if ($('.login-logout').length) {
+            $.ajax({
+                url: '/pop/apply_job',
+                method: 'post',
+                dataType: 'json',
+                data: {
+                    job_id: $(this).closest('.job-child').data('id')
+                },
+                success: message
+            });
+        } else {
+            layer.alert('请先登录！');
+        }
     }).on('click', '.pop span', function (ev) {
-        $.ajax({
-            url: '',
-            dataType: 'json',
-            success: function (data) {
+        if ($('.login-logout').length) {
+            $.ajax({
+                url: '',
+                method: 'get',
+                dataType: 'json',
+                data: {},
+                success: function (data) {
 
-            }
-        });
+                }
+            });
+
+            layer.open({
+                content: selectletter,
+                area: '480px',
+                move: false,
+                btn: false,
+                success: function (layero, index) {
+                    console.log(layero);
+                },
+                yes: function (index) {
+                    console.log(index);
+                }
+            });
+            /*
+             if (data.status == 1) {
+             console.log('hello');
+             } else {
+             msgerror(data);
+             }
+             */
+        } else {
+            layer.alert('请先登录！');
+        }
         ev.stopPropagation();
     });
 

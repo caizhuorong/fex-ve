@@ -2,7 +2,7 @@
  * Created by zsl99a on 2015/11/1.
  */
 
-var drop = require('common:widget/droplist/droplist.js'),
+var drop = require('widget/droplist/droplist.js'),
     $doc = $(document),
     $screen = $('.w-screen');
 
@@ -11,9 +11,11 @@ require.async(['base:components/layer/layer.js'], function (layer) {
 
     $screen.on('click', '[control=select]', function (ev) {
         var $self = $(this),
-            $tpl = drop($self, DROPDATA, 'w-screen-drop', function () {
-
-            });
+            $tpl = drop({
+                $dom: $self,
+                data: DROPDATA,
+                skin: 'w-screen-drop'
+            }, function () {});
 
         if ($self.hasClass('active')) {
             $tpl.hide();
@@ -22,7 +24,6 @@ require.async(['base:components/layer/layer.js'], function (layer) {
         }
         ev.stopPropagation();
     });
-
 
 
     var tipsConfig = {tips: [1, '#FF9900'], time: 2400};

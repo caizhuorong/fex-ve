@@ -6,7 +6,7 @@ var H = require('common:widget/helper/helper.js'),
     $body = $('body'),
     li = '.cw-droplist-i li',
     out = setTimeout,
-    cache = {},
+    cachelist = {},
     SELECT = function (data) {
         this.create(data);
     },
@@ -14,34 +14,38 @@ var H = require('common:widget/helper/helper.js'),
     def = {
         $dom: null,
         data: null,
-        style: '',
+        skin: '',
+        zIndex: 35,
         cache: true
     };
 
 /**
  * 对外接口
- * @param $dom control="select"
- * @param data 渲染列表所需的数据
- * @param style .cw-droplist-i的自定义class，可用于自定义样式
+ * @param opt   $dom control="select"
+ *              data 渲染列表所需的数据
+ *              skin .cw-droplist-i的自定义class，可用于自定义样式
  * @returns {*}
  */
-function drop($dom, data, style, nc) {
-    var v = $dom.data('v'),
-        $i = $dom.children('i'),
+function drop(opt, callback) {
+    opt = $.extend({}, def, opt);
+
+    var v = opt.$dom.data('v'),
+        $i = opt.$dom.children('i'),
         callback = arguments[arguments.length - 1];
 
     $i.width($i.width()).addClass('ellipsis');
-    /*if (!cache[v]) {
-        cache[v] = new SELECT(data[v] || data);
-    }*/
-    cache[v] = new SELECT(data[v] || data);
-    cache[v].$me = $dom;
-    cache[v].tpl.attr('dropid', v).removeClass().addClass('cw-droplist-i ' + style);
+    /*if (!cachelist[v]) {
+     cachelist[v] = new SELECT(data[v] || data);
+     }*/
+    cachelist[v] = new SELECT(opt.data[v] || opt.data);
+
+    cachelist[v].$me = opt.$dom;
+    cachelist[v].tpl.attr('dropid', v).removeClass().addClass('cw-droplist-i ' + opt.skin).css('zIndex', opt.zIndex);
 
     if (typeof callback == "function") {
-        cache[v].callback = callback;
+        cachelist[v].callback = callback;
     }
-    return cache[v];
+    return cachelist[v];
 }
 
 
@@ -77,7 +81,7 @@ api.show = function () {
     var me = this;
     dropHide();
     me.$me.addClass('active');
-    me.tpl.appendTo('body').show();
+    me.tpl.appendTo($body).show();
     out(function () {
         me.tpl.addClass('active').find('li').removeClass('hover');
     });
@@ -150,7 +154,6 @@ api.move = function (type) {
                 });
             break;
         default :
-            // 就很俗的效果，一般人都知道的那种
             me.tpl.css({
                 left: offset.left,
                 top: offset.top + $dom.innerHeight() + 3,
@@ -172,11 +175,15 @@ $body.on('mouseenter', li, function () {
 }).on('click', li, function () {
     var $self = $(this),
         v = $self.closest('.cw-droplist-i').attr('dropid'),
-        $i = cache[v].$me.children('i');
+        me = cachelist[v],
+        $i = me.$me.children('i'),
+        val = $self.attr('value');
 
     $self.addClass('active').siblings().removeClass('active');
-    $i.text(!$self.attr('value') ? $i.attr('pla') : $self.text())
+    $i.text((!val || val == '0') ? $i.attr('pla') : $self.text())
         .siblings().val($self.attr('value'));
+
+    me.callback ? me.callback(val) : null;
 });
 
 
@@ -188,8 +195,7 @@ var dropHide = function () {
     $body.children('.cw-droplist-i').removeClass('active').remove();
 };
 $doc.on('click', dropHide);
-$win.on('resize', dropHide);
-
+$win.on('resize scroll', dropHide);
 
 module.exports = drop;
 

@@ -18,45 +18,7 @@
 <section class="w-search">
     <div class="search">
         <form id="job-search-form" action="/job_search/job_list" method="{%$method|default:'get'%}" dataType="json" formdata="{form_src:'local'}" config="{}">
-            {%*<input type="hidden" name="funtype" value="0000">
-            <input type="hidden" name="jobarea" value="0000">*%}
-            {%*<input type="hidden" name="form_src" value="local">
-            <input type="hidden" name="keyword_scope" value="job_name">*%}
-            <input type="hidden" name="key_words" value="服务员">
-
-
-            {%*<div class="key-works-search">
-                <a class="post-btn" layer-name="post" layer-tip="请选择职能类别" layer-multi="1" layer-placeholder="职位" title="职位">
-                    <span>职位</span>
-                    <input type="hidden" name="funtype" value="">
-                    <input type="hidden" name="funtype_text" value="0000">
-                    <input type="hidden" class="btnFuntype" name="btnFuntype" value="职位">
-                    <b></b>
-                </a>
-                <a class="address-btn" layer-name="initialarea" layer-placeholder="地点" layer-tip="请选择工作地点" layer-multi="1" title="地点">
-                    <span>地点</span>
-                    <input type="hidden" name="jobarea" value="" id="jobarea">
-                    <input type="hidden" name="jobarea_text" value="0000" id="jobarea_text">
-                    <input type="hidden" class="btnJobarea" name="btnJobarea" value="地点">
-                    <b></b>
-                </a>
-                <input type="hidden" name="form_src" value="local">
-                <input type="hidden" name="keyword_scope" value="job_name" class="keyword_scope">
-
-                <div class="search-bar">
-                    <span class="search-type">
-                        <span>职位名</span>
-                        <b class="arrows"></b>
-                        <ul class="search-list dis_n" style="display: none;">
-                            <li data-name="job_name">职位名</li>
-                            <li data-name="company_name">公司名</li>
-                            <li data-name="all">全 文</li>
-                        </ul>
-                    </span>
-                    <input type="text" class="main_sel_01 search-val placeholder" placeholder="输入职位名或者关键字" name="key_words" value="" autocomplete="off">
-                    <a href="javascript:;" class="search-btn" target="_self">找工作</a>
-                </div>
-            </div>*%}
+            {%widget name="widget/keyworks/keyworks.tpl"%}
 
             <i class="line"></i>
 
