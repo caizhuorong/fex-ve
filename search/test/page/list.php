@@ -2,10 +2,10 @@
 
 require_once('common.php');
 
+
 $fis_data = array_merge($public_data, [
     'data' => $GLOBALS['fcData'],
-    '_GET' => $_GET,
-    '_POST' => $_POST,
+    '_REQUEST' => $_REQUEST,
 
     'title' => '酒店餐饮旅游职位搜索_最佳东方',
     'keyworks' => '职位搜索,高级搜索,找工作',

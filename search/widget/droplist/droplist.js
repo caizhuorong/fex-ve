@@ -8,6 +8,7 @@ var H = require('common:widget/helper/helper.js'),
     out = setTimeout,
     cachelist = {},
     SELECT = function (data) {
+        data = data.length ? data : [[0,'无']];
         this.create(data);
     },
     api = SELECT.prototype,
@@ -180,8 +181,7 @@ $body.on('mouseenter', li, function () {
         val = $self.attr('value');
 
     $self.addClass('active').siblings().removeClass('active');
-    $i.text((!val || val == '0') ? $i.attr('pla') : $self.text())
-        .siblings().val($self.attr('value'));
+    $i.text((!val || val == '0') ? $i.attr('pla') : $self.text()).siblings().val($self.attr('value'));
 
     me.callback ? me.callback(val) : null;
 });

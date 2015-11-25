@@ -86,13 +86,39 @@ require.async(['base:components/layer/layer.js'], function (layer) {
     //layer.message({right: '<h4>请先选择求职信！</h4>', bottom: '您今日还可以申请<strong>19</strong>个职位，已申请<strong>1</strong>个。请认真投递哟~', icon: 2}, {title: '请选择求职信'});
 
 
-    var message = function (data) {
-        if (data.status == 2) {
-            // login;
-        } else {
-            var msg = data.message;
-            layer.message({right: msg.right, bottom: msg.bottom || undefined, icon: msg.icon || 0}, {title: msg.title});
+    var ajax = function (opt, data) {
+        var args = arguments;
+        if (typeof opt == 'string') {
+            opt = {
+                url: opt,
+                data: data
+            };
         }
+
+        layer.load(2, {shade: .1});
+
+        $.ajax($.extend({}, {
+            method: 'post',
+            dataType: 'json',
+            success: function (data) {
+                layer.closeAll();
+                var status = data.status;
+                if (status == 2) {
+                    // login;
+                } else if (status == 0 || (data.message && data.message.right)) {
+                    var msg = data.message;
+                    layer.message({right: msg.right, bottom: msg.bottom || undefined, icon: msg.icon || 0}, {title: msg.title});
+                } else if (status == 1) {
+                    typeof args[args.length - 1] == "function" ? args[args.length - 1](data) : null;
+                } else {
+                    layer.alert('未知错误! data.status:' + status)
+                }
+            },
+            error: function (err) {
+                layer.closeAll();
+                layer.alert('未知错误!<br><pre>' + err + '</pre>', {maxWidth: '600px'});
+            }
+        }, opt));
     };
 
 
@@ -100,12 +126,9 @@ require.async(['base:components/layer/layer.js'], function (layer) {
      * 电话直聘
      */
     $joblist.on('click', '.base .job .call', function () {
-        $.ajax({
-            url: '/pop/show_tel',
-            dataType: '',
-            success: function (data) {
-                layer.message('<p>欢迎来电应聘/咨询：<strong>0752-278056-021</strong><br>咨询时间：08:30-18:00</p>', 2, {title: '电话直聘'});
-            }
+        ajax('/pop/show_tel', {job_id: $(this).closest('.job-child').data('id')}, function (data) {
+            //console.log(data);
+            layer.message('<p>欢迎来电应聘/咨询：<strong>' + data.message.contact_telephone + '</strong><br>咨询时间：' + (data.message.contact_time == '00:00-00:00' ? '24 x 7' : data.message.contact_time) + '</p>', 2, {title: '电话直聘'});
         });
     });
 
@@ -113,23 +136,23 @@ require.async(['base:components/layer/layer.js'], function (layer) {
     /**
      * 选择求职信列表
      */
-
-
-    var jsldata = [];
+    var jsldata;
     $(document).on('click', '.w-joblist-sl [control=select]', function (ev) {
-        var $self = $(this),
-            $tpl = drop({
+        var $self = $(this);
+
+        if (!$self.hasClass('active')) {
+            drop({
                 $dom: $self,
-                data: jsldata,
+                data: jsldata.list,
                 skin: 'w-joblist-drop',
                 zIndex: parseInt($self.closest('.layui-layer').css('zIndex')) + 1,
                 cache: false
             }, function (val) {
-                console.log(val);
-            });
-
-        $self.hasClass('active') ? $tpl.hide() : $tpl.resize(12).move(1)
-        ev.stopPropagation();
+                var $sl = $('.layui-layer .w-joblist-sl');
+                $sl.find('textarea').val(jsldata.all[val].content);
+            }).resize(8).move(0);
+            ev.stopPropagation();
+        }
     });
 
 
@@ -139,53 +162,45 @@ require.async(['base:components/layer/layer.js'], function (layer) {
     var selectletter = __inline('view/selectletter.tmpl');
 
     $joblist.on('click', '.apply', function (ev) { // 立即申请
-        if ($('.login-logout').length) {
-            $.ajax({
-                url: '/pop/apply_job',
-                method: 'post',
-                dataType: 'json',
-                data: {
-                    job_id: $(this).closest('.job-child').data('id')
-                },
-                success: message
-            });
-        } else {
-            layer.alert('请先登录！');
-        }
+        ajax('/pop/apply_job', {job_id: $(this).closest('.job-child').data('id')}, function (data) {
+            console.log(data);
+        });
     }).on('click', '.pop span', function (ev) {
-        if ($('.login-logout').length) {
-            $.ajax({
-                url: '',
-                method: 'get',
-                dataType: 'json',
-                data: {},
-                success: function (data) {
+        var $child = $(this).closest('.job-child');
 
-                }
-            });
+        ajax('/pop/choose_resume', {job_id: $(this).closest('.job-child').data('id')}, function (data) {
+            // 求职信列表数据
+            var i, len, letterList = data.message.letterList;
+            jsldata = {list: [], all: {}};
+            for (i = 0, len = letterList.length; i < len; i++) {
+                jsldata.list.push([letterList[i].id, letterList[i].title]);
+                jsldata.all[letterList[i].id] = letterList[i];
+            }
 
             layer.open({
+                title: '请选择求职信',
                 content: selectletter,
                 area: '480px',
                 move: false,
                 btn: false,
-                success: function (layero, index) {
-                    console.log(layero);
+                success: function (layero) {
+                    this.layero = layero
                 },
-                yes: function (index) {
-                    console.log(index);
+                yes: function () {
+                    var apl_id = this.layero.find('[name=apply_letter_id]').val();
+
+                    ajax('/pop/apply_job', {
+                        job_id: $child.data('id'),
+                        use_letter: 1,
+                        apply_letter_id: apl_id,
+                        apply_letter_title: jsldata.all[apl_id].title,
+                        apply_letter_content: this.layero.find('[name=apply_letter_content]').val()
+                    }, function (data) {
+                        console.log(data);
+                    });
                 }
             });
-            /*
-             if (data.status == 1) {
-             console.log('hello');
-             } else {
-             msgerror(data);
-             }
-             */
-        } else {
-            layer.alert('请先登录！');
-        }
+        });
         ev.stopPropagation();
     });
 

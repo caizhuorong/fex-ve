@@ -10,12 +10,21 @@ require.async(['base:components/layer/layer.js'], function (layer) {
 
 
     $screen.on('click', '[control=select]', function (ev) {
+        var name = $(this).find('input[name]').attr('name')
+
         var $self = $(this),
             $tpl = drop({
                 $dom: $self,
                 data: DROPDATA,
                 skin: 'w-screen-drop'
-            }, function () {});
+            }, function (val) {
+                if (val && val != '0') {
+                    window._REQUEST[name] = val;
+                } else {
+                    delete window._REQUEST[name];
+                }
+                window.location.search = $.param( window._REQUEST );
+            });
 
         if ($self.hasClass('active')) {
             $tpl.hide();
@@ -26,6 +35,9 @@ require.async(['base:components/layer/layer.js'], function (layer) {
     });
 
 
+    /**
+     * 过滤关键字
+     */
     var tipsConfig = {tips: [1, '#FF9900'], time: 2400};
     $screen.on('click', '.screen .btn-n1', function () {
         var $input = $(this).siblings('input'),

@@ -1,5 +1,5 @@
 /**
- * Õâ¸öÄ£¿éÖ÷ÒªÕë¶Ô±íµ¥½øĞĞajaxĞÎÊ½Ìá½»×ö³öÁË´¦Àí
+ * è¿™ä¸ªæ¨¡å—ä¸»è¦é’ˆå¯¹è¡¨å•è¿›è¡Œajaxå½¢å¼æäº¤åšå‡ºäº†å¤„ç†
  * Created by TC-62 on 2015/10/23.
  */
 
@@ -16,7 +16,7 @@ var H = require('common:widget/helper/helper.js'),
 
 
 /**
- * ½«±íµ¥Êı¾İ´ò°ü³ÉÅ®Æ±
+ * å°†è¡¨å•æ•°æ®æ‰“åŒ…æˆå¥³ç¥¨
  * @returns {*}
  */
 fn.data = function () {
@@ -24,12 +24,12 @@ fn.data = function () {
         $form = me.$form,
         $input = $form.find('input[type=text], input[type=hidden], textarea, label.active input[type=radio]'),
 
-        // ÕâÀï¿ÉÒÔ·ÅÒ»Ğ©¾²Ì¬Êı¾İ£¬»á×÷ÎªÊı¾İ´«µ½ºóÌ¨
+        // è¿™é‡Œå¯ä»¥æ”¾ä¸€äº›é™æ€æ•°æ®ï¼Œä¼šä½œä¸ºæ•°æ®ä¼ åˆ°åå°
         data = H.object($form.attr('config') || '{}');
 
     $input.each(function () {
         var $self = $(this);
-        // ĞèÒª×¢Òâ, ÔİÊ±²»Ö§³Ö¸´Ñ¡
+        // éœ€è¦æ³¨æ„, æš‚æ—¶ä¸æ”¯æŒå¤é€‰
         data[$self.attr('name')] = $self.val();
     });
     return data;
@@ -49,8 +49,8 @@ fn.submit = function (callback) {
         data = {};
 
     $.each($form.serializeArray(), function (key, item) {
-        // ÊıÖµÎª¿Õ²»ÏÔÊ¾
-        if (item.value != '') {
+        // æ•°å€¼ä¸ºç©ºä¸æ˜¾ç¤º
+        if (item.value && item.value != '0') {
             if (item.name.match(/(?:\[\])$/)) {
                 var i = item.name.match(/(.*)(?:\[\])$/)[1];
                 if (!data[i]) {
@@ -75,8 +75,8 @@ fn.submit = function (callback) {
     } else if ($form.attr('method') == 'get') {
         location.href = $form.attr('action') + '?' + $.param(data);
     } else {
-        // Ã»ÓĞÖ§³ÖformdataÊôĞÔ£¬ÒÔºóÓĞÓÃµ½µÄÊ±ºòÔÙĞ´°É
-        // µ«ÀíÂÛÉÏËµÕâÊÇ²»¿ÉÄÜµÄ
+        // æ²¡æœ‰æ”¯æŒformdataå±æ€§ï¼Œä»¥åæœ‰ç”¨åˆ°çš„æ—¶å€™å†å†™å§
+        // ä½†ç†è®ºä¸Šè¯´è¿™æ˜¯ä¸å¯èƒ½çš„
         $form.submit();
     }
 };
