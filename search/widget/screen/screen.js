@@ -18,12 +18,27 @@ require.async(['base:components/layer/layer.js'], function (layer) {
                 data: DROPDATA,
                 skin: 'w-screen-drop'
             }, function (val) {
-                if (val && val != '0') {
-                    window._REQUEST[name] = val;
-                } else {
-                    delete window._REQUEST[name];
+                var arr_where_filter_second = window._REQUEST.arr_where_filter_second,
+                    i, len, list, test = {};
+                if (arr_where_filter_second) {
+                    list = arr_where_filter_second.split('*');
+                    for (i = 0, len = list.length; i < len; i++) {
+                        list[i] = list[i].split('-s||');
+                        test[list[i][0]] = list[i][1];
+                    }
+
                 }
-                window.location.search = $.param( window._REQUEST );
+                test[name] = val;
+
+                console.log(test);
+
+                arr_where_filter_second = '';
+                for (i in test) {
+                    arr_where_filter_second += i + '-s||' + test[i] + '*';
+                }
+
+                window._REQUEST.arr_where_filter_second = arr_where_filter_second;
+                window.location.search = $.param(window._REQUEST);
             });
 
         if ($self.hasClass('active')) {

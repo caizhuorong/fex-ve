@@ -24,9 +24,9 @@
             <input type="hidden" name="salary">
         </span>
 
-        <span control="select" class="select" id="degree" data-v="degree">
+        <span control="select" class="select" id="degree_id" data-v="degree_id">
             <i pla="学历要求">学历要求</i>
-            <input type="hidden" name="degree">
+            <input type="hidden" name="degree_id">
         </span>
 
         <span control="select" class="select" id="work_mode" data-v="work_mode">

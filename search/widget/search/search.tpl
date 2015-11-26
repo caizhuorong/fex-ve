@@ -33,7 +33,7 @@
                 {%call name="formItem" pla="筹建状态" vid="is_construct"%}
                 {%call name="formItem" pla="性别要求" vid="gender"%}
                 {%call name="formItem" pla="食宿情况" vid="rations_quarters"%}
-                {%call name="formItem" pla="学历要求" vid="degree"%}
+                {%call name="formItem" pla="学历要求" vid="degree_id"%}
                 <i class="clear"></i>
 
                 <div class="work-mode">
