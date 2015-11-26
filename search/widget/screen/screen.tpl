@@ -1,7 +1,11 @@
+{%function name="searchScreenItem" pla="" vid=""%}
+    <span control="select" class="select" data-v="{%$vid%}"><i pla="{%$pla%}">{%$pla%}</i><input type="hidden" name="{%$vid%}"></span>
+{%/function%}
+
 <div class="w-screen">
 
     <div class="screen">
-        共<i class="num">8638</i>个职位，在结果中筛选：
+        共<i class="num">{%$data.result_count%}</i>个职位，在结果中筛选：
         <input type="text" placeholder="请输入关键字">
         <a class="btn-n1" href="javascript:;">排除</a>
     </div>
@@ -9,44 +13,16 @@
     <i class="clear"></i>
 
     <div class="drops">
-        <span control="select" class="select" id="job_add_time" data-v="job_add_time">
-            <i pla="发布日期">发布日期</i>
-            <input type="hidden" name="job_add_time">
-        </span>
 
-        <span control="select" class="select" id="work_year" data-v="work_year">
-            <i pla="工作经验">工作经验</i>
-            <input type="hidden" name="work_year">
-        </span>
+        {%call name="searchScreenItem" pla="发布日期" vid="job_add_time"%}
+        {%call name="searchScreenItem" pla="工作经验" vid="work_year"%}
+        {%call name="searchScreenItem" pla="月薪范围" vid="salary"%}
+        {%call name="searchScreenItem" pla="学历要求" vid="degree_id"%}
+        {%call name="searchScreenItem" pla="职位性质" vid="work_mode"%}
+        {%call name="searchScreenItem" pla="食宿情况" vid="rations_quarters"%}
+        {%call name="searchScreenItem" pla="性别" vid="gender_id"%}
+        {%call name="searchScreenItem" pla="联系方式公开程度" vid="contact_display_status"%}
 
-        <span control="select" class="select" id="salary" data-v="salary">
-            <i pla="月薪范围">月薪范围</i>
-            <input type="hidden" name="salary">
-        </span>
-
-        <span control="select" class="select" id="degree_id" data-v="degree_id">
-            <i pla="学历要求">学历要求</i>
-            <input type="hidden" name="degree_id">
-        </span>
-
-        <span control="select" class="select" id="work_mode" data-v="work_mode">
-            <i pla="职位性质">职位性质</i>
-            <input type="hidden" name="work_mode">
-        </span>
-
-        <span control="select" class="select" id="rations_quarters" data-v="rations_quarters">
-            <i pla="食宿情况">食宿情况</i>
-            <input type="hidden" name="rations_quarters">
-        </span>
-        <span control="select" class="select" id="gender" data-v="gender">
-            <i pla="性别">性别</i>
-            <input type="hidden" name="gender">
-        </span>
-
-        <span control="select" class="select" id="contact_display_status" data-v="contact_display_status">
-            <i pla="联系方式公开程度">联系方式公开程度</i>
-            <input type="hidden" name="contact_display_status">
-        </span>
     </div>
 
 </div>

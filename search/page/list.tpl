@@ -6,7 +6,7 @@
 
 {%block name='content'%}
     {%script%}
-        window._DATA = {%json_encode($data.arr_result)%};
+        window._DATA = {%json_encode($data)%}; //arr_result
         window._REQUEST = {%json_encode($_REQUEST)%};
     {%/script%}
 

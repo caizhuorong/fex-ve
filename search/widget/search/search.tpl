@@ -1,5 +1,9 @@
-{%function name="formItem" pla="" vid=""%}
-    <span control="select" class="select" data-v="{%$vid%}"><i pla="{%$pla%}">{%$pla%}</i><em></em><input type="hidden" name="{%$vid%}"></span>
+{%function name="searchFormItem" pla="" vid="" run=""%}
+    <span control="select" class="select" data-v="{%$vid%}">
+        <i pla="{%$pla%}">{%if $run!=0%}{%$DROPDATA_INDEX[$vid][$run]%}{%else%}{%$pla%}{%/if%}</i>
+        <em></em>
+        <input type="hidden" name="{%$vid%}" value="{%$run%}">
+    </span>
 {%/function%}
 
 
@@ -23,17 +27,20 @@
             <i class="line"></i>
 
             <div class="form-box">
-                {%call name="formItem" pla="行业类别" vid="company_industry"%}
-                {%call name="formItem" pla="企业类型" vid="company_type"%}
-                {%call name="formItem" pla="星级" vid="star_level"%}
+                {%call name="searchFormItem" pla="行业类别" vid="company_industry" run=$data.company_industry%}
+                {%call name="searchFormItem" pla="企业类型" vid="company_type" run=$data.company_type%}
+                {%call name="searchFormItem" pla="星级" vid="star_level" run=$data.star_level%}
                 <i class="clear"></i>
 
-                {%call name="formItem" pla="工作经验" vid="work_year"%}
-                {%call name="formItem" pla="月薪范围" vid="salary"%}
-                {%call name="formItem" pla="筹建状态" vid="is_construct"%}
-                {%call name="formItem" pla="性别要求" vid="gender"%}
-                {%call name="formItem" pla="食宿情况" vid="rations_quarters"%}
-                {%call name="formItem" pla="学历要求" vid="degree_id"%}
+                {%call name="searchFormItem" pla="工作经验" vid="work_year" run=$data.work_year%}
+                {%call name="searchFormItem" pla="月薪范围" vid="salary" run=$data.salary%}
+                <input type="hidden" name="salary_min" value="{%if $data.salary_min!=0%}{%$data.where.salary_min%}{%/if%}">
+                <input type="hidden" name="salary_max" value="{%if $data.salary_max!=1000000%}{%$data.where.salary_max%}{%/if%}">
+
+                {%call name="searchFormItem" pla="筹建状态" vid="is_construct" run=$data.is_construct%}
+                {%call name="searchFormItem" pla="性别要求" vid="gender_id" run=$data.gender_id%}
+                {%call name="searchFormItem" pla="食宿情况" vid="rations_quarters" run=$data.rations_quarters%}
+                {%call name="searchFormItem" pla="学历要求" vid="degree_id" run=$data.degree_id%}
                 <i class="clear"></i>
 
                 <div class="work-mode">
@@ -53,5 +60,8 @@
 </section>
 
 
-{%script%}window.DROPDATA = {%json_encode($DROPDATA)%};{%/script%}
-{%script%}require('search.js').callback = null{%/script%}
+{%script%}
+    window.DROPDATA = {%json_encode($DROPDATA)%};
+    window.DROPDATA_FILTER = {%json_encode($DROPDATA_FILTER)%};
+    require('search.js').callback = null
+{%/script%}

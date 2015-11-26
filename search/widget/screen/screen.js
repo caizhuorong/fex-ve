@@ -9,6 +9,12 @@ var drop = require('widget/droplist/droplist.js'),
 require.async(['base:components/layer/layer.js'], function (layer) {
 
 
+    function render (data) {
+
+    }
+
+
+
     $screen.on('click', '[control=select]', function (ev) {
         var name = $(this).find('input[name]').attr('name')
 
@@ -18,27 +24,38 @@ require.async(['base:components/layer/layer.js'], function (layer) {
                 data: DROPDATA,
                 skin: 'w-screen-drop'
             }, function (val) {
-                var arr_where_filter_second = window._REQUEST.arr_where_filter_second,
-                    i, len, list, test = {};
-                if (arr_where_filter_second) {
-                    list = arr_where_filter_second.split('*');
-                    for (i = 0, len = list.length; i < len; i++) {
-                        list[i] = list[i].split('-s||');
-                        test[list[i][0]] = list[i][1];
-                    }
+                window.location.search
 
-                }
-                test[name] = val;
+                $.ajax({
+                    url: window.location.href,
+                    method: 'post',
+                    dataType: 'json',
+                    success: render
+                });
 
-                console.log(test);
+                /*
+                 var arr_where_filter_second = window._REQUEST.arr_where_filter_second,
+                 i, len, list, test = {};
+                 if (arr_where_filter_second) {
+                 list = arr_where_filter_second.split('*');
+                 for (i = 0, len = list.length; i < len; i++) {
+                 list[i] = list[i].split('-s||');
+                 test[list[i][0]] = list[i][1];
+                 }
 
-                arr_where_filter_second = '';
-                for (i in test) {
-                    arr_where_filter_second += i + '-s||' + test[i] + '*';
-                }
+                 }
+                 test[name] = val;
 
-                window._REQUEST.arr_where_filter_second = arr_where_filter_second;
-                window.location.search = $.param(window._REQUEST);
+                 console.log(test);
+
+                 arr_where_filter_second = '';
+                 for (i in test) {
+                 arr_where_filter_second += i + '-s||' + test[i] + '*';
+                 }
+
+                 window._REQUEST.arr_where_filter_second = arr_where_filter_second;
+                 window.location.search = $.param(window._REQUEST);
+                */
             });
 
         if ($self.hasClass('active')) {

@@ -10,7 +10,7 @@
     </ul>
 
     <div class="tabright">
-        {%widget name="base:widget/pages/pages.tpl"%}
+        {%widget name="base:widget/pages/pages.tpl" call="pages"%}
     </div>
 
     <i class="clear"></i>
