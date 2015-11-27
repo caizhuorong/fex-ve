@@ -62,6 +62,24 @@
 
 {%script%}
     window.DROPDATA = {%json_encode($DROPDATA)%};
+
+    function array_index ( dp ) {
+        var data = {},
+            i, len, list, item;
+
+        for (key in dp) {
+            data[key] = {};
+            list = dp[key];
+
+            for (i = 0, len = list.length; i < len; i++) {
+                item = list[i];
+                data[key][item[0]] = item[1];
+            }
+        }
+        return data;
+    }
+    window.DROPDATA_INDEX = array_index(DROPDATA);
+
     window.DROPDATA_FILTER = {%json_encode($DROPDATA_FILTER)%};
-    require('search.js').callback = null
+    require('search.js')
 {%/script%}

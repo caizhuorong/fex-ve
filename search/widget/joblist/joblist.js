@@ -6,8 +6,57 @@ var tpl = require('common:components/tpl/tpl.js'),
     drop = require('widget/droplist/droplist.js'),
     H = require('common:widget/helper/helper.js'),
     selectTimer,
-    $joblist = $('.w-joblist');
-//e = __inline('view.tmpl');
+    $joblist = $('.w-joblist'),
+    tmpl = __inline('view/joblist.tmpl'),
+    _FILTER_POST = {};
+
+
+tpl.helper('inArray', $.inArray);
+
+window.renderMod = tpl.compile(tmpl);
+
+
+function asyncRender(data) {
+    var html = renderMod(data),
+        $html = $(html);
+
+    $html.find('.job-child .attr .brief').each(function () {
+        var $self = $(this);
+        $self.html(H.substring($self.html(), 220));
+    });
+
+    $joblist.find('.joblist').html('').append($html);
+};
+
+exports.asyncRender = asyncRender;
+
+
+exports.where = function (name, value) {
+
+    _FILTER_POST[name] = value;
+
+    require.async(['base:components/layer/layer.js'], function (layer) {
+        layer.load(2, {shade: .1});
+
+        function render(data) {
+            asyncRender({data: data.message.data, $top: data.message.top_job_num, $DROPDATA_INDEX: DROPDATA_INDEX});
+            layer.closeAll();
+        }
+
+        $.ajax({
+            url: window.location.href,
+            method: 'post',
+            dataType: 'json',
+            data: _FILTER_POST,
+            success: render,
+            error: function (err) {
+                layer.closeAll();
+                layer.alert('出错了： ' + err);
+            }
+        });
+    });
+
+};
 
 
 /**
@@ -42,7 +91,6 @@ $joblist.on('mouseenter', '.job-child', function () { // 鼠标移入展开
 // 多行
 $joblist.find('.attr .brief').each(function () {
     var $self = $(this);
-
     $self.html(H.substring($self.text(), 220));
 });
 
@@ -60,20 +108,19 @@ if (!$('body').css('maxWidth')) {
 
 
 /**
- * 选择求职信
+ * 选择求职信 [ 申请之前，选择求职信 ]   打开效果
  * @type {*|jQuery|HTMLElement}
  */
 var $popbox = $('<div class="popbox"><div class="pop"><span><em></em><strong>选择求职信</strong><br>申请之前，选择求职信</span></div></div>'),
-    joblistTimer =
-        $joblist.on('mouseenter', '.operate .apply', function () {
-            me = this;
-            joblistTimer = setTimeout(function () {
-                $popbox.appendTo($(me));
-            }, 150);
-        }).on('mouseleave', '.operate .apply', function () {
-            clearTimeout(joblistTimer);
-            $popbox.remove();
-        });
+    joblistTimer = $joblist.on('mouseenter', '.operate .apply', function () {
+        me = this;
+        joblistTimer = setTimeout(function () {
+            $popbox.appendTo($(me));
+        }, 150);
+    }).on('mouseleave', '.operate .apply', function () {
+        clearTimeout(joblistTimer);
+        $popbox.remove();
+    });
 
 
 require.async(['base:components/layer/layer.js'], function (layer) {
@@ -196,7 +243,7 @@ require.async(['base:components/layer/layer.js'], function (layer) {
                         apply_letter_title: jsldata.all[apl_id].title,
                         apply_letter_content: this.layero.find('[name=apply_letter_content]').val()
                     }, function (data) {
-                        console.log(data);
+                        // console.log(data);
                     });
                 }
             });
@@ -206,3 +253,8 @@ require.async(['base:components/layer/layer.js'], function (layer) {
 
 
 });
+
+
+
+
+

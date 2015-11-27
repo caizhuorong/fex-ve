@@ -5,20 +5,22 @@
 'use strict';
 
 var $doc = $(document),
-    li = '.w-tabmenu li';
+    li = '.w-tabmenu li',
+    joblist = require('widget/joblist/joblist.js');
 
 $doc.on('mouseenter', li, function () {
     $(this).addClass('hover');
 }).on('mouseleave', li, function () {
     $(this).removeClass('hover');
 }).on('click', li, function () {
+    var $self = $(this);
     $(this).addClass('active').siblings('li').removeClass('active');
 
-
+    joblist.where('cn_order', $self.data('val'));
 });
 
 
-require('common:components/pagination/pagination.js');
+//require('common:components/pagination/pagination.js');
 
 /*
  $('.pages').pagination({

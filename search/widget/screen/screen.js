@@ -9,14 +9,45 @@ var drop = require('widget/droplist/droplist.js'),
 require.async(['base:components/layer/layer.js'], function (layer) {
 
 
-    function render (data) {
+    var joblist = require('widget/joblist/joblist.js');
 
+
+    function getTimer (offset) {
+        var time = (new Date()).valueOf() - _SERVER_TIME_OFFSET;
+        time = time.setDate( time.getDate() );
+        return time.getFullYear() + '-' + (time.getMonth() + 1) + time.get
     }
 
 
 
+
+    function where_second() {
+        var vals = $screen.find('.drops form').serializeArray(),
+            arr_where_filter_second = '', i, len, name, value;
+
+        for (i = 0, len = vals.length; i < len; i++) {
+            name = vals[i]['name'];
+            value = vals[i]['value'];
+            if (name == 'job_add_time') {
+                console.log()
+            } else if (name == 'work_year') {
+
+            } else if (name == 'salary') {
+
+            } else if (value) {
+                // data[vals[i]['name']] = vals[i]['value'];
+                // arr_where_filter_second += i + '-s||' + test[i] + '*';
+                arr_where_filter_second += name + '-s||' + value + '*';
+            }
+        }
+        arr_where_filter_second = arr_where_filter_second.substring(0, arr_where_filter_second.length - 1);
+
+        joblist.where('arr_where_filter_second', arr_where_filter_second);
+    }
+
+
     $screen.on('click', '[control=select]', function (ev) {
-        var name = $(this).find('input[name]').attr('name')
+        var name = $(this).find('input[name]').attr('name');
 
         var $self = $(this),
             $tpl = drop({
@@ -24,14 +55,11 @@ require.async(['base:components/layer/layer.js'], function (layer) {
                 data: DROPDATA,
                 skin: 'w-screen-drop'
             }, function (val) {
-                window.location.search
+                /**
+                 * 调整筛选条件
+                 */
+                where_second();
 
-                $.ajax({
-                    url: window.location.href,
-                    method: 'post',
-                    dataType: 'json',
-                    success: render
-                });
 
                 /*
                  var arr_where_filter_second = window._REQUEST.arr_where_filter_second,
@@ -55,7 +83,7 @@ require.async(['base:components/layer/layer.js'], function (layer) {
 
                  window._REQUEST.arr_where_filter_second = arr_where_filter_second;
                  window.location.search = $.param(window._REQUEST);
-                */
+                 */
             });
 
         if ($self.hasClass('active')) {
@@ -80,13 +108,23 @@ require.async(['base:components/layer/layer.js'], function (layer) {
         } else if (val == '') {
             layer.tips('这里什么都木有！', $input, tipsConfig);
         } else {
-            $child.append('<span>' + $input.val().trim() + '<i></i></span>');
+            /**
+             *  添加关键字
+             */
+                // screen('arr_where_filter_reverse_str', val);
+
+            $child.append('<span>' + val + '<i></i></span>');
             $input.val('');
         }
         $input.focus();
     }).on('click', '.child span i', function () {
+        /**
+         *  删除关键字
+         */
+            // screen('arr_where_filter_reverse_str', val);
+
         $(this).parent().animate({'opacity': 0}, 200, function () {
-            $(this).remove()
+            $(this).remove();
         });
     }).on('keydown', '.screen input', function (ev) {
         if (ev.keyCode == 13) {

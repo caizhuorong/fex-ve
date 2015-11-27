@@ -6,7 +6,13 @@
 
 {%block name='content'%}
     {%script%}
-        window._DATA = {%json_encode($data)%}; //arr_result
+        {%*window._DATA = {%json_encode($data)%}; //arr_result*%}
+        window._FILTER_POST = {};
+
+        _SERVER_TIME_OFFSET = {%time()%}000;
+        window._SERVER_TIME_OFFSET = (new Date()).valueOf() - _SERVER_TIME_OFFSET;
+
+
         window._REQUEST = {%json_encode($_REQUEST)%};
     {%/script%}
 
@@ -21,6 +27,5 @@
     {%widget name='search:widget/tabmenu/tabmenu.tpl'%}
     {%widget name='search:widget/joblist/joblist.tpl' data=$data.arr_result top=$data.top_job_num%}
     {%* 页面内容 *%}
-
 
 {%/block%}

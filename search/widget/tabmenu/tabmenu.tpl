@@ -1,12 +1,12 @@
 <div class="w-tabmenu">
 
     <ul class="tabmenu">
-        <li class="active">默认顺序</li>
-        <li>新增职位</li>
-        <li>雇主指数高</li>
-        <li>急聘</li>
-        <li>竞争少</li>
-        <li>电话直聘</li>
+        <li data-val="0" class="active">默认顺序</li>
+        <li data-val="1">新增职位</li>
+        <li data-val="2">雇主指数高</li>
+        <li data-val="3">急聘</li>
+        <li data-val="4">竞争少</li>
+        <li data-val="5">电话直聘</li>
     </ul>
 
     <div class="tabright">
