@@ -28,4 +28,6 @@
     </section>
     {%* 页面内容 *%}
 
+    {%widget name="widget/float/float.tpl"%}
+
 {%/block%}

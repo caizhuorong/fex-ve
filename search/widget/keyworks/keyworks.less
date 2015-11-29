@@ -1,5 +1,8 @@
 .w-keyworks {
 
+  padding-bottom: 15px;
+  text-align: center;
+
   .kwbtn {
     display: inline-block;
     width: 142px;
@@ -11,6 +14,8 @@
     color: #000;
     font-size: 16px;
     position: relative;
+    vertical-align: top;
+    margin: 0 2px;
     b {
       display: block;
       width: 8px;
@@ -23,4 +28,71 @@
     }
   }
 
+  .search-bar {
+    display: inline-block;
+    width: 498px;
+    height: 44px;
+    border: 2px solid #ef8217;
+    background: #fff;
+    margin: 0 10px;
+  }
+
+  .search-type {
+    float: left;
+    width: 106px;
+    height: 44px;
+    line-height: 44px;
+    background: #f6f6f6;
+    font-size: 16px;
+    text-align: center;
+    .arrows {
+      display: inline-block;
+      width: 12px;
+      height: 8px;
+      overflow: hidden;
+      background: url(dds.png) no-repeat center;
+    }
+  }
+  
+  .search-val {
+    float: left;
+    border: none;
+    width: 254px;
+    height: 44px;
+    padding: 0px 10px;
+  }
+  
+  
+  .search-btn {
+    float: right;
+    width: 118px;
+    height: 44px;
+    line-height: 44px;
+    background: #ef8217;
+    color: #fff;
+    font-size: 20px;
+    text-align: center;
+  }
+
+
+  .search-more {
+    vertical-align: top;
+    display: inline-block;
+    margin-top: 14px;
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: 14px;
+    b {
+      display: inline-block;
+      width: 14px;
+      height: 8px;
+      margin-left: 3px;
+      background: url(ddx.png);
+    }
+    &.action {
+      b {
+        background: url(dss.png);
+      }
+    }
+  }
 }

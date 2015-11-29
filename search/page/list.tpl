@@ -28,4 +28,6 @@
     {%widget name='search:widget/joblist/joblist.tpl' data=$data.arr_result top=$data.top_job_num%}
     {%* 页面内容 *%}
 
+    {%widget name="widget/float/float.tpl"%}
+
 {%/block%}
