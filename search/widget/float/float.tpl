@@ -2,11 +2,9 @@
 
     <img src="yj.gif" alt="">
 
-    <a href="#"></a>
+    <a href="#" style="display:none"></a>
 
 </div>
 
 
-{%script%}
-    require('float.js')
-{%/script%}
+{%script%}require('float.js'){%/script%}

@@ -25,7 +25,7 @@
                     <span>{{$item.job_update_time}}</span>
                 </li>
                 <li class="craze">
-                    <i class="{{'p' + $item.work_year_min}}"></i>
+                    <i class="p{{$item.job_apply_num <=10 ? 0 : $item.job_apply_num > 30 ? 2 : 1}}" title="{{$item.job_apply_num}}"></i>
                 </li>
             </ul>
 
@@ -48,5 +48,6 @@
 
         {{if $top!=0 && $key==$top-1}}</div>{{/if}}
 
-{{/each}}
+    {{/each}}
+
 </div>

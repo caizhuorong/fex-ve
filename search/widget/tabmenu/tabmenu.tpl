@@ -10,10 +10,6 @@
     </ul>
 
 
-
-
-
-
     <div class="w-tab-show">
         <div class="ve-page-inner">
             <a href="javascript:;">{%if $_REQUEST['page']%}{%$_REQUEST['page']%}{%else%}1{%/if%} / {%if $data.page_max%}{%$data.page_max%}{%else%}1{%/if%}</a>
@@ -25,6 +21,13 @@
     <div class="tabright hide">
         {%widget name="widget/pages/pages.tpl" call="pages" page=$_REQUEST['page'] all=$data.page_max base='/job_search/job_list?'|cat:$_GET_TEXT%}
     </div>
+
+
+    <div class="joblist-style">
+        <span class="wtm-list"><i></i>列表</span>
+        <span class="wtm-whole"><i></i>明细</span>
+    </div>
+
 
     <i class="clear"></i>
 
