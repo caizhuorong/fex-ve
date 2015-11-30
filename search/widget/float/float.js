@@ -23,7 +23,17 @@ require.async(['base:components/layer/layer.js'], function (layer) {
             move: false,
             btn: false,
             success: function (layero) {
-                this.layero = layero
+                this.layero = layero;
+                $.ajax({
+                    url: '/api/getLoginUserInfo',
+                    method: 'get',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.status == 1) {
+                            layero.find('[name=email]').val(data.message.email);
+                        }
+                    }
+                })
             },
             yes: function () {
                 $.ajax({

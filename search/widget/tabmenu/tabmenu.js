@@ -16,7 +16,6 @@ $doc.on('mouseenter', li, function () {
 }).on('click', li, function () {
     var $self = $(this);
     $(this).addClass('active').siblings('li').removeClass('active');
-
     joblist.where('cn_order', $self.data('val'));
 });
 
@@ -39,5 +38,8 @@ $tabmenu.on('mouseover', '.w-tab-show, .tabright', function () {
         $tabmenu.find('.tabright').addClass('hide');
     }, 500)
 });
+
+
+
 
 
