@@ -107,6 +107,10 @@ if (!$('body').css('maxWidth')) {
 }
 
 
+
+
+
+
 /**
  * 选择求职信 [ 申请之前，选择求职信 ]   打开效果
  * @type {*|jQuery|HTMLElement}

@@ -3,9 +3,22 @@
 require_once('common.php');
 
 
+function _getStr(){
+    $text = '';
+    foreach ($_GET as $key => $value) {
+        if ($key != 'page') {
+            $text = $text . $key . '=' . $value . '&';
+        }
+    }
+    return $text . 'page=';
+}
+
+
 $fis_data = array_merge($public_data, [
     'data' => $GLOBALS['fcData'],
     '_REQUEST' => $_REQUEST,
+
+    '_GET_TEXT' => _getStr(),
 
     'title' => '酒店餐饮旅游职位搜索_最佳东方',
     'keyworks' => '职位搜索,高级搜索,找工作',

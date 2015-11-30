@@ -2,6 +2,7 @@
   width: 990px;
   margin: auto;
   border-bottom: 3px solid #ef8217;
+  position: relative;
   .tabmenu {
     float: left;
     margin: 0;
@@ -40,9 +41,12 @@
   }
   
   .tabright {
-    float: right;
+    position: absolute;
     height: 20px;
-    margin: 10px 11px 0 0;
+    padding: 10px 11px 9px 11px;
+    right: 0;
+    background: #fff;
+    border-left: 1px solid #ddd;
     .page {
       .page-go {
         input {
@@ -50,6 +54,15 @@
           text-align: center;
         }
       }
+    }
+  }
+
+
+  .w-tab-show {
+    float: right;
+    margin: 10px 11px 0 0;
+    .ve-page-inner {
+      line-height: 20px;
     }
   }
 }

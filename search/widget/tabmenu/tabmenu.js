@@ -6,7 +6,8 @@
 
 var $doc = $(document),
     li = '.w-tabmenu li',
-    joblist = require('widget/joblist/joblist.js');
+    joblist = require('widget/joblist/joblist.js'),
+    $tabmenu = $('.w-tabmenu');
 
 $doc.on('mouseenter', li, function () {
     $(this).addClass('hover');
@@ -20,15 +21,23 @@ $doc.on('mouseenter', li, function () {
 });
 
 
-//require('common:components/pagination/pagination.js');
-
-/*
- $('.pages').pagination({
- url: './job_list',
- $page: $('.page'),
- //data: {},
- fillContent: function(data) {
- console.log(data);
- }
- });
+/**
+ * 复制翻页到底部
  */
+$tabmenu.find('.tabright .ve-page-inner').clone().appendTo('.funright');
+
+
+/**
+ * 翻页展开效果
+ */
+var tabtimer;
+$tabmenu.on('mouseover', '.w-tab-show, .tabright', function () {
+    clearTimeout(tabtimer);
+    $tabmenu.find('.tabright').removeClass('hide')
+}).on('mouseout', '.tabright', function () {
+    tabtimer = setTimeout(function () {
+        $tabmenu.find('.tabright').addClass('hide');
+    }, 500)
+});
+
+

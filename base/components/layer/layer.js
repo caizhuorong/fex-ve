@@ -23,7 +23,7 @@ layer.message = function (content, icon, option) {
 
     if (typeof content == 'object') {
         $.extend(data, content, {icon: content.icon * -90 || 0});
-        option = icon
+        //option = icon
     }
     index = layer.open($.extend({
         type: 1,

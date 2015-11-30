@@ -6,12 +6,11 @@
 
 {%block name='content'%}
     {%script%}
-        {%*window._DATA = {%json_encode($data)%}; //arr_result*%}
+        window._DATA = {%json_encode($data)%}; //arr_result
         window._FILTER_POST = {};
 
         _SERVER_TIME_OFFSET = {%time()%}000;
         window._SERVER_TIME_OFFSET = (new Date()).valueOf() - _SERVER_TIME_OFFSET;
-
 
         window._REQUEST = {%json_encode($_REQUEST)%};
     {%/script%}
