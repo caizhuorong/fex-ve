@@ -26,8 +26,9 @@
     {%widget name='search:widget/screen/screen.tpl'%}
 
     {%widget name='search:widget/tabmenu/tabmenu.tpl'%}
-    {%widget name='search:widget/joblist/joblist.tpl' data=$data.arr_result top=$data.top_job_num%}
+    {%widget name='search:widget/joblist/joblist.tpl' data=$data.arr_result top=$data.top_job_num fav=$data.favoriteJob%}
     {%widget name='search:widget/jobbottom/jobbottom.tpl'%}
+
 
     {%* 页面内容 *%}
 
