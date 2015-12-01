@@ -241,48 +241,64 @@ require.async(['base:components/layer/layer.js'], function (layer) {
      */
     var selectletter = __inline('view/selectletter.tmpl');
 
-    $joblist.on('click', '.apply', function (ev) { // 立即申请
-        ajax('/pop/apply_job', {job_id: $(this).closest('.job-child').data('id')}, function (data) {
-            console.log(data);
-        });
-    }).on('click', '.pop span', function (ev) {
-        var $child = $(this).closest('.job-child');
-
-        ajax('/pop/choose_resume', {job_id: $(this).closest('.job-child').data('id')}, function (data) {
-            // 求职信列表数据
-            var i, len, letterList = data.message.letterList;
-            jsldata = {list: [], all: {}};
-            for (i = 0, len = letterList.length; i < len; i++) {
-                jsldata.list.push([letterList[i].id, letterList[i].title]);
-                jsldata.all[letterList[i].id] = letterList[i];
-            }
-
-            layer.open({
-                title: '请选择求职信',
-                content: selectletter,
-                area: '480px',
-                move: false,
-                btn: false,
-                success: function (layero) {
-                    this.layero = layero
-                },
-                yes: function () {
-                    var apl_id = this.layero.find('[name=apply_letter_id]').val();
-
-                    ajax('/pop/apply_job', {
-                        job_id: $child.data('id'),
-                        use_letter: 1,
-                        apply_letter_id: apl_id,
-                        apply_letter_title: jsldata.all[apl_id].title,
-                        apply_letter_content: this.layero.find('[name=apply_letter_content]').val()
-                    }, function (data) {
-                        // console.log(data);
-                    });
-                }
+    $joblist
+        .on('click', '.apply', function (ev) { // 立即申请
+            ajax('/pop/apply_job', {job_id: $(this).closest('.job-child').data('id')}, function (data) {
+                console.log(data);
             });
+        }).on('click', '.pop span', function (ev) {
+            var $child = $(this).closest('.job-child');
+
+            ajax('/pop/choose_resume', {job_id: $(this).closest('.job-child').data('id')}, function (data) {
+                // 求职信列表数据
+                var i, len, letterList = data.message.letterList;
+                jsldata = {list: [], all: {}};
+                for (i = 0, len = letterList.length; i < len; i++) {
+                    jsldata.list.push([letterList[i].id, letterList[i].title]);
+                    jsldata.all[letterList[i].id] = letterList[i];
+                }
+
+                layer.open({
+                    title: '请选择求职信',
+                    content: selectletter,
+                    area: '480px',
+                    move: false,
+                    btn: false,
+                    success: function (layero) {
+                        this.layero = layero
+                    },
+                    yes: function () {
+                        var apl_id = this.layero.find('[name=apply_letter_id]').val();
+
+                        ajax('/pop/apply_job', {
+                            job_id: $child.data('id'),
+                            use_letter: 1,
+                            apply_letter_id: apl_id,
+                            apply_letter_title: jsldata.all[apl_id].title,
+                            apply_letter_content: this.layero.find('[name=apply_letter_content]').val()
+                        }, function (data) {});
+                    }
+                });
+            });
+            ev.stopPropagation();
+        })
+        .on('click', '.collect', function () {
+            var $self = $(this);
+
+            if (!$self.hasClass('action')) {
+                $.ajax({
+                    url: '/pop/collection_job',
+                    method: 'post',
+                    dataType: 'json',
+                    data: {
+                        job_id: $self.closest('.job-child').data('id')
+                    },
+                    success: function (data) {
+                        layer.message(data.message, {title: data.message.title});
+                    }
+                });
+            }
         });
-        ev.stopPropagation();
-    });
 
 
 });
