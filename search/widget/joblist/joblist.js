@@ -8,7 +8,8 @@ var tpl = require('common:components/tpl/tpl.js'),
     selectTimer,
     $joblist = $('.w-joblist'),
     tmpl = __inline('view/joblist.tmpl'),
-    _FILTER_POST = {};
+    _FILTER_POST = {},
+    whole = false;
 
 
 tpl.helper('inArray', $.inArray);
@@ -26,7 +27,7 @@ function asyncRender(data) {
     });
 
     $joblist.find('.joblist').html('').append($html);
-};
+}
 
 exports.asyncRender = asyncRender;
 
@@ -59,8 +60,17 @@ exports.where = function (name, value) {
 };
 
 
+exports.whole = function (bool) {
+    if (typeof bool == 'undefined') {
+        return whole;
+    }
+    $joblist.find('.job-child .all').css('display', bool ? 'block' : '');
+    whole = bool;
+};
+
+
 /**
- * 基本展示效果  ↓←← 有装逼嫌疑
+ * 基本展示效果
  */
 $joblist.on('mouseenter', '.job-child', function () { // 鼠标移入展开
     var $all = $(this).find('.all');
@@ -105,10 +115,6 @@ if (!$('body').css('maxWidth')) {
         $hotel.html(H.substring($hotel.html(), 24));
     });
 }
-
-
-
-
 
 
 /**

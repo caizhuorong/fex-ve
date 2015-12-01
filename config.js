@@ -47,6 +47,3 @@ fis.match('*.png', {
 fis.match('*.{js,css,less,sass,scss,png,jpg,jpeg,gif}', {
     domain: '//fex.v.veimg.cn'
 });
-
-
-

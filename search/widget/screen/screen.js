@@ -54,7 +54,7 @@ require.async(['base:components/layer/layer.js'], function (layer) {
                 $dom: $self,
                 data: DROPDATA,
                 skin: 'w-screen-drop'
-            }, function (val) {
+            }, function () {
                 /**
                  * 调整筛选条件
                  */

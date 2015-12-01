@@ -7,7 +7,7 @@
 {%block name='content'%}
     {%script%}
         window._DATA = {%json_encode($data)%}; //arr_result
-        window._FILTER_POST = {};
+        {%*window._FILTER_POST = {};*%}
 
         _SERVER_TIME_OFFSET = {%time()%}000;
         window._SERVER_TIME_OFFSET = (new Date()).valueOf() - _SERVER_TIME_OFFSET;
@@ -17,6 +17,7 @@
 
     {%widget name='search:widget/header/header.tpl'%}
     {%widget name='base:widget/nav/nav.tpl' call='nav' data=$nav%}
+    {%script%}$('.ve-nav-default .list a[href="/"]').addClass('active'){%/script%}
 
     {%* 页面内容 *%}
     {%widget name='search:widget/search/search.tpl'%}
