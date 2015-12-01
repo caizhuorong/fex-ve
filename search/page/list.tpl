@@ -9,7 +9,8 @@
         window._DATA = {%json_encode($data)%}; //arr_result
         {%*window._FILTER_POST = {};*%}
 
-        _SERVER_TIME_OFFSET = {%time()%}000;
+        {%* 本地实际与服务器时间的偏移量（时间校正） *%}
+        _SERVER_TIME_OFFSET = {%time() + 2%}000;
         window._SERVER_TIME_OFFSET = (new Date()).valueOf() - _SERVER_TIME_OFFSET;
 
         window._REQUEST = {%json_encode($_REQUEST)%};

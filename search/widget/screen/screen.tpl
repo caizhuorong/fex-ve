@@ -16,7 +16,7 @@
     <div class="drops">
         <form>
             {%call name="searchScreenItem" pla="发布日期" vid="job_add_time"%}
-            {%call name="searchScreenItem" pla="工作经验" vid="work_year"%}
+            {%call name="searchScreenItem" pla="工作经验" vid="work_year_min"%}
             {%call name="searchScreenItem" pla="月薪范围" vid="salary"%}
             {%call name="searchScreenItem" pla="学历要求" vid="degree_id"%}
             {%call name="searchScreenItem" pla="职位性质" vid="work_mode"%}
@@ -24,10 +24,12 @@
             {%call name="searchScreenItem" pla="性别" vid="gender_id"%}
             {%call name="searchScreenItem" pla="联系方式公开程度" vid="contact_display_status"%}
         </form>
-
     </div>
 
 </div>
 
 
-{%script%}require('screen'){%/script%}
+{%script%}
+    window.DROPDATA_FILTER = {%json_encode($DROPDATA_FILTER)%};
+    require('screen');
+{%/script%}

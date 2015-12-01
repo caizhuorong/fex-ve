@@ -3,6 +3,7 @@
  */
 
 var drop = require('widget/droplist/droplist.js'),
+    H = require('common:widget/helper/helper.js'),
     $doc = $(document),
     $screen = $('.w-screen');
 
@@ -12,15 +13,17 @@ require.async(['base:components/layer/layer.js'], function (layer) {
     var joblist = require('widget/joblist/joblist.js');
 
 
-    function getTimer (offset) {
-        var time = (new Date()).valueOf() - _SERVER_TIME_OFFSET;
-        time = time.setDate( time.getDate() );
-        return time.getFullYear() + '-' + (time.getMonth() + 1) + time.get
+    function getTimer(offset) {
+        var time = new Date;
+        time.setTime(time.valueOf() - _SERVER_TIME_OFFSET); // 服务器时间偏移
+        time.setDate(time.getDate() + (offset || 0));       // 参数时间偏移
+        return time.getFullYear() + '-' + H.pad(time.getMonth() + 1, 2) + '-' + H.pad(time.getDate(), 2);
     }
 
 
-
-
+    /**
+     * 条件筛选
+     */
     function where_second() {
         var vals = $screen.find('.drops form').serializeArray(),
             arr_where_filter_second = '', i, len, name, value;
@@ -29,18 +32,21 @@ require.async(['base:components/layer/layer.js'], function (layer) {
             name = vals[i]['name'];
             value = vals[i]['value'];
             if (name == 'job_add_time') {
-                console.log()
-            } else if (name == 'work_year') {
-
+                // 发布日期
+                if (value && value != 0) {
+                    arr_where_filter_second += name + ' >-s||' + getTimer(-value) + '*';
+                }
             } else if (name == 'salary') {
-
-            } else if (value) {
-                // data[vals[i]['name']] = vals[i]['value'];
-                // arr_where_filter_second += i + '-s||' + test[i] + '*';
+                // 月薪范围
+                if (value && value != 0) {
+                    value = DROPDATA_FILTER[name][value].split('-');
+                    arr_where_filter_second += 'salary_min-s||' + value[0] + '*' + 'salary_max-s||' + value[1] + '*';
+                }
+            } else if (value && value != 0) {
                 arr_where_filter_second += name + '-s||' + value + '*';
             }
         }
-        arr_where_filter_second = arr_where_filter_second.substring(0, arr_where_filter_second.length - 1);
+        arr_where_filter_second = arr_where_filter_second.slice(0, -1);
 
         joblist.where('arr_where_filter_second', arr_where_filter_second);
     }
@@ -54,37 +60,7 @@ require.async(['base:components/layer/layer.js'], function (layer) {
                 $dom: $self,
                 data: DROPDATA,
                 skin: 'w-screen-drop'
-            }, function () {
-                /**
-                 * 调整筛选条件
-                 */
-                where_second();
-
-
-                /*
-                 var arr_where_filter_second = window._REQUEST.arr_where_filter_second,
-                 i, len, list, test = {};
-                 if (arr_where_filter_second) {
-                 list = arr_where_filter_second.split('*');
-                 for (i = 0, len = list.length; i < len; i++) {
-                 list[i] = list[i].split('-s||');
-                 test[list[i][0]] = list[i][1];
-                 }
-
-                 }
-                 test[name] = val;
-
-                 console.log(test);
-
-                 arr_where_filter_second = '';
-                 for (i in test) {
-                 arr_where_filter_second += i + '-s||' + test[i] + '*';
-                 }
-
-                 window._REQUEST.arr_where_filter_second = arr_where_filter_second;
-                 window.location.search = $.param(window._REQUEST);
-                 */
-            });
+            }, where_second);
 
         if ($self.hasClass('active')) {
             $tpl.hide();
@@ -98,10 +74,20 @@ require.async(['base:components/layer/layer.js'], function (layer) {
     /**
      * 过滤关键字
      */
-    var tipsConfig = {tips: [1, '#FF9900'], time: 2400};
+    var tipsConfig = {tips: [1, '#FF9900'], time: 2400},
+        $child = $screen.find('.child');
+
+    function changeKeyWork() {
+        var keys = [];
+        $child.find('span').each(function () {
+            var item = $(this).data('item');
+            if (item)keys.push(item);
+        });
+        joblist.where('arr_where_filter_reverse_str', keys.join('||'))
+    }
+
     $screen.on('click', '.screen .btn-n1', function () {
         var $input = $(this).siblings('input'),
-            $child = $screen.find('.child'),
             val = $input.val().trim();
         if ($child.find('span').length == 4) {
             layer.tips('最多只支持4个关键字！', $child, tipsConfig);
@@ -111,21 +97,21 @@ require.async(['base:components/layer/layer.js'], function (layer) {
             /**
              *  添加关键字
              */
-                // screen('arr_where_filter_reverse_str', val);
-
-            $child.append('<span>' + val + '<i></i></span>');
             $input.val('');
+            $child.append($('<span>' + val + '<i></i></span>').data('item', val));
+            changeKeyWork();
         }
         $input.focus();
     }).on('click', '.child span i', function () {
         /**
          *  删除关键字
          */
-            // screen('arr_where_filter_reverse_str', val);
+        var $span = $(this).parent();
 
-        $(this).parent().animate({'opacity': 0}, 200, function () {
+        $span.data('item', '').animate({'opacity': 0}, 200, function () {
             $(this).remove();
         });
+        changeKeyWork();
     }).on('keydown', '.screen input', function (ev) {
         if (ev.keyCode == 13) {
             $screen.find('.screen .btn-n1').click();

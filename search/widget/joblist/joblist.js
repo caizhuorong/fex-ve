@@ -16,7 +16,11 @@ tpl.helper('inArray', $.inArray);
 
 window.renderMod = tpl.compile(tmpl);
 
-
+/** ****************************职位列表的对外接口************************* **/
+/**
+ * 渲染数据
+ * @param data
+ */
 function asyncRender(data) {
     var html = renderMod(data),
         $html = $(html);
@@ -32,9 +36,21 @@ function asyncRender(data) {
 exports.asyncRender = asyncRender;
 
 
+/**
+ * 筛选功能接口 ，测试催得紧  就先不写详细注释了！
+ * @param name
+ * @param value
+ */
 exports.where = function (name, value) {
 
+    var key;
     _FILTER_POST[name] = value;
+
+    for (key in _FILTER_POST) {
+        if (!_FILTER_POST[key]) {
+            delete _FILTER_POST[key];
+        }
+    }
 
     require.async(['base:components/layer/layer.js'], function (layer) {
         layer.load(2, {shade: .1});
@@ -60,6 +76,11 @@ exports.where = function (name, value) {
 };
 
 
+/**
+ * 列表或显示摘要
+ * @param bool
+ * @returns {boolean}
+ */
 exports.whole = function (bool) {
     if (typeof bool == 'undefined') {
         return whole;
@@ -67,6 +88,8 @@ exports.whole = function (bool) {
     $joblist.find('.job-child .all').css('display', bool ? 'block' : '');
     whole = bool;
 };
+
+/** ****************************提供的接口就这么多，到这里就没有了************************* **/
 
 
 /**

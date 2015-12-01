@@ -33,7 +33,7 @@
                     {%call name="searchFormItem" pla="星级" vid="star_level" run=$data.star_level%}
                     <i class="clear"></i>
 
-                    {%call name="searchFormItem" pla="工作经验" vid="work_year" run=$data.work_year%}
+                    {%call name="searchFormItem" pla="工作经验" vid="work_year_min" run=$data.work_year_min%}
                     {%call name="searchFormItem" pla="月薪范围" vid="salary" run=$data.salary%}
                     <input type="hidden" name="salary_min" value="{%if $data.salary_min!=0%}{%$data.where.salary_min%}{%/if%}">
                     <input type="hidden" name="salary_max" value="{%if $data.salary_max!=1000000%}{%$data.where.salary_max%}{%/if%}">
@@ -83,6 +83,6 @@
     }
     window.DROPDATA_INDEX = array_index(DROPDATA);
 
-    window.DROPDATA_FILTER = {%json_encode($DROPDATA_FILTER)%};
+
     require('search.js')
 {%/script%}
