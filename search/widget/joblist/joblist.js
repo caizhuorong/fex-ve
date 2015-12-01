@@ -36,6 +36,24 @@ function asyncRender(data) {
 exports.asyncRender = asyncRender;
 
 
+
+
+
+
+function collect ($joblist, fav) {
+    var $child = $joblist.find('.job-child');
+
+    $child.each(function () {
+        var $me = $(this);
+
+
+        $me.data('id')
+    })
+}
+
+
+
+
 /**
  * 筛选功能接口 ，测试催得紧  就先不写详细注释了！
  * @param name
