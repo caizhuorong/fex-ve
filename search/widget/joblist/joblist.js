@@ -40,7 +40,7 @@ exports.where = function (name, value) {
         layer.load(2, {shade: .1});
 
         function render(data) {
-            asyncRender({data: data.message.data, $top: data.message.top_job_num, $DROPDATA_INDEX: DROPDATA_INDEX});
+            asyncRender({data: data.message.data, $top: data.message.top_job_num, $DROPDATA_INDEX: DROPDATA_INDEX, whole: whole});
             layer.closeAll();
         }
 

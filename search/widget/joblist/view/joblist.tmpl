@@ -29,7 +29,7 @@
                 </li>
             </ul>
 
-            <div class="all">
+            <div class="all" {{if whole}} style="display:block"{{/if}}>
                 <div class="attr">
                     经验：<i>{{if $item.work_year_min}}{{$item.work_year_min + '年以上'}}{{else}}不限{{/if}}</i>
                     学历：<i>{{$DROPDATA_INDEX.degree_id[$item.degree_id]}}</i>

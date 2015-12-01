@@ -43,10 +43,11 @@ $tabmenu.on('mouseover', '.w-tab-show, .tabright', function () {
 /**
  * 列表/明细
  */
-var jlStyle = '.joblist-style span';
+var jlStyle = '.joblist-style span',
+    joblist = require('widget/joblist/joblist.js');
 $tabmenu.on('click', jlStyle, function () {
     var $self = $(this);
     $self.addClass('action').siblings().removeClass('action');
     joblist.whole($self.hasClass('wtm-whole'));
-});
-$tabmenu.find(jlStyle).eq(joblist.whole()).addClass('action');
+}).find(jlStyle).eq(0).click();
+
