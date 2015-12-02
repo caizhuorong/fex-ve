@@ -1,4 +1,9 @@
 <div>
+
+    {{if !data.length}}
+        <div class="no-jobs">当前没有符合条件的职位，请重新设置筛选条件</div>
+    {{/if}}
+
     {{each data as $item $key}}
 
         {{if $top!=0 && $key==0}}<div class="strong">{{/if}}

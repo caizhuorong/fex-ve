@@ -15,7 +15,7 @@ $jobbottom.on('change', '.selectAll', function () {
 
 
 var jltimer;
-$joblist.on('change', check, function (ev) {
+$joblist.on('click', check, function (ev) {
     var $self = $(this);
     jltimer = setTimeout(function () {
         var $check = $joblist.find(check),

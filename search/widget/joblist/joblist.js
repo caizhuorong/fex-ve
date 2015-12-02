@@ -164,13 +164,6 @@ var $popbox = $('<div class="popbox"><div class="pop"><span><em></em><strong>选
 
 require.async(['base:components/layer/layer.js'], function (layer) {
 
-    //layer.message({right: '<h4>申请成功！</h4><span>职位申请已存入职位申请记录，欢迎随时查看。</span>', bottom: '您今日还可以申请<strong>19</strong>个职位，已申请<strong>1</strong>个。请认真投递哟~'}, {title: '申请成功'});
-    //layer.message({right: '<h4>申请失败！</h4><span>1个月内不能对同一企业的同一职位重复申请。</span>', bottom: '您今日还可以申请<strong>19</strong>个职位，已申请<strong>1</strong>个。请认真投递哟~<div class="info"><em>友情提示：</em>当您的简历更新后，企业看到您的简历也会同步更新，无需重复投递哟</div>', icon: 1}, {title: '申请失败'});
-    //layer.message({right: '<h4>申请失败！</h4><span>每天最多申请20个职位！</span>', bottom: '您今日还可以申请<strong>19</strong>个职位，已申请<strong>1</strong>个。请认真投递哟~', icon: 1}, {title: '申请失败'});
-    //layer.message('<h4>收藏成功！</h4><span>职位已收藏至<a href="##" target="_blank">职位收藏夹</a>，欢迎随时查看</span>', 0, {title: '收藏成功'});
-    //layer.message('<h4>您还没有求职信！</h4><span>可以先写<a href="## , 求职信</a>哦。</span>', 2, {title: '选择求职信'});
-    //layer.message({right: '<h4>请先选择求职信！</h4>', bottom: '您今日还可以申请<strong>19</strong>个职位，已申请<strong>1</strong>个。请认真投递哟~', icon: 2}, {title: '请选择求职信'});
-
 
     var ajax = function (opt, data) {
         var args = arguments;
@@ -190,7 +183,7 @@ require.async(['base:components/layer/layer.js'], function (layer) {
                 layer.closeAll();
                 var status = data.status;
                 if (status == 2) {
-                    // login;
+                    location.href = 'http://i.veryeast.cn/user/login?redirect=' + encodeURIComponent(location.href);
                 } else if (status == 0 || (data.message && data.message.right)) {
                     var msg = data.message;
                     layer.message({right: msg.right, bottom: msg.bottom || undefined, icon: msg.icon || 0}, {title: msg.title});
@@ -290,6 +283,9 @@ require.async(['base:components/layer/layer.js'], function (layer) {
             ev.stopPropagation();
         })
         .on('click', '.collect', function () {
+            /**
+             * 收藏
+             */
             var $self = $(this);
 
             if (!$self.hasClass('action')) {
@@ -301,6 +297,9 @@ require.async(['base:components/layer/layer.js'], function (layer) {
                         job_id: $self.closest('.job-child').data('id')
                     },
                     success: function (data) {
+                        if (data.status == 1) {
+                            $self.addClass('active');
+                        }
                         layer.message(data.message, {title: data.message.title});
                     }
                 });
