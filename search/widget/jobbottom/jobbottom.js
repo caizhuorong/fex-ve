@@ -26,3 +26,4 @@ $joblist.on('click', check, function (ev) {
     });
     ev.stopPropagation();
 });
+
