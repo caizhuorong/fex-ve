@@ -29,7 +29,6 @@ function asyncRender(data) {
         var $self = $(this);
         $self.html(H.substring($self.html(), 220));
     });
-
     $joblist.find('.joblist').html('').append($list);
 }
 
@@ -95,6 +94,35 @@ exports.whole = function (bool) {
     whole = bool;
 };
 
+
+/**
+ * 批量收藏
+ * @param $jobs
+ */
+function collect($jobs) {
+    var job_id = [];
+
+    $jobs.each(function () {
+        job_id.push($(this).data('id'));
+    });
+
+    job_id = job_id.join('||');
+
+    $.ajax({
+        url: '/pop/collection_job',
+        method: 'post',
+        dataType: 'json',
+        data: {
+            job_id: job_id
+        },
+        success: function (data) {
+            console.log(data);
+        }
+    });
+}
+
+exports.collect = collect;
+
 /** ****************************提供的接口就这么多，到这里就没有了************************* **/
 
 
@@ -109,11 +137,7 @@ $joblist.on('mouseenter', '.job-child', function () { // 鼠标移入展开
     }
 }).on('dblclick', '.job-child', function () { // 双击选中
     var $input = $(this).find('.job input');
-    if ($input.prop('checked')) {
-        $input.prop('checked', false);
-    } else {
-        $input.prop('checked', true);
-    }
+    $input.prop('checked', !$input.prop('checked'));
 }).on('click', function () { // 双击文本选中bug处理
     var me = this;
     clearTimeout(selectTimer);

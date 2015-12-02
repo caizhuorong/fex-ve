@@ -3,7 +3,8 @@
  */
 
 
-var $jobbottom = $('.w-jobbottom'),
+var joblist = require('widget/joblist/joblist.js'),
+    $jobbottom = $('.w-jobbottom'),
     $joblist = $('.w-joblist'),
     check = '.base .job input[type=checkbox]';
 
@@ -11,7 +12,6 @@ $jobbottom.on('change', '.selectAll', function () {
     var ck = $(this).prop('checked');
     $joblist.find(check).prop('checked', ck)[(ck ? 'add' : 'remove') + 'Class']('checked');
 });
-
 
 
 var jltimer;
@@ -26,4 +26,8 @@ $joblist.on('click', check, function (ev) {
     });
     ev.stopPropagation();
 });
+
+
+joblist.collect( $('.w-joblist .job-child') );
+
 
