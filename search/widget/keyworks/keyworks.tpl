@@ -18,7 +18,7 @@
             <b class="arrows"></b>
             <input type="hidden" name="keyword_scope" class="keyword_scope" value="{%$_REQUEST.keyword_scope%}">
             <ul class="search-list">
-                <li data-name="">职位名</li>
+                <li data-name="">职位名</li> {%* data-name="job_name" *%}
                 <li data-name="company_name">公司名</li>
                 <li data-name="all">全 文</li>
             </ul>

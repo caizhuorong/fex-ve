@@ -8,6 +8,7 @@
 
     {%widget name='search:widget/header/header.tpl'%}
     {%widget name='base:widget/nav/nav.tpl' call='nav' data=$nav%}
+    {%script%}$('.ve-nav-default .list a[href="/"]').addClass('active'){%/script%}
 
     {%* 页面内容 *%}
     {%widget name='search:widget/search/search.tpl' method='get'%}
