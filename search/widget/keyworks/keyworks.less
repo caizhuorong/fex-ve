@@ -1,7 +1,9 @@
 .w-keyworks {
-
+  height: 48px;
   padding-bottom: 15px;
   text-align: center;
+  position: relative;
+  z-index: 1;
 
   .kwbtn {
     display: inline-block;
@@ -48,7 +50,7 @@
     position: relative;
     color: #666;
     cursor: default;
-    &:active {
+    &.active {
       .search-list {
         display: block;
       }

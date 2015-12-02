@@ -14,10 +14,10 @@
 
     <div class="search-bar">
         <span class="search-type">
-            <span>职位名</span>
+            <span>{%if $_REQUEST.keyword_scope eq 'company_name'%}公司名{%elseif $_REQUEST.keyword_scope eq all%}全 文{%else%}职位名{%/if%}</span>
             <b class="arrows"></b>
-            <input type="hidden" name="keyword_scope" class="keyword_scope">
-            <ul class="search-list dis_n">
+            <input type="hidden" name="keyword_scope" class="keyword_scope" value="{%$_REQUEST.keyword_scope%}">
+            <ul class="search-list">
                 <li data-name="">职位名</li>
                 <li data-name="company_name">公司名</li>
                 <li data-name="all">全 文</li>
