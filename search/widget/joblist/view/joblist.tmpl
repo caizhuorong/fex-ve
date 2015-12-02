@@ -15,8 +15,8 @@
                     {{if inArray($item.contact_display_status, [1, 6, 7, 8]) != -1}}<i class="call"></i>{{/if}}
                 </li>
                 <li class="hotel">
-                    <a href="//job.veryeast.cn/{{$item.c_userid}}" target="_blank" class="comp ellipsis">{{$item.company_name}}</a>
-                    <a href="http://www.veryeast.cn/AdsShow/product/job/EvaluateIndex" target="_blank" title="雇主指数" class="compnum">{{$item.employer_index}}</a>
+                    <a href="//job.veryeast.cn/{{$item.c_userid}}" target="_blank" class="comp ellipsis">{{$item.company_name}}</a><a
+                       href="http://www.veryeast.cn/AdsShow/product/job/EvaluateIndex" target="_blank" title="雇主指数" class="compnum">{{$item.employer_index}}</a>
                 </li>
                 <li class="area">
                     <span>{{$item.job_province}}{{if $item.job_city}}{{'-' + $item.job_city}}{{/if}}</span>
