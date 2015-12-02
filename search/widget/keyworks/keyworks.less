@@ -32,7 +32,6 @@
     display: inline-block;
     width: 498px;
     height: 44px;
-    overflow: hidden;
     border: 2px solid #ef8217;
     background: #fff;
     margin: 0 10px;
@@ -46,6 +45,14 @@
     background: #f6f6f6;
     font-size: 16px;
     text-align: center;
+    position: relative;
+    color: #666;
+    cursor: default;
+    &:active {
+      .search-list {
+        display: block;
+      }
+    }
     .arrows {
       display: inline-block;
       width: 12px;
@@ -54,6 +61,26 @@
       background: url(dds.png) no-repeat center;
     }
   }
+
+
+  .search-list {
+    position: absolute;
+    width: 100%;
+    background: #f6f6f6;
+    margin: 0 -2px;
+    border: 2px solid #ef8217;
+    border-top: none;
+    display: none;
+    li {
+      height: 39px;
+      border-top: 1px solid #e7e7e7;
+      &:hover, &.action {
+        color: #ef8217;
+      }
+    }
+  }
+
+
 
   .search-val {
     float: left;

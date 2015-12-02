@@ -6,9 +6,9 @@
         <div class="job-child" data-id="{{$item.job_id}}">
             <ul class="base">
                 <li class="job">
-                    <input type="checkbox">
-                    <a href="//job.veryeast.cn/{{$item.c_userid}}/{{$item.job_id}}" target="_blank" class="ellipsis">{{$item.company_job_name}}</a>
-                    <i class="buf">
+                    <input type="checkbox"><a
+                        href="//job.veryeast.cn/{{$item.c_userid}}/{{$item.job_id}}" target="_blank" class="ellipsis">{{$item.company_job_name}}</a><i
+                        class="buf">
                         {{if $item.is_pressing_job == 1}}（急）{{/if}}
                         {{if $item.is_reserve_job == 1}}（储备）{{/if}}
                     </i>
@@ -40,7 +40,7 @@
                 </div>
                 <div class="operate">
                     <a href="javascript:;" class="apply"><span>立即申请</span><i></i></a>
-                    <a href="javascript:;" class="collect"><i></i>收藏职位</a>
+                    <a href="javascript:;" class="collect {{if inArray($item.job_id, fav) != -1}}active{{/if}}"><i></i>收藏职位</a>
                 </div>
                 <i class="clear"></i>
             </div>

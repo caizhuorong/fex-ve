@@ -10,14 +10,15 @@
         <b></b>
     </a>
 
-    <input type="hidden" name="keyword_scope" value="job_name" class="keyword_scope">
+
 
     <div class="search-bar">
         <span class="search-type">
             <span>职位名</span>
             <b class="arrows"></b>
-            <ul class="search-list dis_n" style="display: none;">
-                <li data-name="job_name">职位名</li>
+            <input type="hidden" name="keyword_scope" class="keyword_scope">
+            <ul class="search-list dis_n">
+                <li data-name="">职位名</li>
                 <li data-name="company_name">公司名</li>
                 <li data-name="all">全 文</li>
             </ul>
@@ -30,6 +31,10 @@
 </div>
 
 
+
+{%script%}
+require('keyworks');
+{%/script%}
 
 
 {%*

@@ -22,36 +22,18 @@ window.renderMod = tpl.compile(tmpl);
  * @param data
  */
 function asyncRender(data) {
-    var html = renderMod(data),
-        $html = $(html);
+    var list = renderMod(data),
+        $list = $(list);
 
-    $html.find('.job-child .attr .brief').each(function () {
+    $list.find('.job-child .attr .brief').each(function () {
         var $self = $(this);
         $self.html(H.substring($self.html(), 220));
     });
 
-    $joblist.find('.joblist').html('').append($html);
+    $joblist.find('.joblist').html('').append($list);
 }
 
 exports.asyncRender = asyncRender;
-
-
-
-
-
-
-function collect ($joblist, fav) {
-    var $child = $joblist.find('.job-child');
-
-    $child.each(function () {
-        var $me = $(this);
-
-
-        $me.data('id')
-    })
-}
-
-
 
 
 /**
@@ -74,7 +56,13 @@ exports.where = function (name, value) {
         layer.load(2, {shade: .1});
 
         function render(data) {
-            asyncRender({data: data.message.data, $top: data.message.top_job_num, $DROPDATA_INDEX: DROPDATA_INDEX, whole: whole});
+            asyncRender({
+                data: data.message.data,
+                $top: data.message.top_job_num,
+                fav: data.message.favoriteJob.join('|').split('|'),
+                $DROPDATA_INDEX: DROPDATA_INDEX,
+                whole: whole
+            });
             layer.closeAll();
         }
 
@@ -294,7 +282,8 @@ require.async(['base:components/layer/layer.js'], function (layer) {
                             apply_letter_id: apl_id,
                             apply_letter_title: jsldata.all[apl_id].title,
                             apply_letter_content: this.layero.find('[name=apply_letter_content]').val()
-                        }, function (data) {});
+                        }, function (data) {
+                        });
                     }
                 });
             });
