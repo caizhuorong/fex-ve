@@ -21,7 +21,7 @@ var H = require('common:widget/helper/helper.js'),
     };
 
 /**
- * 对外接口
+ * todo: 对外接口
  * @param opt   $dom control="select"
  *              data 渲染列表所需的数据
  *              skin .cw-droplist-i的自定义class，可用于自定义样式
@@ -51,7 +51,7 @@ function drop(opt, callback) {
 
 
 /**
- * 渲染option列表
+ * todo: 渲染option列表
  * @param data
  * @returns {*|jQuery}
  */
@@ -91,7 +91,7 @@ api.show = function () {
 
 
 /**
- * 工具单个元素的高度动态计算列表高度
+ * todo: 工具单个元素的高度动态计算列表高度
  * @param num  指定一页显示的列数
  * @returns {number}  列表的高度（px）
  */
@@ -105,7 +105,7 @@ api.height = function (num) {
 
 
 /**
- * 初始化drop的尺寸包括宽，高，字体大小，行高
+ * todo: 初始化drop的尺寸包括宽，高，字体大小，行高
  * @param num
  * @returns {SELECT}
  */
@@ -122,7 +122,7 @@ api.resize = function (num) {
 
 
 /**
- * 将列表移动到当前按钮的位置
+ * todo: 将列表移动到当前按钮的位置
  * @param type
  * @returns {SELECT}
  */
@@ -167,7 +167,7 @@ api.move = function (type) {
 
 
 /**
- * 绑定各种默认事件
+ * todo: 绑定各种默认事件
  */
 $body.on('mouseenter', li, function () {
     $(this).addClass('hover');
@@ -188,7 +188,7 @@ $body.on('mouseenter', li, function () {
 
 
 /**
- * 在一些情况下，也需要隐藏列表，局的的看下面绑定的事件吧
+ * todo: 在一些情况下，也需要隐藏列表，自己的看下面绑定的事件吧
  */
 var dropHide = function () {
     $('[control=select]').removeClass('active');

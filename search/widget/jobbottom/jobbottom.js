@@ -16,12 +16,23 @@ function checks() {
 
 $jobbottom
     .on('change', '.selectAll', function () {
-        var ck = $(this).prop('checked');
+        var ck = $(this).prop('checked'),
+            url = [];
         $joblist.find(check).prop('checked', ck)[(ck ? 'add' : 'remove') + 'Class']('checked');
+
+        ck && checks().each(function () {
+            var $me = $(this);
+            url.push($me.data('id'));
+        });
+
+        $('.J-shows').attr('href', ck ? '/job_search/job_show/' + url.join('-') : 'javascript:')
     })
     .on('click', '.J-collects', function () {
-        var $shows = checks();
-
+        if ($(this).href('javascript:')) {
+            require.async(['base:components/layer/layer.js'], function (layer) {
+                layer.message()
+            });
+        }
     })
     .on('click', '.J-shows', function () {
         var $shows = checks();
@@ -29,6 +40,9 @@ $jobbottom
     });
 
 
+/**
+ * TODO:
+ */
 $joblist.on('click', check, function (ev) {
     var $self = $(this);
     setTimeout(function () {
