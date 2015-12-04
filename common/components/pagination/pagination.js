@@ -19,7 +19,7 @@
             data: null,
             postData: {},
             dataType: 'json',
-            submit: function(postData, callback) {
+            submit: function (postData, callback) {
                 var me = this,
                     postData = $.extend({}, this.postData, postData), url = this.url;
 
@@ -30,7 +30,7 @@
                     cache: false,
                     data: postData,
                     dataType: this.dataType,
-                    success: function(data) {
+                    success: function (data) {
                         me.onLoadingEnd();
                         me.data = data.data;
                         me.render(data.data);
@@ -38,18 +38,19 @@
                     }
                 });
             },
-            onLoadingBegin: function() {
+            onLoadingBegin: function () {
                 this.disabled = true;
             },
-            onLoadingEnd: function() {
+            onLoadingEnd: function () {
                 this.disabled = false;
             },
-            render: function(data) {
+            render: function (data) {
                 Pagination.renderPageInfo(this.$page, this);
                 this.perDropdown && Pagination.refreshPagePer(this.$page, data.pager);
                 this.fillContent(data);
             },
-            fillContent: function(data) {},
+            fillContent: function (data) {
+            },
             pageSetting: {
                 // 当前页的最大紧邻前置页数（不包括最前面的显示页数）
                 prepose: 2,
@@ -62,7 +63,7 @@
             }
         },
 
-        _attachPagination: function(target, options) {
+        _attachPagination: function (target, options) {
             var opts = this._newOpts(target, options);
             this.render(opts);
 
@@ -72,7 +73,7 @@
                 opts.submit();
         },
 
-        _newOpts: function(target, options) {
+        _newOpts: function (target, options) {
             var opts = $.extend({}, this.opts, options);
             (typeof(opts.$page) == 'undefined') && (opts.$page = $(target).find('.page'));
 
@@ -80,34 +81,34 @@
             return opts;
         },
 
-        _getOpts: function(target) {
+        _getOpts: function (target) {
             return $.data(target, PAGER_NAME);
         },
 
-        render: function(opts) {
+        render: function (opts) {
             opts.$page.html('<span class="page-info"></span>');
             this.renderGoto(opts);
             this.events(opts);
             opts.onRender && opts.onRender();
         },
 
-        renderPageInfo: function($page, opts) {
-            var pagerHtml = '', pager = opts.data.pager, setting = opts.pageSetting, $p = $page.children().first();
+        renderPageInfo: function ($page, opts) {
+            var i, pagerHtml = '', pager = opts.data.pager, setting = opts.pageSetting, $p = $page.children().first();
 
             pagerHtml += '<span class="prev"><i></i>上一页</span>';
             pagerHtml += '<ul class="page-list">';
 
             // 当前页的前的页码展示
             if (pager.cur <= setting.first + setting.prepose + 1) {
-                for(var i=1; i < pager.cur; i++) {
+                for (i = 1; i < pager.cur; i++) {
                     pagerHtml += this._renderActivePage(i);
                 }
             } else {
-                for(var i=1; i<=setting.first; i++) {
+                for (i = 1; i <= setting.first; i++) {
                     pagerHtml += this._renderActivePage(i);
                 }
                 (setting.first > 0) && (pagerHtml += '<li class="pagination-break">...</li>');
-                for(var i = pager.cur - setting.prepose; i <= pager.cur-1; i++) {
+                for (i = pager.cur - setting.prepose; i <= pager.cur - 1; i++) {
                     pagerHtml += this._renderActivePage(i);
                 }
             }
@@ -117,16 +118,16 @@
 
             // 当前页的后的页码展示
             if (pager.cur >= pager.allPages - setting.last - setting.postpose) {
-                for(var i = pager.cur + 1; i <= pager.allPages; i++) {
+                for (i = pager.cur + 1; i <= pager.allPages; i++) {
                     pagerHtml += this._renderActivePage(i);
                 }
 
             } else {
-                for(var i = pager.cur+1; i <= pager.cur + setting.postpose; i++) {
+                for (i = pager.cur + 1; i <= pager.cur + setting.postpose; i++) {
                     pagerHtml += this._renderActivePage(i);
                 }
                 (setting.last > 0) && (pagerHtml += '<li class="pagination-break">...</li>');
-                for(var i = pager.allPages - setting.last + 1; i <= pager.allPages; i++) {
+                for (i = pager.allPages - setting.last + 1; i <= pager.allPages; i++) {
                     pagerHtml += this._renderActivePage(i);
                 }
             }
@@ -141,15 +142,15 @@
             (pager.cur > pager.allPages - 1) && $p.find('.next').addClass('next-disabled');
         },
 
-        _renderActivePage: function(i, className) {
-            return '<li class="num' + (i < 10 ? ' min': '') + (className ? ' '+className : '') + '" data-page="' + i + '">' + i + '</li>';
+        _renderActivePage: function (i, className) {
+            return '<li class="num' + (i < 10 ? ' min' : '') + (className ? ' ' + className : '') + '" data-page="' + i + '">' + i + '</li>';
         },
 
-        refreshPagePer: function($page, pager) {
+        refreshPagePer: function ($page, pager) {
             $.fn.dropdown && $page.find('.pager-dropdown').dropdown('value', pager.per, false);
         },
 
-        renderGoto: function(opts) {
+        renderGoto: function (opts) {
             var $page = opts.$page,
                 me = this, $input,
                 $gotoWrap = $('<span class="page-go">跳转<input type="text">页</span>').appendTo($page),
@@ -157,7 +158,7 @@
 
             $input = $gotoWrap.find('input');
 
-            $input.on('keypress', function(event) {
+            $input.on('keypress', function (event) {
                 var code = event.which;
                 if (code == 13) {
                     $btn.trigger('click');
@@ -166,38 +167,38 @@
                 return (code >= 48 && code <= 57) || (code == 46 || code == 8 || code == 0);
             });
 
-            $btn.on('click', function() {
+            $btn.on('click', function () {
                 var page = $input.val();
                 if (page != '') me.goTo(opts, page);
                 $input.val('');
             });
         },
 
-        events: function(opts) {
+        events: function (opts) {
             var me = this,
                 p = opts.$page;
 
-            p.on('click', '.num', function() {
+            p.on('click', '.num', function () {
                 if ($(this).hasClass('cur') || opts.disabled) return;
                 me.goTo(opts, $(this).attr('data-page'));
             });
 
-            p.on('mouseenter mouseleave', '.num', function() {
+            p.on('mouseenter mouseleave', '.num', function () {
                 $(this).toggleClass('hover');
             });
 
-            p.on('click', '.prev', function() {
+            p.on('click', '.prev', function () {
                 if ($(this).hasClass('prev-disabled') || opts.disabled) return;
                 me.goTo(opts, opts.data.pager.cur - 1);
             });
 
-            p.on('click', '.next', function() {
-                if ($(this).hasClass('next-disabled')  || opts.disabled) return;
+            p.on('click', '.next', function () {
+                if ($(this).hasClass('next-disabled') || opts.disabled) return;
                 me.goTo(opts, opts.data.pager.cur + 1);
             });
         },
 
-        goTo: function(opts, page, callback) {
+        goTo: function (opts, page, callback) {
             var postData = {cur: page};
             opts.submit(postData, callback);
         },
@@ -205,13 +206,14 @@
         /*
          * 对外接口
          */
-        _refreshPagination: function(target, postData) {
-            var opts = this._getOpts(target); if (!opts) return;
+        _refreshPagination: function (target, postData) {
+            var opts = this._getOpts(target);
+            if (!opts) return;
             if (postData) opts.postData = $.extend(opts.postData, postData);
             this.goTo(opts, opts.data.pager.cur);
         },
 
-        _submitPagination: function(target, postData, callback, merge) {
+        _submitPagination: function (target, postData, callback, merge) {
             var merge = merge || false,
                 opts = this._getOpts(target),
                 postData = postData || {};
@@ -220,12 +222,12 @@
             this.goTo(opts, 1, callback);
         },
 
-        _goToPagination: function(target, page) {
+        _goToPagination: function (target, page) {
             var opts = this._getOpts(target);
             this.goTo(opts, page);
         },
 
-        _loadPagination: function(target, data) {
+        _loadPagination: function (target, data) {
             var opts = this._getOpts(target);
             opts.data = data;
             opts.render();
@@ -233,11 +235,11 @@
 
     };
 
-    $.fn.pagination = function(options) {
-        if ( ! this.length) return this;
+    $.fn.pagination = function (options) {
+        if (!this.length) return this;
         var otherArgs = Array.prototype.slice.call(arguments, 1);
 
-        return this.each(function() {
+        return this.each(function () {
             typeof options === "string" ?
                 Pagination["_" + options + "Pagination"].apply(Pagination, [this].concat(otherArgs)) :
                 Pagination._attachPagination(this, options);
