@@ -2,19 +2,26 @@
  * Created by TC-62 on 2015/10/22.
  */
 
+
+'use strict';
+
 var tpl = require('common:components/tpl/tpl.js'),
     drop = require('widget/droplist/droplist.js'),
     H = require('common:widget/helper/helper.js'),
-    selectTimer,
+    pages = __inline('widget/pages/view/pages.tmpl'),
     $joblist = $('.w-joblist'),
     tmpl = __inline('view/joblist.tmpl'),
     _FILTER_POST = {},
-    whole = false;
+    whole = false,
+    renderMod,
+    pagesMod;
 
 
 tpl.helper('inArray', $.inArray);
 
-window.renderMod = tpl.compile(tmpl);
+renderMod = tpl.compile(tmpl);
+pagesMod = tpl.compile(pages);
+
 
 /** ****************************职位列表的对外接口************************* **/
 /**
@@ -40,7 +47,7 @@ exports.asyncRender = asyncRender;
  * @param name
  * @param value
  */
-exports.where = function (name, value) {
+exports.where = function (name, value, setpage) {
 
     var key;
     _FILTER_POST[name] = value;
@@ -62,8 +69,28 @@ exports.where = function (name, value) {
                 $DROPDATA_INDEX: DROPDATA_INDEX,
                 whole: whole
             });
+
+
+            /**
+             * 分页
+             */
+            $('.w-page-inner:not(.nojs)').html(pagesMod({
+                $page: parseInt(data.message.postData.page || 1),
+                $all: parseInt(data.message.pager.page_max || 1)
+            }));
+
+            /**
+             * 翻页后回到顶部
+             */
+            var top = $('.w-screen').offset().top,
+                scroll = $(document).scrollTop();
+            $('body').animate({'scrollTop': scroll > top ? top : scroll});
+
             layer.closeAll();
         }
+
+
+        !setpage && delete _FILTER_POST.page;
 
         $.ajax({
             url: window.location.href,
@@ -135,17 +162,17 @@ $joblist.on('mouseenter', '.job-child', function () { // 鼠标移入展开
         $joblist.find('.job-child .all').hide();
         $all.stop(true).fadeIn(200);
     }
-}).on('dblclick', '.job-child', function () { // 双击选中
-    var $input = $(this).find('.job input');
-    $input.prop('checked', !$input.prop('checked'));
-}).on('click', function () { // 双击文本选中bug处理
-    var me = this;
-    clearTimeout(selectTimer);
-    H.selected(false, me);
-    selectTimer = setTimeout(function () {
-        H.selected(true, me);
-    }, 300)
-});
+})/*.on('dblclick', '.job-child', function () { // 双击选中
+ var $self = $(this);
+ $input = $self.find('.job input');
+ $input.prop('checked', !$input.prop('checked'));
+ }).on('click', function () { // 双击文本选中bug处理
+ var me = this;
+ clearTimeout(selectTimer);
+ selectTimer = setTimeout(function () {
+ H.selected(true, me);
+ }, 300)
+ })*/;
 
 
 /**
@@ -176,7 +203,7 @@ if (!$('body').css('maxWidth')) {
  */
 var $popbox = $('<div class="popbox"><div class="pop"><span><em></em><strong>选择求职信</strong><br>申请之前，选择求职信</span></div></div>'),
     joblistTimer = $joblist.on('mouseenter', '.operate .apply', function () {
-        me = this;
+        var me = this;
         joblistTimer = setTimeout(function () {
             $popbox.appendTo($(me));
         }, 150);
@@ -190,13 +217,17 @@ require.async(['base:components/layer/layer.js'], function (layer) {
 
 
     var ajax = function (opt, data) {
-        var args = arguments;
+        var success, args = arguments;
         if (typeof opt == 'string') {
             opt = {
                 url: opt,
                 data: data
             };
         }
+
+        // 回掉函数
+        success = opt.success ? opt.success : typeof args[args-1] == "function" ? args[args-1] : null;
+
 
         layer.load(2, {shade: .1});
 
@@ -212,7 +243,7 @@ require.async(['base:components/layer/layer.js'], function (layer) {
                     var msg = data.message;
                     layer.message({right: msg.right, bottom: msg.bottom || undefined, icon: msg.icon || 0}, {title: msg.title});
                 } else if (status == 1) {
-                    typeof args[args.length - 1] == "function" ? args[args.length - 1](data) : null;
+                    success && success(data);
                 } else {
                     layer.alert('未知错误! data.status:' + status)
                 }
@@ -313,19 +344,14 @@ require.async(['base:components/layer/layer.js'], function (layer) {
             var $self = $(this);
 
             if (!$self.hasClass('action')) {
-                $.ajax({
+                ajax({
                     url: '/pop/collection_job',
-                    method: 'post',
-                    dataType: 'json',
                     data: {
                         job_id: $self.closest('.job-child').data('id')
-                    },
-                    success: function (data) {
-                        if (data.status == 1) {
-                            $self.addClass('active');
-                        }
-                        layer.message(data.message, {title: data.message.title});
                     }
+                }, function (data) {
+                    $self.addClass('active');
+                    layer.message(data.message, {title: data.message.title});
                 });
             }
         });
