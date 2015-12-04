@@ -2,7 +2,8 @@
  * Created by TC-62 on 2015/11/24.
  */
 
-var $keywork = $('.w-keyworks'),
+var H = require('common:widget/helper/helper.js'),
+    $keywork = $('.w-keyworks'),
     $doc = $(document);
 
 
@@ -24,3 +25,6 @@ $keywork.on('click', '.search-type li', function (ev) {
         .siblings('span').html($me.html());
     ev.stopPropagation();
 });
+
+
+

@@ -20,13 +20,9 @@ $doc.on('mouseenter', li, function () {
 });
 
 
-/**
- * 复制翻页到底部
- */
-$tabmenu.find('.tabright .ve-page-inner').clone().appendTo('.funright');
 
 
-/**
+/**w
  * 翻页展开效果
  */
 var tabtimer;
@@ -43,8 +39,7 @@ $tabmenu.on('mouseover', '.w-tab-show, .tabright', function () {
 /**
  * 列表/明细
  */
-var jlStyle = '.joblist-style span',
-    joblist = require('widget/joblist/joblist.js');
+var jlStyle = '.joblist-style span';
 $tabmenu.on('click', jlStyle, function () {
     var $self = $(this);
     $self.addClass('action').siblings().removeClass('action');

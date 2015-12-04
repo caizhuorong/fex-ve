@@ -86,37 +86,39 @@ require.async(['base:components/layer/layer.js'], function (layer) {
         joblist.where('arr_where_filter_reverse_str', keys.join('||'))
     }
 
-    $screen.on('click', '.screen .btn-n1', function () {
-        var $input = $(this).siblings('input'),
-            val = $input.val().trim();
-        if ($child.find('span').length == 4) {
-            layer.tips('最多只支持4个关键字！', $child, tipsConfig);
-        } else if (val == '') {
-            layer.tips('这里什么都木有！', $input, tipsConfig);
-        } else {
+    $screen
+        .on('click', '.screen .btn-n1', function () {
+            var $input = $(this).siblings('input'),
+                val = $input.val().trim();
+            if ($child.find('span').length == 4) {
+                layer.tips('最多只支持4个关键字！', $child, tipsConfig);
+            } else if (val == '') {
+                layer.tips('这里什么都木有！', $input, tipsConfig);
+            } else {
+                /**
+                 *  添加关键字
+                 */
+                $input.val('');
+                $child.append($('<span>' + val + '<i></i></span>').data('item', val));
+                changeKeyWork();
+            }
+            $input.focus();
+        })
+        .on('click', '.child span i', function () {
             /**
-             *  添加关键字
+             *  删除关键字
              */
-            $input.val('');
-            $child.append($('<span>' + val + '<i></i></span>').data('item', val));
-            changeKeyWork();
-        }
-        $input.focus();
-    }).on('click', '.child span i', function () {
-        /**
-         *  删除关键字
-         */
-        var $span = $(this).parent();
+            var $span = $(this).parent();
 
-        $span.data('item', '').animate({'opacity': 0}, 200, function () {
-            $(this).remove();
+            $span.data('item', '').animate({'opacity': 0}, 200, function () {
+                $(this).remove();
+            });
+            changeKeyWork();
+        })
+        .on('keydown', '.screen input', function (ev) {
+            ev.keyCode == 13 &&  $screen.find('.screen .btn-n1').click();
+
         });
-        changeKeyWork();
-    }).on('keydown', '.screen input', function (ev) {
-        if (ev.keyCode == 13) {
-            $screen.find('.screen .btn-n1').click();
-        }
-    });
 
 
 });

@@ -23,8 +23,8 @@
                 <li data-name="all">全 文</li>
             </ul>
         </span>
-        <input type="text" class="search-val placeholder" placeholder="输入职位名或者关键字" name="key_words" value="{%$_REQUEST['key_words']%}" autocomplete="off">
-        <a href="javascript:;" class="search-btn" target="_self">找工作</a>
+        <input type="text" class="search-val" placeholder="输入职位名或者关键字" name="key_words" value="{%$_REQUEST['key_words']%}" autocomplete="off">
+        <a href="javascript:" class="search-btn" target="_self">找工作</a>
     </div>
 
     <span class="search-more" class="action">更多搜索条件<b></b></span>

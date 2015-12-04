@@ -24,7 +24,7 @@
         <form id="job-search-form" action="/job_search/job_list" method="{%$method|default:'get'%}" dataType="json" formdata="{form_src:'local'}" config="{}">
             {%widget name="widget/keyworks/keyworks.tpl"%}
 
-            <div class="search-form-box" style="display: none">
+            <div class="search-form-box" style="display:none">
                 <i class="line"></i>
 
                 <div class="form-box">
@@ -54,7 +54,7 @@
 
                 <div class="form-bottom">
                     <input type="submit" class="submit J_submit" value="找工作">
-                    <a href="javascript:;" class="clear-form">清空搜索条件</a>
+                    <a href="javascript:" class="clear-form">清空搜索条件</a>
                 </div>
             </div>
 

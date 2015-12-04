@@ -13,6 +13,7 @@
         _SERVER_TIME_OFFSET = {%time() + 2%}000;
         window._SERVER_TIME_OFFSET = (new Date()).valueOf() - _SERVER_TIME_OFFSET;
 
+        window._ARR_KEY_WORDS = {%$data.arr_key_words%}
         window._REQUEST = {%json_encode($_REQUEST)%};
     {%/script%}
 
@@ -31,7 +32,6 @@
 
 
     {%* 页面内容 *%}
-
     {%widget name="widget/float/float.tpl"%}
 
 {%/block%}

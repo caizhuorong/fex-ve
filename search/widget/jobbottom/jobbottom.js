@@ -8,16 +8,30 @@ var joblist = require('widget/joblist/joblist.js'),
     $joblist = $('.w-joblist'),
     check = '.base .job input[type=checkbox]';
 
-$jobbottom.on('change', '.selectAll', function () {
-    var ck = $(this).prop('checked');
-    $joblist.find(check).prop('checked', ck)[(ck ? 'add' : 'remove') + 'Class']('checked');
-});
+
+function checks() {
+    return $joblist.find('.job-child input.checked').closest('.job-child');
+}
 
 
-var jltimer;
+$jobbottom
+    .on('change', '.selectAll', function () {
+        var ck = $(this).prop('checked');
+        $joblist.find(check).prop('checked', ck)[(ck ? 'add' : 'remove') + 'Class']('checked');
+    })
+    .on('click', '.J-collects', function () {
+        var $shows = checks();
+
+    })
+    .on('click', '.J-shows', function () {
+        var $shows = checks();
+        console.log($shows)
+    });
+
+
 $joblist.on('click', check, function (ev) {
     var $self = $(this);
-    jltimer = setTimeout(function () {
+    setTimeout(function () {
         var $check = $joblist.find(check),
             ck = $self.prop('checked');
         $self[(ck ? 'add' : 'remove') + 'Class']('checked');
@@ -28,6 +42,6 @@ $joblist.on('click', check, function (ev) {
 });
 
 
-joblist.collect( $('.w-joblist .job-child') );
+//joblist.collect( $('.w-joblist .job-child') );
 
 

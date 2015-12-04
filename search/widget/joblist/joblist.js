@@ -74,9 +74,13 @@ exports.where = function (name, value, setpage) {
             /**
              * 分页
              */
-            $('.w-page-inner:not(.nojs)').html(pagesMod({
-                $page: parseInt(data.message.postData.page || 1),
-                $all: parseInt(data.message.pager.page_max || 1)
+            var $page = $('.w-page-inner'),
+                page = data.message.postData.page || 1,
+                page_max = data.message.pager.page_max || 1;
+            $page.filter('.nojs').children('a').html(page + '/' + page_max);
+            $page.filter(':not(.nojs)').html(pagesMod({
+                $page: parseInt(page),
+                $all: parseInt(page_max)
             }));
 
             /**
@@ -86,6 +90,9 @@ exports.where = function (name, value, setpage) {
                 scroll = $(document).scrollTop();
             $('body').animate({'scrollTop': scroll > top ? top : scroll});
 
+            /**
+             * 关闭加载中的转转转效果
+             */
             layer.closeAll();
         }
 
@@ -226,7 +233,7 @@ require.async(['base:components/layer/layer.js'], function (layer) {
         }
 
         // 回掉函数
-        success = opt.success ? opt.success : typeof args[args-1] == "function" ? args[args-1] : null;
+        success = opt.success ? opt.success : typeof args[args - 1] == "function" ? args[args - 1] : null;
 
 
         layer.load(2, {shade: .1});

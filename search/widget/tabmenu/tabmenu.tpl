@@ -11,8 +11,8 @@
 
 
     <div class="w-tab-show">
-        <div class="ve-page-inner">
-            <a href="javascript:;">{%if $_REQUEST['page']%}{%$_REQUEST['page']%}{%else%}1{%/if%} / {%if $data.page_max%}{%$data.page_max%}{%else%}1{%/if%}</a>
+        <div class="w-page-inner nojs">
+            <a href="javascript:">{%if $_REQUEST['page']%}{%$_REQUEST['page']%}{%else%}1{%/if%} / {%if $data.page_max%}{%$data.page_max%}{%else%}1{%/if%}</a>
 
             <input name="" type="text" class="page-text">
             <input name="" type="button" class="page-btn">
