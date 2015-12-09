@@ -36,4 +36,7 @@ layer.message = function (content, icon, option) {
     return index;
 };
 
-module.exports = layer;
+
+
+
+module.exports = window.layer = layer;

@@ -4,10 +4,11 @@ var timen = (new Date).valueOf();
 
 var fs = require('fs'),
     util = require('util'),
-    post = require('../data/zh-cn/post.json'),
+    post = require('../data/zh-cn/post-data.json'),
     post_cn = {},
 
     postTxt = fs.readFileSync('../post.txt').toString(),
+    postHot = fs.readFileSync('../post-hot.txt').toString(),
 
     tmp, i;
 
@@ -17,15 +18,35 @@ for (i in post) {
     post_cn[post[i]] = i;
 }
 
-// 中文数据结构
-postTxt = postTxt.split(/\r?\n/);
-for (i = 0, len = postTxt.length; i < len; i++) {
-    tmp = postTxt[i].replace(/\t*$/, '').split('\t');
-    postTxt[i] = [tmp.shift(), tmp];
+
+postHot = postSplit(postHot);
+
+function itemhot(hot) {
+    var i, item = [];
+    for (i = 0; i < hot.length; i++) {
+        if (util.isArray(hot[i])) {
+            hot[i] = itemhot(hot[i]);
+        } else {
+            hot[i] = post_cn[hot[i]] || hot[i];
+        }
+    }
+    return hot;
 }
+postHot = itemhot(postHot);
+console.log(postHot);
 
 
-// console.log( postTxt );return;
+// 中文数据结构
+function postSplit(postTxt) {
+    var i, len, tmp;
+    postTxt = postTxt.split(/\r?\n/);
+    for (i = 0, len = postTxt.length; i < len; i++) {
+        tmp = postTxt[i].replace(/\t*$/, '').split('\t');
+        postTxt[i] = [tmp.shift(), tmp];
+    }
+    return postTxt;
+}
+postTxt = postSplit(postTxt);
 
 
 function items(list) {
@@ -40,16 +61,21 @@ function items(list) {
                 // 标题
                 item = [
                     post_cn[list[1][0]].match(/^\d{2}/)[0] + '00',
-                    list[0],
                     items(list[1])
                 ];
+                /*[
+                 post_cn[list[1][0]].match(/^\d{2}/)[0] + '00',     // ID
+                 list[0],                                           // 显示的文本
+                 items(list[1])                                     // 子集
+                 ]*/
             }
         } else {
             // 列表
-            item[i] = [
-                post_cn[list[i]],
-                list[i]
-            ];
+            item[i] = post_cn[list[i]];
+            /*[
+             post_cn[list[i]],       // ID
+             list[i]                 // 显示的文本
+             ]*/
         }
     }
 
@@ -57,10 +83,24 @@ function items(list) {
 }
 
 
+var allpost = items(postTxt);
+
+
+console.log('');console.log('');
+
+console.log(allpost);
+
+
+
 // console.log(items(postTxt));
 
 
-fs.writeFileSync('../../data/post_zh-cn.js', 'module.exports=' + JSON.stringify(items(postTxt))/*.replace(/\"(\w)\"\:/g, "$1:")*/ + ';');
+fs.writeFileSync('../../data/post_zh-cn.js', 'module.exports=' + JSON.stringify({
+        all: allpost,   // 所有职位的分类 （必选且结构固定）
+        raw: post,      // key对应文本的数据源 （必选且结构固定）
+        hot: postHot,   // 热门职位
+        type: require('../data/zh-cn/post-type.json')
+    })/*.replace(/\"(\w)\"\:/g, "$1:")*/ + ';');
 
 
 console.log((new Date).valueOf() - timen + 'ms', 'done!');

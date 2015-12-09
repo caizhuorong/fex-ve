@@ -1,16 +1,38 @@
 <div class="ve-w-cock">
-    <div class="ck-std">已选职位：</div>
+    <div class="ck-std">
+        已选职位：
+        <span class="ck-std-list"></span>
+    </div>
 
     <h3 class="ck-title">热门职位</h3>
-    <div class="ck-hotjobs">
-    	<div class="list">
-            <h4></h4>
-
-        </div>
+    <div class="ck-job-hot J_ck-hot">
+        <table cellpadding="0" cellspacing="0" border="0">
+            {{each hot as child ps}}
+                <tbody>
+                    {{if ps>0}}<tr class="ck-dashed"><td colspan="4"><i></i></td></tr>{{/if}}
+                    <tr>
+                        <th rowspan="{{ceil(child[1].length/3)}}">{{child[0]}}：</th>
+                        {{each child[1] as item index}}
+                            {{if index > 0 && index % 3 == 0}}</tr>{{if index < child[1].length - 1}}<tr>{{/if}}{{/if}}
+                            <td><label><input type="checkbox" value="{{item}}">{{raw[item]}}</label></td>
+                            {{if index == child[1].length - 1 && (index+1) % 3 > 0}}<td colspan="{{3-(index+1)%3}}"></td>{{/if}}
+                        {{/each}}
+                    </tr>
+                </tbody>
+            {{/each}}
+        </table>
     </div>
 
     <h3 class="ck-title">所有职位</h3>
-    <div class="ck-alljobs">
-        
+    <div class="ck-job-all J_ck-all">
+        <table cellpadding="0" cellspacing="0" border="0">
+            {{each all as child index}}
+                {{if index % 5 == 0 && index < all.length - 1}}<tr>{{/if}}
+                <td><span data-id="{{child[0]}}" data-index="{{index}}">{{type[child[0]]}}</span></td>
+                {{if index == all.length - 1 && (index+1) % 5 > 0}}<td colspan="{{5-(index+1)%5}}"></td>{{/if}}
+                {{if (index > 0 && index % 5 == 4) || index == all.length - 1}}</tr>{{/if}}
+            {{/each}}
+        </table>
     </div>
+
 </div>
