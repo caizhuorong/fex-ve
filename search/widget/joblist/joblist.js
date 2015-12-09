@@ -47,7 +47,55 @@ exports.asyncRender = asyncRender;
  * @param name
  * @param value
  */
+var wherePx = {
+    loading: false,
+    render: function render(data) {
+        asyncRender({
+            data: data.message.data,
+            $top: data.message.top_job_num,
+            fav: data.message.favoriteJob.join('|').split('|'),
+            $DROPDATA_INDEX: DROPDATA_INDEX,
+            whole: whole
+        });
+
+
+        /**
+         * 分页
+         */
+        var $page = $('.w-page-inner'),
+            page = data.message.postData.page || 1,
+            page_max = data.message.pager.page_max || 1;
+        $page.filter('.nojs').children('a').html(page + '/' + page_max);
+        $page.filter(':not(.nojs)').html(pagesMod({
+            $page: parseInt(page),
+            $all: parseInt(page_max)
+        }));
+
+        /**
+         * 翻页后回到顶部
+         */
+        var top = $('.w-screen').offset().top,
+            scroll = $(document).scrollTop();
+        $('body').animate({'scrollTop': scroll > top ? top : scroll});
+
+
+        wherePx.end();
+    },
+
+    start: function () {
+        layer.load(2, {shade: .1});
+        this.loading = true;
+    },
+
+    end: function () {
+        layer.closeAll();
+        this.loading = false;
+    }
+};
 exports.where = function (name, value, setpage) {
+
+    if (wherePx.loading)return;
+    wherePx.start();
 
     var key;
     _FILTER_POST[name] = value;
@@ -58,58 +106,18 @@ exports.where = function (name, value, setpage) {
         }
     }
 
-    require.async(['base:components/layer/layer.js'], function (layer) {
-        layer.load(2, {shade: .1});
+    !setpage && delete _FILTER_POST.page;
 
-        function render(data) {
-            asyncRender({
-                data: data.message.data,
-                $top: data.message.top_job_num,
-                fav: data.message.favoriteJob.join('|').split('|'),
-                $DROPDATA_INDEX: DROPDATA_INDEX,
-                whole: whole
-            });
-
-
-            /**
-             * 分页
-             */
-            var $page = $('.w-page-inner'),
-                page = data.message.postData.page || 1,
-                page_max = data.message.pager.page_max || 1;
-            $page.filter('.nojs').children('a').html(page + '/' + page_max);
-            $page.filter(':not(.nojs)').html(pagesMod({
-                $page: parseInt(page),
-                $all: parseInt(page_max)
-            }));
-
-            /**
-             * 翻页后回到顶部
-             */
-            var top = $('.w-screen').offset().top,
-                scroll = $(document).scrollTop();
-            $('body').animate({'scrollTop': scroll > top ? top : scroll});
-
-            /**
-             * 关闭加载中的转转转效果
-             */
-            layer.closeAll();
+    $.ajax({
+        url: window.location.href,
+        method: 'post',
+        dataType: 'json',
+        data: _FILTER_POST,
+        success: wherePx.render,
+        error: function (err) {
+            wherePx.end();
+            layer.alert('出错了： ' + err);
         }
-
-
-        !setpage && delete _FILTER_POST.page;
-
-        $.ajax({
-            url: window.location.href,
-            method: 'post',
-            dataType: 'json',
-            data: _FILTER_POST,
-            success: render,
-            error: function (err) {
-                layer.closeAll();
-                layer.alert('出错了： ' + err);
-            }
-        });
     });
 
 };
@@ -220,151 +228,148 @@ var $popbox = $('<div class="popbox"><div class="pop"><span><em></em><strong>选
     });
 
 
-require.async(['base:components/layer/layer.js'], function (layer) {
+var ajax = function (opt, data) {
+    var success, args = arguments;
+    if (typeof opt == 'string') {
+        opt = {
+            url: opt,
+            data: data
+        };
+    }
+
+    // 回掉函数
+    success = opt.success ? opt.success : typeof args[args - 1] == "function" ? args[args - 1] : null;
 
 
-    var ajax = function (opt, data) {
-        var success, args = arguments;
-        if (typeof opt == 'string') {
-            opt = {
-                url: opt,
-                data: data
-            };
-        }
+    layer.load(2, {shade: .1});
 
-        // 回掉函数
-        success = opt.success ? opt.success : typeof args[args - 1] == "function" ? args[args - 1] : null;
-
-
-        layer.load(2, {shade: .1});
-
-        $.ajax($.extend({}, {
-            method: 'post',
-            dataType: 'json',
-            success: function (data) {
-                layer.closeAll();
-                var status = data.status;
-                if (status == 2) {
-                    location.href = 'http://i.veryeast.cn/user/login?redirect=' + encodeURIComponent(location.href);
-                } else if (status == 0 || (data.message && data.message.right)) {
-                    var msg = data.message;
-                    layer.message({right: msg.right, bottom: msg.bottom || undefined, icon: msg.icon || 0}, {title: msg.title});
-                } else if (status == 1) {
-                    success && success(data);
-                } else {
-                    layer.alert('未知错误! data.status:' + status)
-                }
-            },
-            error: function (err) {
-                layer.closeAll();
-                layer.alert('未知错误!<br><pre>' + err + '</pre>', {maxWidth: '600px'});
+    $.ajax($.extend({}, {
+        method: 'post',
+        dataType: 'json',
+        success: function (data) {
+            layer.closeAll();
+            var status = data.status;
+            if (status == 2) {
+                location.href = 'http://i.veryeast.cn/user/login?redirect=' + encodeURIComponent(location.href);
+            } else if (status == 0 || (data.message && data.message.right)) {
+                var msg = data.message;
+                layer.message({right: msg.right, bottom: msg.bottom || undefined, icon: msg.icon || 0}, {title: msg.title});
+            } else if (status == 1) {
+                success && success(data);
+            } else {
+                layer.alert('未知错误! data.status:' + status)
             }
-        }, opt));
-    };
+        },
+        error: function (err) {
+            layer.closeAll();
+            layer.alert('未知错误!<br><pre>' + err + '</pre>', {maxWidth: '600px'});
+        }
+    }, opt));
+};
 
 
-    /**
-     * 电话直聘
-     */
-    $joblist.on('click', '.base .job .call', function () {
-        ajax('/pop/show_tel', {job_id: $(this).closest('.job-child').data('id')}, function (data) {
-            //console.log(data);
-            layer.message('<p>欢迎来电应聘/咨询：<strong>' + data.message.contact_telephone + '</strong><br>咨询时间：' + (data.message.contact_time == '00:00-00:00' ? '24 x 7' : data.message.contact_time) + '</p>', 2, {title: '电话直聘'});
-        });
+/**
+ * 电话直聘
+ */
+$joblist.on('click', '.base .job .call', function () {
+    ajax('/pop/show_tel', {job_id: $(this).closest('.job-child').data('id')}, function (data) {
+        //console.log(data);
+        layer.message('<p>欢迎来电应聘/咨询：<strong>' + data.message.contact_telephone + '</strong><br>咨询时间：' + (data.message.contact_time == '00:00-00:00' ? '24 x 7' : data.message.contact_time) + '</p>', 2, {title: '电话直聘'});
     });
+});
 
 
-    /**
-     * 选择求职信列表
-     */
-    var jsldata;
-    $(document).on('click', '.w-joblist-sl [control=select]', function (ev) {
+/**
+ * 选择求职信列表
+ */
+var jsldata;
+$(document).on('click', '.w-joblist-sl [control=select]', function (ev) {
+    var $self = $(this);
+
+    if (!$self.hasClass('active')) {
+        drop({
+            $dom: $self,
+            data: jsldata.list,
+            skin: 'w-joblist-drop',
+            zIndex: parseInt($self.closest('.layui-layer').css('zIndex')) + 1,
+            cache: false
+        }, function (val) {
+            var $sl = $('.layui-layer .w-joblist-sl');
+            $sl.find('textarea').val(jsldata.all[val].content);
+        }).resize(8).move(0);
+        ev.stopPropagation();
+    }
+});
+
+
+/**
+ * 申请职位
+ */
+var selectletter = __inline('view/selectletter.tmpl');
+
+$joblist
+    .on('click', '.apply', function (ev) { // 立即申请
+        ajax('/pop/apply_job', {job_id: $(this).closest('.job-child').data('id')}, function (data) {
+            console.log(data);
+        });
+    }).on('click', '.pop span', function (ev) {
+        var $child = $(this).closest('.job-child');
+
+        ajax('/pop/choose_resume', {job_id: $(this).closest('.job-child').data('id')}, function (data) {
+            // 求职信列表数据
+            var i, len, letterList = data.message.letterList;
+            jsldata = {list: [], all: {}};
+            for (i = 0, len = letterList.length; i < len; i++) {
+                jsldata.list.push([letterList[i].id, letterList[i].title]);
+                jsldata.all[letterList[i].id] = letterList[i];
+            }
+
+            layer.open({
+                title: '请选择求职信',
+                content: selectletter,
+                area: '480px',
+                move: false,
+                btn: false,
+                success: function (layero) {
+                    this.layero = layero
+                },
+                yes: function () {
+                    var apl_id = this.layero.find('[name=apply_letter_id]').val();
+
+                    ajax('/pop/apply_job', {
+                        job_id: $child.data('id'),
+                        use_letter: 1,
+                        apply_letter_id: apl_id,
+                        apply_letter_title: jsldata.all[apl_id].title,
+                        apply_letter_content: this.layero.find('[name=apply_letter_content]').val()
+                    }, function (data) {
+                    });
+                }
+            });
+        });
+        ev.stopPropagation();
+    })
+    .on('click', '.collect', function () {
+        /**
+         * 收藏
+         */
         var $self = $(this);
 
-        if (!$self.hasClass('active')) {
-            drop({
-                $dom: $self,
-                data: jsldata.list,
-                skin: 'w-joblist-drop',
-                zIndex: parseInt($self.closest('.layui-layer').css('zIndex')) + 1,
-                cache: false
-            }, function (val) {
-                var $sl = $('.layui-layer .w-joblist-sl');
-                $sl.find('textarea').val(jsldata.all[val].content);
-            }).resize(8).move(0);
-            ev.stopPropagation();
+        if (!$self.hasClass('action')) {
+            ajax({
+                url: '/pop/collection_job',
+                data: {
+                    job_id: $self.closest('.job-child').data('id')
+                }
+            }, function (data) {
+                $self.addClass('active');
+                layer.message(data.message, {title: data.message.title});
+            });
         }
     });
 
 
-    /**
-     * 申请职位
-     */
-    var selectletter = __inline('view/selectletter.tmpl');
 
-    $joblist
-        .on('click', '.apply', function (ev) { // 立即申请
-            ajax('/pop/apply_job', {job_id: $(this).closest('.job-child').data('id')}, function (data) {
-                console.log(data);
-            });
-        }).on('click', '.pop span', function (ev) {
-            var $child = $(this).closest('.job-child');
-
-            ajax('/pop/choose_resume', {job_id: $(this).closest('.job-child').data('id')}, function (data) {
-                // 求职信列表数据
-                var i, len, letterList = data.message.letterList;
-                jsldata = {list: [], all: {}};
-                for (i = 0, len = letterList.length; i < len; i++) {
-                    jsldata.list.push([letterList[i].id, letterList[i].title]);
-                    jsldata.all[letterList[i].id] = letterList[i];
-                }
-
-                layer.open({
-                    title: '请选择求职信',
-                    content: selectletter,
-                    area: '480px',
-                    move: false,
-                    btn: false,
-                    success: function (layero) {
-                        this.layero = layero
-                    },
-                    yes: function () {
-                        var apl_id = this.layero.find('[name=apply_letter_id]').val();
-
-                        ajax('/pop/apply_job', {
-                            job_id: $child.data('id'),
-                            use_letter: 1,
-                            apply_letter_id: apl_id,
-                            apply_letter_title: jsldata.all[apl_id].title,
-                            apply_letter_content: this.layero.find('[name=apply_letter_content]').val()
-                        }, function (data) {
-                        });
-                    }
-                });
-            });
-            ev.stopPropagation();
-        })
-        .on('click', '.collect', function () {
-            /**
-             * 收藏
-             */
-            var $self = $(this);
-
-            if (!$self.hasClass('action')) {
-                ajax({
-                    url: '/pop/collection_job',
-                    data: {
-                        job_id: $self.closest('.job-child').data('id')
-                    }
-                }, function (data) {
-                    $self.addClass('active');
-                    layer.message(data.message, {title: data.message.title});
-                });
-            }
-        });
-
-
-});
 
 
 
