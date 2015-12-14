@@ -1,22 +1,38 @@
 <div class="ve-w-cock">
     <div class="ck-std">
-        已选职位：
+        <h4>已选地点：</h4>
         <div class="ck-std-list"></div>
     </div>
 
-    <h3 class="ck-title">{{val.title}}</h3>
-    <div class="ck-main {{val.mclass}}">
-        <table cellpadding="0" cellspacing="0" border="0">
-            {{each val.hot as child}}
-                <tr>
-                    <th rowspan="2"></th>
+    <h3 class="ck-title">主要城市</h3>
+    <div class="ck-area-hot J_ck-area">
+        <table cellpadding="0" cellspacing="0" border="0" class="ck-table">
+            <tbody>
+            {{each hot as child ps}}
+            {{if ps % h_col.length == 0}}<tr>{{/if}}
+                <th>{{child[0]}}</th>
+                {{each child[1] as item index}}
+                <td><label><input type="checkbox" value="{{item}}">{{raw[item]}}</label></td>
+                {{if index == child[1].length - 1 && (index+1) % h_col[ps%h_col.length] > 0}}<td colspan="{{h_col[ps%h_col.length]-(index+1)%h_col[ps%h_col.length]}}"></td>{{/if}}
+                {{/each}}
+            {{if ps % h_col.length == h_col.length - 1}}</tr>{{/if}}
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
 
-                    <td></td>
-                </tr>
+    <h3 class="ck-title">所有省份</h3>
+    <div class="ck-area-all J_ck-all">
+        <table cellpadding="0" cellspacing="0" border="0" class="ck-table">
+            {{each all as child index}}
+            <tr>
+                <th>{{child[0]}}</th>
+                {{each child[1] as item ps}}
+                <td><span data-id="{{item}}0000" data-index="{{index}}-{{ps}}">{{raw[item+'0000']}}</span></td>
+                {{/each}}
+            </tr>
             {{/each}}
         </table>
     </div>
 
 </div>
-
-

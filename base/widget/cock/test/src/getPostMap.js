@@ -100,7 +100,7 @@ fs.writeFileSync('../../data/post_zh-cn.js', 'module.exports=' + JSON.stringify(
         raw: post,      // key对应文本的数据源 （必选且结构固定）
         hot: postHot,   // 热门职位
         type: require('../data/zh-cn/post-type.json')
-    })/*.replace(/\"(\w)\"\:/g, "$1:")*/ + ';');
+    })/*.replace(/\"(\w)\"\:/g, "$1:")*/);
 
 
 console.log((new Date).valueOf() - timen + 'ms', 'done!');

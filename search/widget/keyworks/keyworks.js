@@ -3,15 +3,20 @@
  */
 
 var H = require('common:widget/helper/helper.js'),
-    post = require('base:widget/cock/post.js'),
+    KW = {
+        post: require('base:widget/cock/post.js'),
+        area: require('base:widget/cock/area.js')
+    },
     $keywork = $('.w-keyworks'),
     $doc = $(document);
 
 
 $keywork
-    .on('click', '.kwbtn', function () {
-        post($(this).data(), function (data) {
+    .on('click', '.kwbtn[data-name]', function () {
+        var $this = $(this);
 
+        KW[$this.data('name')]($this.data(), function (data) {
+            console.log(data);
         });
     })
 

@@ -1,12 +1,12 @@
 <div class="ve-w-cock">
     <div class="ck-std">
-        已选职位：
-        <span class="ck-std-list"></span>
+        <h4>已选职位：</h4>
+        <div class="ck-std-list"></div>
     </div>
 
     <h3 class="ck-title">热门职位</h3>
     <div class="ck-job-hot J_ck-hot">
-        <table cellpadding="0" cellspacing="0" border="0">
+        <table cellpadding="0" cellspacing="0" border="0" class="ck-table">
             {{each hot as child ps}}
                 <tbody>
                     {{if ps>0}}<tr class="ck-dashed"><td colspan="4"><i></i></td></tr>{{/if}}
@@ -25,10 +25,16 @@
 
     <h3 class="ck-title">所有职位</h3>
     <div class="ck-job-all J_ck-all">
-        <table cellpadding="0" cellspacing="0" border="0">
+        <table cellpadding="0" cellspacing="0" border="0" class="ck-table">
             {{each all as child index}}
                 {{if index % 5 == 0 && index < all.length - 1}}<tr>{{/if}}
-                <td><span data-id="{{child[0]}}" data-index="{{index}}">{{type[child[0]]}}</span></td>
+                <td>
+                    {{if child[1].length>1}}
+                        <span data-id="{{child[0]}}" data-index="{{index}}" data-cols="{{child[1].length}}">{{type[child[0]]}}</span>
+                    {{else}}
+                        <label><input type="checkbox" value="{{child[0]}}">{{type[child[0]]}}</label>
+                    {{/if}}
+                </td>
                 {{if index == all.length - 1 && (index+1) % 5 > 0}}<td colspan="{{5-(index+1)%5}}"></td>{{/if}}
                 {{if (index > 0 && index % 5 == 4) || index == all.length - 1}}</tr>{{/if}}
             {{/each}}

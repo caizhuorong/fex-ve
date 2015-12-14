@@ -12,7 +12,7 @@
     line-height: 30px;
   }
 
-  table {
+  .ck-table {
     width: 100%;
     overflow: hidden;
     white-space: nowrap;
@@ -24,25 +24,65 @@
     }
   }
 
-
   .ck-std {
-    font-weight: bold;
-    color: #ee8216;
-    line-height: 29px;
-    margin-bottom: 12px;
     overflow: hidden;
-    white-space: nowrap;
+    line-height: 29px;
+    h4 {
+      float: left;
+      font-weight: bold;
+      color: #ee8216;
+      margin: 0 0 12px;
+    }
   }
-  
+
+  label {
+    &:hover, &.hover {
+      background: #fe9901;
+      color: #fff;
+    }
+  }
+
   .ck-std-list {
-    display: inline-block;
+    float: left;
+    width: 750px;
+    margin: 0 -25px 12px 0;
+    label {
+      display: inline-block;
+      padding-right: 5px;
+      margin-right: 20px;
+    }
+    input {
+      margin: 0 4px;
+      vertical-align: -1px;
+    }
   }
-  
-  
+
   .item-cache {
-    height: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: #fffaf6;
+    border: 1px solid #fe9901;
+    //padding: 2px 0 6px;
+    display: none;
+
+    td, th {
+      text-align: left;
+      height: 26px;
+      line-height: 26px;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    label {
+      display: block;
+      padding: 0 15px 0 9px;
+    }
+    input {
+      vertical-align: -1px;
+      margin-right: 4px;
+    }
   }
-  
+
   .ck-job-hot {
     padding: 13px 0;
     .ck-dashed {
@@ -62,10 +102,6 @@
     label {
       display: block;
       width: 100%;
-      &:hover {
-        background: #fe9901;
-        color: #fff;
-      }
     }
     input {
       margin: 0 5px;
@@ -79,17 +115,53 @@
     td {
       width: 20%;
       height: 32px;
-      span {
-        display: block;
-        margin: 0 2px;
-        padding: 0 3px;
-        line-height: 26px;
-        &:hover {
-          background: #fe9901;
-          color: #fff;
+    }
+    span, label {
+      display: block;
+      margin: 0 2px;
+      padding: 0 3px;
+      line-height: 26px;
+      &:hover, &.hover {
+        background: #fe9901;
+        color: #fff;
+        input {
+          display: inline-block;
         }
       }
     }
+    input {
+      margin-right: 4px;
+      vertical-align: -1px;
+      display: none;
+    }
+  }
 
+  .ck-area-hot {
+    margin: 12px 0;
+    th, td {
+      height: 30px;
+    }
+    th {
+      vertical-align: middle;
+      width: 24px;
+      font-weight: normal;
+    }
+    td {
+      width: 80px;
+    }
+    label {
+      display: block;
+      height: 24px;
+      padding-left: 5px;
+      &:hover, &.hover {
+        input {
+          display: inline-block;
+          vertical-align: -1px;
+        }
+      }
+    }
+    input {
+      display: none;
+    }
   }
 }
