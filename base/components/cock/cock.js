@@ -76,12 +76,13 @@ Cock = {
                     vals = me.getVelues($('.ve-w-cock .ck-std-list input')),
                     ofs;
 
-
+                console.log(data);
                 //判断cache是否存在，如果不存在，则创建
                 if (!$item.length) {
                     $item = me.render(itemTpl, $.extend({}, data.data, {
-                        vals: vals, index: index, baba: data.baba,
-                        ratio: data.ratio // ?  : 1
+                        vals: vals,
+                        index: index,
+                        baba: data.baba
                     }));
                     $itemCache.append($item);
                 }
@@ -169,7 +170,10 @@ Cock = {
 
     biu: function (opt) {
         var god = this.cache(opt.name);
-        return god ? god : this.cache(opt.name, $.extend({$main: this.render(opt.tpl, opt.data).attr('name', opt.name).append('<div class="item-cache"></div>')}, opt));// all: opt.data.all, raw: opt.data.raw, ratio: opt.ratio
+        opt.data.ratio = opt.ratio || 999;
+        return god ? god : this.cache(opt.name, $.extend({
+            $main: this.render(opt.tpl, opt.data).attr('name', opt.name).append('<div class="item-cache"></div>')
+        }, opt));
     },
 
 

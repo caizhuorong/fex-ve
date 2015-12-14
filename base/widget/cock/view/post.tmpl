@@ -30,7 +30,7 @@
                 {{if index % 5 == 0 && index < all.length - 1}}<tr>{{/if}}
                 <td>
                     {{if child[1].length>1}}
-                        <span data-id="{{child[0]}}" data-index="{{index}}" data-cols="{{child[1].length}}">{{type[child[0]]}}</span>
+                        <span data-id="{{child[0]}}" data-index="{{index}}" data-cols="{{cols(child[1].length/ratio)}}">{{type[child[0]]}}</span>
                     {{else}}
                         <label><input type="checkbox" value="{{child[0]}}">{{type[child[0]]}}</label>
                     {{/if}}
