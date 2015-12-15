@@ -3,6 +3,8 @@
 require_once('drop.php');
 
 $public_data = [
+    '_REQUEST' => $_REQUEST,
+
     'logo' => [
         'link' => '',
         'img' => '',

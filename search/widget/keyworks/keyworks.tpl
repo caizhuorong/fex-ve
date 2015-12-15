@@ -1,12 +1,12 @@
 <div class="w-keyworks">
-    <a class="kwbtn" data-name="post" data-placeholder="请选择职位" title="职位">
-        <span>请选择职位</span>
-        <input type="hidden" name="funtype" value="">
+    <a class="kwbtn" data-name="post" data-placeholder="请选择职位" data-title="职位" title="职位">
+        <span class="ellipsis">请选择职位</span>
+        <input type="hidden" name="funtype" value="{%$_REQUEST.funtype%}">
         <b></b>
     </a>
-    <a class="kwbtn" data-name="area" data-tip="请选择工作地点" data-placeholder="请选择地点" title="地点">
-        <span>请选择地点</span>
-        <input type="hidden" name="jobarea" value="" id="jobarea">
+    <a class="kwbtn" data-name="area" data-tip="请选择工作地点" data-placeholder="请选择地点" data-title="地点" title="地点">
+        <span class="ellipsis">请选择地点</span>
+        <input type="hidden" name="jobarea" value="{%$_REQUEST.jobarea%}">
         <b></b>
     </a>
 

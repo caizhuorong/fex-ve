@@ -2,13 +2,14 @@ var fs = require('fs'),
     area = require('../data/zh-cn/area.json'),
     areaAll = require('../data/zh-cn/area-all.json'),
     areaHot = require('../data/zh-cn/area-hot.json'),
+    //areaEmp = require('../data/zh-cn/area-emp.json'),
     map = {
         raw: area,
         a_ll: areaAll,
         hot: areaHot
+        //emp: areaEmp
     },
     i, len, tmp1, tmp2;
-
 
 
 // hot 列的 col 总值

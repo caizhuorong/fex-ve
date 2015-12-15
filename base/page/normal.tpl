@@ -4,6 +4,9 @@
     {%* 使用head插件替换head标签，主要为控制加载同步静态资源使用 *%}
     {%head%}
         <meta charset="utf-8"/>
+        <meta name="renderer" content="webkit"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+
         <link rel="dns-prefetch" href="//fex.v.veimg.cn">
         <link rel="dns-prefetch" href="//sso.veryeast.cn">
         <title>{%$title%}</title>

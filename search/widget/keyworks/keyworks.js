@@ -13,10 +13,19 @@ var H = require('common:widget/helper/helper.js'),
 
 $keywork
     .on('click', '.kwbtn[data-name]', function () {
-        var $this = $(this);
+        var $this = $(this),
+            data = $this.data();
 
-        KW[$this.data('name')]($this.data(), function (data) {
-            console.log(data);
+        data.hit = $this.find('input').val().split(',');
+
+        KW[$this.data('name')](data, function (list) {
+            var value = list.v.join(','),
+                text = list.t.join('+');
+
+            $this.find('input').val(value ? value : '');
+            $this.attr('title', text ? text : $this.data('title'));
+            $this.find('span').html(text ? text : $this.data('placeholder'));
+
         });
     })
 

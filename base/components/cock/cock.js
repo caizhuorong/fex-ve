@@ -8,9 +8,12 @@ var layer = require('components/layer/layer.js'),
     itemTpl = __inline('view/item.tmpl'),
     $win = $(window),
     cache = {},
-    Cock;
+    Cock,
+    action,
+    $me;
 
 
+// 在模板中挂咋需要使用到的方法
 tpl.helper('parseInt', parseInt);
 tpl.helper('ceil', Math.ceil);
 tpl.helper('inArray', $.inArray);
@@ -68,26 +71,20 @@ Cock = {
             .on('click.cock', '.ve-w-cock .J_ck-all span', function () {
                 var $this = $(this),
                     $main = $this.closest('.ve-w-cock'),
-                    index = $this.data('index'),
-                    data = me.cache($main.attr('name')),
-                    $itemCache = $main.find('>.item-cache').show(),
+                    index = $this.data('index'), // 二级菜单的缓存ID
+                    data = me.cache($main.attr('name')), // 大弹窗缓存（数据）
+                    $itemCache = $main.find('>.item-cache').show(), // 二级菜单div（缓存就在里面）
                     $item = $itemCache.find('>#item-' + index),
-                    vals = me.getVelues($('.ve-w-cock .ck-std-list input')),
+                    hit = me.getVelues($('.ve-w-cock .ck-std-list input')), // 已选择选项
                     ofs;
 
 
                 //判断cache是否存在，如果不存在，则创建
                 if (!$item.length) {
-                    $item = me.render(itemTpl, $.extend({}, data.data, {
-                        vals: vals,
-                        index: index,
-                        baba: data.baba,
-                        cols: data.ratio
-                    }));
+                    $item = me.render(itemTpl, $.extend({}, data.data, {hit: hit, index: index, baba: data.baba, cols: data.ratio}));
                     $itemCache.append($item);
                 }
                 $item.show().siblings().hide();
-
 
 
                 //接下来就是对二级位置做出调整咯
@@ -98,7 +95,6 @@ Cock = {
                     zheight = $win.height(),
                     offsetLeft = zleft > zwidth ? zleft - zwidth : 0,
                     offsetTop = ztop > zheight ? ztop - zheight : 0;
-
                 ofs = me.offset(me.offset($this.offset(), $main.parent().offset()), {left: offsetLeft, top: offsetTop});
                 $itemCache.css(ofs);
             })
@@ -121,17 +117,27 @@ Cock = {
                     checked = $this.prop('checked'),
                     $clist = $('.ve-w-cock .ck-std-list'),
                     $main = $this.closest('.ve-w-cock'),
-                    data = me.cache($main.attr('name'));
+                    data = me.cache($main.attr('name')),
+                    $label = $this.closest('label'),
+                    i, ls = [];
+                for (i in data.emp) {
+                    ls.push(i)
+                }
 
                 if (checked) {
                     // 当前选项选中
-                    if ($clist.find('label').length < data.multi) {
-                        $clist.append($this.closest('label').clone(true));
-                        //$this.  todo: 暂时没写完
+                    if (data.multi) {
+                        // 多选
+                        if ($clist.find('label').length < data.multi) {
+                            $clist.append($label.clone(true).removeClass(ls.join(' ')));
+                            $label.closest('table').find(($label.parent().get(0).tagName == 'TH' ? 'td' : 'th') + ' input').prop('checked', false).trigger('change.cock-i');
+                        } else {
+                            $this.prop('checked', false);
+                            layer.tips('您最多能选择' + data.multi + '项', $clist, {tips: [3, '#FF9900'], time: 2400});
+                            return;
+                        }
                     } else {
-                        $this.prop('checked', false);
-                        layer.tips('您最多能选择' + data.multi + '项', $clist, {tips: [3, '#FF9900'], time: 2400});
-                        return;
+                        // todo: 单选
                     }
                 } else {
                     $clist.find('input[value=' + val + ']').closest('label').remove();
@@ -147,6 +153,41 @@ Cock = {
                 $this.remove();
                 me.check(val, false);
             });
+
+
+        var msgId,
+            $msg,
+            msgIdz = function () {
+                msgId = 0;
+            };
+        $win
+            .keydown(function (ev) {
+                if (action && ev.keyCode == 27) {
+                    if (msgId) {
+                        layer.close(msgId);
+                    } else {
+                        action2 = true;
+                        msgId = layer.open({
+                            type: '0',
+                            content: '<p style="font-size:16px;text-align:center;">您确定要修改求职条件吗？</p>',
+                            btn: ['确定', '再想想'],
+                            success: function ($o) {
+                                $msg = $o
+                            },
+                            yes: function (i) {
+                                layer.close(i);
+                                $('.layui-layer .layui-layer-btn0').click();
+                            },
+                            end: msgIdz
+                        });
+                    }
+                }
+            })
+            .keydown(function (ev) {
+                if (msgId && ev.keyCode == 13) {
+                    $msg.find('.layui-layer-btn0').click();
+                }
+            })
 
     },
 
@@ -171,33 +212,59 @@ Cock = {
 
 
     biu: function (opt) {
-        var god = this.cache(opt.name);
+        var god = this.cache(opt.name), i;
         opt.data.ratio = opt.ratio || 999;
-        return god ? god : this.cache(opt.name, $.extend({
-            $main: this.render(opt.tpl, opt.data).attr('name', opt.name).append('<div class="item-cache"></div>')
-        }, opt));
+
+        if (!god) {
+            god = this.cache(opt.name, $.extend({
+                $main: this.render(opt.tpl, $.extend({hit: opt.hit}, opt.data)).attr('name', opt.name).append('<div class="item-cache"></div>')
+            }, opt));
+
+            for (i in god.emp) {
+                god.$main.find('.J_ck-hot').find(god.emp[i].join(',').replace(/(\d+)/g, 'input[value=$1]')).parent().addClass(i);
+            }
+        }
+
+        return god;
     },
 
 
     run: function (opt, callback) {
-        var god = this.biu(opt),
-            $me;
+        var god = this.biu(opt);
+        action = true;
+
 
         layer.open({
             area: '840px',
-            title: opt.tip + (opt.multi && ' （您最多能选择' + opt.multi + '项）'),
+            title: opt.tip + (opt.multi > 1 ? ' （您最多能选择' + opt.multi + '项）' : ''),
             shift: parseInt(Math.random() * 5 + 1),
-            //btn: 0,
+            btn: '[确定]',
             closeBtn: 0,
+            skin: 've-w-cock-box',
             success: function ($layero, index) {
                 $me = $layero;
                 $layero.children('.layui-layer-content').append(god.$main);
                 $win.resize();
             },
             yes: function (index) {
-                console.log($me);
+                var list = {v: [], t: []};
+                var tow = [];
+
+                $me.find('.ve-w-cock .ck-std-list label').each(function () {
+                    var $this = $(this),
+                        val = $this.find('input').val(),
+                        text = $this.text();
+                    list.v.push(val);
+                    list.t.push(text);
+                    tow.push({value: val, text: text});
+                });
+
                 god.$main.remove();
                 layer.close(index);
+                action = !1;
+                $me = !1;
+
+                callback && callback(list, tow);
             }
         })
     }

@@ -1,18 +1,22 @@
 <div class="ve-w-cock">
     <div class="ck-std">
         <h4>已选地点：</h4>
-        <div class="ck-std-list"></div>
+        <div class="ck-std-list">
+            {{each hit as item}}
+            {{if item!=''}}<label><input type="checkbox" value="{{item}}" checked>{{type[item]||raw[item]}}</label>{{/if}}
+            {{/each}}
+        </div>
     </div>
 
     <h3 class="ck-title">主要城市</h3>
-    <div class="ck-area-hot J_ck-area">
+    <div class="ck-area-hot J_ck-hot">
         <table cellpadding="0" cellspacing="0" border="0" class="ck-table">
             <tbody>
             {{each hot as child ps}}
             {{if ps % h_col.length == 0}}<tr>{{/if}}
                 <th>{{child[0]}}</th>
                 {{each child[1] as item index}}
-                <td><label><input type="checkbox" value="{{item}}">{{raw[item]}}</label></td>
+                <td><label><input type="checkbox" value="{{item}}" {{if inArray(item, hit) >= 0}}checked{{/if}}>{{raw[item]}}</label></td>
                 {{if index == child[1].length - 1 && (index+1) % h_col[ps%h_col.length] > 0}}<td colspan="{{h_col[ps%h_col.length]-(index+1)%h_col[ps%h_col.length]}}"></td>{{/if}}
                 {{/each}}
             {{if ps % h_col.length == h_col.length - 1}}</tr>{{/if}}
@@ -32,7 +36,7 @@
                     {{if all[parseInt(item)][1].length>1}}
                     <span data-id="{{item}}0000" data-index="{{parseInt(item)}}">{{raw[item+'0000']}}</span>
                     {{else}}
-                    <label><input type="checkbox" value="{{item}}0000">{{type[item+'0000']}}</label>
+                    <label><input type="checkbox" value="{{item}}0000" {{if inArray(item+'0000', hit) >= 0}}checked{{/if}} >{{type[item+'0000']}}</label>
                     {{/if}}
                 </td>
                 {{/each}}

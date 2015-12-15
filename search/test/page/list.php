@@ -16,7 +16,6 @@ function _getStr(){
 
 $fis_data = array_merge($public_data, [
     'data' => $GLOBALS['fcData'],
-    '_REQUEST' => $_REQUEST,
 
     '_GET_TEXT' => _getStr(),
 
