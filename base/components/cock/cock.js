@@ -11,14 +11,13 @@ var layer = require('components/layer/layer.js'),
     Cock;
 
 
+tpl.helper('parseInt', parseInt);
 tpl.helper('ceil', Math.ceil);
 tpl.helper('inArray', $.inArray);
 
-tpl.helper('cols', function (len, ratio) {
+tpl.helper('colsp', function (len, ratio) {
     return Math.ceil(Math.sqrt(len / ratio));
 });
-
-
 
 
 Cock = {
@@ -76,17 +75,20 @@ Cock = {
                     vals = me.getVelues($('.ve-w-cock .ck-std-list input')),
                     ofs;
 
-                console.log(data);
+
                 //判断cache是否存在，如果不存在，则创建
                 if (!$item.length) {
                     $item = me.render(itemTpl, $.extend({}, data.data, {
                         vals: vals,
                         index: index,
-                        baba: data.baba
+                        baba: data.baba,
+                        cols: data.ratio
                     }));
                     $itemCache.append($item);
                 }
                 $item.show().siblings().hide();
+
+
 
                 //接下来就是对二级位置做出调整咯
                 // ofs = me.offset(me.offset($this.offset(), $main.parent().offset()), {top: $this.height() + 1}, '+');

@@ -4,7 +4,7 @@ var fs = require('fs'),
     areaHot = require('../data/zh-cn/area-hot.json'),
     map = {
         raw: area,
-        all: areaAll,
+        a_ll: areaAll,
         hot: areaHot
     },
     i, len, tmp1, tmp2;

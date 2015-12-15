@@ -24,11 +24,17 @@
     <h3 class="ck-title">所有省份</h3>
     <div class="ck-area-all J_ck-all">
         <table cellpadding="0" cellspacing="0" border="0" class="ck-table">
-            {{each all as child index}}
+            {{each a_ll as child index}}
             <tr>
                 <th>{{child[0]}}</th>
                 {{each child[1] as item ps}}
-                <td><span data-id="{{item}}0000" data-index="{{index}}-{{ps}}">{{raw[item+'0000']}}</span></td>
+                <td>
+                    {{if all[parseInt(item)][1].length>1}}
+                    <span data-id="{{item}}0000" data-index="{{parseInt(item)}}">{{raw[item+'0000']}}</span>
+                    {{else}}
+                    <label><input type="checkbox" value="{{item}}0000">{{type[item+'0000']}}</label>
+                    {{/if}}
+                </td>
                 {{/each}}
             </tr>
             {{/each}}

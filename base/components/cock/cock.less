@@ -119,7 +119,7 @@
     span, label {
       display: block;
       margin: 0 2px;
-      padding: 0 3px;
+      padding: 0 4px;
       line-height: 26px;
       &:hover, &.hover {
         background: #fe9901;
@@ -162,6 +162,7 @@
     }
     input {
       display: none;
+      margin-right: 4px;
     }
   }
 
@@ -174,6 +175,11 @@
     th {
       color: #ef8217;
     }
+    input {
+      vertical-align: -1px;
+      margin-right: 4px;
+      display: none;
+    }
     span, label {
       display: block;
       height: 24px;
@@ -181,6 +187,9 @@
       &:hover, &.hover {
         background: #fe9901;
         color: #fff;
+        input {
+          display: inline-block;
+        }
       }
     }
   }
