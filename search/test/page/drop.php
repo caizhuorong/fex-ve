@@ -6,11 +6,11 @@
 
 // 这里配置三级联动的依赖关系
 $DROPDATA_CHILDREN_MAP = [
-    company_type_hotel => [1, 2, 3, 4],
-    company_type_din => [],
-    company_type_property => [],
-    star_level_hotel => [],
-    star_level_property => []
+    [1, 2, 7, 3, 4],
+    [5, 6],
+    [8, 9, 10, 11, 12, 13],
+    [5, 4, 3],
+    [16, 17, 18]
 ];
 
 
@@ -24,10 +24,10 @@ $DROPDATA = [
     // 行业
     company_industry => [
         [0, '不限'], // 0
-        [1, '酒店业', 'company_type_hotel'],
-        [2, '餐饮业', 'company_type_din'],
-        [3, '娱乐业', 'company_type_din'],
-        [7, '物业', 'company_type_property'],
+        [1, '酒店业', 0],
+        [2, '餐饮业', 1],
+        [3, '娱乐业', 1],
+        [7, '物业', 2],
         [8, '高尔夫'],
         [9, '温泉'],
         [10, '邮轮'],
@@ -41,21 +41,21 @@ $DROPDATA = [
     // 企业类型
     company_type => [
         [0, '不限'], // 0
-        [1, '国际品牌酒店', 'star_level_hotel'],
-        [2, '国内品牌酒店', 'star_level_hotel'],
+        [1, '国际品牌酒店', 3],
+        [2, '国内品牌酒店', 3],
         [7, '精品酒店'],
-        [3, '单体酒店', 'star_level_hotel'],
+        [3, '单体酒店', 3],
         [4, '经济品牌酒店'],
 
         [5, '餐饮/娱乐总部'],
         [6, '单体餐饮/娱乐'],
 
-        [8, '商业物业', 'star_level_property'],
-        [9, '工业物业', 'star_level_property'],
-        [10, '机关物业', 'star_level_property'],
-        [11, '住宅物业', 'star_level_property'],
-        [12, '农林牧渔物业', 'star_level_property'],
-        [13, '其他物业', 'star_level_property']
+        [8, '商业物业', 4],
+        [9, '工业物业', 4],
+        [10, '机关物业', 4],
+        [11, '住宅物业', 4],
+        [12, '农林牧渔物业', 4],
+        [13, '其他物业', 4]
     ],
 
 

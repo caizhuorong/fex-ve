@@ -8,14 +8,13 @@
 {%block name='content'%}
     {%script%}
         window._DATA = {%json_encode($data)%}; //arr_result
-        {%*window._FILTER_POST = {};*%}
 
         {%* 本地实际与服务器时间的偏移量（时间校正） *%}
         _SERVER_TIME_OFFSET = {%time() + 2%}000;
         window._SERVER_TIME_OFFSET = (new Date()).valueOf() - _SERVER_TIME_OFFSET;
 
-        window._ARR_KEY_WORDS = {%$data.arr_key_words%}
-        window._REQUEST = {%json_encode($_REQUEST)%};
+        window._ARR_KEY_WORDS = {%json_encode($data.arr_key_words)%}
+        window._REQUEST = {%json_encode($smarty.request)%};
     {%/script%}
 
     {%widget name='search:widget/header/header.tpl'%}

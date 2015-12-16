@@ -3,20 +3,11 @@
     <div class="top_box_con m_all_c">
 
         <!--登陆前显示-->
-        <span class="top_tit_01 top-l">
-            <span class="top_bc_tit">您好，欢迎来到最佳东方！</span>
-            <a href="http://i.veryeast.cn/user/login/" class="color_main">请登录</a>
-            <a href="http://i.veryeast.cn/user/register/">免费注册简历</a>
-            <a href="http://vip.veryeast.cn/Reg.asp/">注册企业会员</a>
-        </span>
+        <span class="top_tit_01 top-l"></span>
         <!--登陆前显示-->
 
         <!--登陆后显示-->
-        <span class="top_tit_02 dis_n">
-            <span class="top_bc_tit">您好，<span class="color_main">某路人甲</span>，欢迎来到最佳东方！</span>
-            <a href="http://my.veryeast.cn/user/home/" class="col_333">进入我的最佳东方</a>
-            <a href="">[退出]</a>
-        </span>
+        <span class="top_tit_02 dis_n"></span>
         <!--登陆后显示-->
 
         <!--右侧按钮-->

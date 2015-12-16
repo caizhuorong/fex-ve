@@ -23,7 +23,7 @@ $doc.on('mouseenter', li, function () {
 
 
 /**
- * todo: 翻页展开效果
+ * 翻页展开效果
  */
 var tabtimer;
 $tabmenu.on('mouseover', '.w-tab-show, .tabright', function () {
@@ -37,7 +37,7 @@ $tabmenu.on('mouseover', '.w-tab-show, .tabright', function () {
 
 
 /**
- * todo: 列表/明细
+ * 列表/明细
  */
 var jlStyle = '.joblist-style span';
 $tabmenu.on('click', jlStyle, function () {

@@ -75,7 +75,7 @@ Cock = {
                     data = me.cache($main.attr('name')), // 大弹窗缓存（数据）
                     $itemCache = $main.find('>.item-cache').show(), // 二级菜单div（缓存就在里面）
                     $item = $itemCache.find('>#item-' + index),
-                    hit = me.getVelues($('.ve-w-cock .ck-std-list input')), // 已选择选项
+                    hit = me.getVelues($('.ve-w-cock .ck-std-list input')), // 已选择选项  从已选栏目查找
                     ofs;
 
 
@@ -176,7 +176,7 @@ Cock = {
                             },
                             yes: function (i) {
                                 layer.close(i);
-                                $('.layui-layer .layui-layer-btn0').click();
+                                $me.find('.layui-layer-btn0').click();
                             },
                             end: msgIdz
                         });
@@ -217,7 +217,7 @@ Cock = {
 
         if (!god) {
             god = this.cache(opt.name, $.extend({
-                $main: this.render(opt.tpl, $.extend({hit: opt.hit}, opt.data)).attr('name', opt.name).append('<div class="item-cache"></div>')
+                $main: this.render(opt.tpl, $.extend({hit: opt.hit || []}, opt.data)).attr('name', opt.name).append('<div class="item-cache"></div>')
             }, opt));
 
             for (i in god.emp) {
@@ -247,8 +247,8 @@ Cock = {
                 $win.resize();
             },
             yes: function (index) {
-                var list = {v: [], t: []};
-                var tow = [];
+                var list = {v: [], t: []},
+                    tow = [];
 
                 $me.find('.ve-w-cock .ck-std-list label').each(function () {
                     var $this = $(this),

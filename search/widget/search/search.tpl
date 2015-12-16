@@ -1,11 +1,10 @@
-{%function name="searchFormItem" pla="" vid="" run=""%}
-    <span control="select" class="select" data-v="{%$vid%}">
+{%function name="searchFormItem" pla="" vid="" run="" item=!1 hide=!1%}
+    <span control="select" class="select" data-v="{%$vid%}" {%if $item%}drop-item="{%$item%}"{%/if%} {%if $hide%}style="display:none"{%/if%}>
         <i pla="{%$pla%}">{%if $run!=0%}{%$DROPDATA_INDEX[$vid][$run]%}{%else%}{%$pla%}{%/if%}</i>
         <em></em>
         <input type="hidden" name="{%$vid%}" value="{%$run%}">
     </span>
 {%/function%}
-
 
 
 {%*
@@ -28,9 +27,9 @@
                 <i class="line"></i>
 
                 <div class="form-box">
-                    {%call name="searchFormItem" pla="行业类别" vid="company_industry" run=$data.company_industry%}
-                    {%call name="searchFormItem" pla="企业类型" vid="company_type" run=$data.company_type%}
-                    {%call name="searchFormItem" pla="星级" vid="star_level" run=$data.star_level%}
+                    {%call name="searchFormItem" pla="行业类别" vid="company_industry" run=$data.company_industry item="company_type"%}
+                    {%call name="searchFormItem" pla="企业类型" vid="company_type" run=$data.company_type item="star_level"%}
+                    {%call name="searchFormItem" pla="星级" vid="star_level" run=$data.star_level hide=true%}
                     <i class="clear"></i>
 
                     {%call name="searchFormItem" pla="工作经验" vid="work_year_min" run=$data.work_year_min%}
@@ -68,14 +67,14 @@
 
     function array_index ( dp ) {
         var data = {},
-            i, len, list, item;
+        i, len, list, item;
 
         for (key in dp) {
-            data[key] = {};
-            list = dp[key];
+        data[key] = {};
+        list = dp[key];
 
-            for (i = 0, len = list.length; i < len; i++) {
-                item = list[i];
+        for (i = 0, len = list.length; i < len; i++) {
+            item = list[i];
                 data[key][item[0]] = item[1];
             }
         }
@@ -83,6 +82,7 @@
     }
     window.DROPDATA_INDEX = array_index(DROPDATA);
 
+    window.DROPDATA_CHILDREN_MAP = {%json_encode($DROPDATA_CHILDREN_MAP)%};
 
     require('search.js')
 {%/script%}

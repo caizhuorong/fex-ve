@@ -7,9 +7,9 @@ var H = require('common:widget/helper/helper.js'),
     li = '.cw-droplist-i li',
     out = setTimeout,
     cachelist = {},
-    SELECT = function (data) {
-        data = data.length ? data : [[0,'无']];
-        this.create(data);
+    SELECT = function (data, filter) {
+        data = data.length ? data : [[0, '无']];
+        this.create(data, filter);
     },
     api = SELECT.prototype,
     def = {
@@ -21,7 +21,7 @@ var H = require('common:widget/helper/helper.js'),
     };
 
 /**
- * todo: 对外接口
+ * 对外接口
  * @param opt   $dom control="select"
  *              data 渲染列表所需的数据
  *              skin .cw-droplist-i的自定义class，可用于自定义样式
@@ -38,7 +38,7 @@ function drop(opt, callback) {
     /*if (!cachelist[v]) {
      cachelist[v] = new SELECT(data[v] || data);
      }*/
-    cachelist[v] = new SELECT(opt.data[v] || opt.data);
+    cachelist[v] = new SELECT(opt.data[v] || opt.data, opt.filter);
 
     cachelist[v].$me = opt.$dom;
     cachelist[v].tpl.attr('dropid', v).removeClass().addClass('cw-droplist-i ' + opt.skin).css('zIndex', opt.zIndex);
@@ -55,17 +55,24 @@ function drop(opt, callback) {
  * @param data
  * @returns {*|jQuery}
  */
-api.create = function (data) {
+api.create = function (data, filter) {
+
     var $tpl = $('<div class="cw-droplist-i"><ul>'),
         $ul = $tpl.children('ul'),
         $tmp;
 
     for (var i = 0, len = data.length; i < len; i++) {
-        $tmp = $('<li class="ellipsis">');
-        $tmp.text(data[i][1])
-            .attr('value', data[i][0]);
-        $ul.append($tmp);
+        if (!filter || $.inArray(data[i][0], filter) >= 0) {
+            $tmp = $('<li class="ellipsis">');
+            $tmp.text(data[i][1])
+                .attr('value', data[i][0]);
+            data[i][2] != undefined && $tmp.attr('drop-item', data[i][2]);
+
+            $ul.append($tmp);
+        }
     }
+
+
     this.tpl = $tpl;
     return this;
 };
@@ -91,7 +98,7 @@ api.show = function () {
 
 
 /**
- * todo: 工具单个元素的高度动态计算列表高度
+ * 工具单个元素的高度动态计算列表高度
  * @param num  指定一页显示的列数
  * @returns {number}  列表的高度（px）
  */
@@ -105,7 +112,7 @@ api.height = function (num) {
 
 
 /**
- * todo: 初始化drop的尺寸包括宽，高，字体大小，行高
+ * 初始化drop的尺寸包括宽，高，字体大小，行高
  * @param num
  * @returns {SELECT}
  */
@@ -122,7 +129,7 @@ api.resize = function (num) {
 
 
 /**
- * todo: 将列表移动到当前按钮的位置
+ * 将列表移动到当前按钮的位置
  * @param type
  * @returns {SELECT}
  */
@@ -167,7 +174,7 @@ api.move = function (type) {
 
 
 /**
- * todo: 绑定各种默认事件
+ * 绑定各种默认事件
  */
 $body.on('mouseenter', li, function () {
     $(this).addClass('hover');
@@ -178,17 +185,18 @@ $body.on('mouseenter', li, function () {
         v = $self.closest('.cw-droplist-i').attr('dropid'),
         me = cachelist[v],
         $i = me.$me.children('i'),
-        val = $self.attr('value');
+        val = $self.attr('value'),
+        item = $self.attr('drop-item');
 
     $self.addClass('active').siblings().removeClass('active');
     $i.text((!val || val == '0') ? $i.attr('pla') : $self.text()).siblings().val($self.attr('value'));
 
-    me.callback ? me.callback(val) : null;
+    me.callback ? me.callback(val, item) : null;
 });
 
 
 /**
- * todo: 在一些情况下，也需要隐藏列表，自己的看下面绑定的事件吧
+ * 在一些情况下，也需要隐藏列表
  */
 var dropHide = function () {
     $('[control=select]').removeClass('active');

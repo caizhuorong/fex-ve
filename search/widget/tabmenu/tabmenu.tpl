@@ -12,14 +12,14 @@
 
     <div class="w-tab-show">
         <div class="w-page-inner nojs">
-            <a href="javascript:">{%if $_REQUEST['page']%}{%$_REQUEST['page']%}{%else%}1{%/if%} / {%if $data.page_max%}{%$data.page_max%}{%else%}1{%/if%}</a>
+            <a href="javascript:">{%if $smarty.request['page']%}{%$smarty.request['page']%}{%else%}1{%/if%} / {%if $data.page_max%}{%$data.page_max%}{%else%}1{%/if%}</a>
 
             <input name="" type="text" class="page-text">
             <input name="" type="button" class="page-btn">
         </div>
     </div>
     <div class="tabright hide">
-        {%widget name="widget/pages/pages.tpl" call="pages" page=$_REQUEST['page'] all=$data.page_max base='/job_search/job_list?'|cat:$_GET_TEXT%}
+        {%widget name="widget/pages/pages.tpl" call="pages" page=$smarty.request['page'] all=$data.page_max base='/job_search/job_list?'|cat:$_GET_TEXT%}
     </div>
 
 

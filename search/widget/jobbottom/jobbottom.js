@@ -14,6 +14,18 @@ function checks() {
 }
 
 
+
+function checkAll (ck) {
+    var url = [];
+    ck && checks().each(function () {
+        url.push($(this).data('id'));
+    });
+
+    $jobbottom.find('.J-shows').attr('href', ck ? '/job_search/job_show/' + url.join('-') : 'javascript:');
+    $jobbottom.find('.J-collects').data('jobs', url.join('-'));
+}
+
+
 function nHas() {
     layer.message({right: '<h4>你没有选中如何职位！</h4>', icon: 2});
 }
@@ -21,19 +33,19 @@ function nHas() {
 
 $jobbottom
     .on('change', '.selectAll', function () {
-        var ck = $(this).prop('checked'),
-            url = [];
+        var ck = $(this).prop('checked');
+
         $joblist.find(check).prop('checked', ck)[(ck ? 'add' : 'remove') + 'Class']('checked');
 
-        ck && checks().each(function () {
-            var $me = $(this);
-            url.push($me.data('id'));
-        });
-
-        $('.J-shows').attr('href', ck ? '/job_search/job_show/' + url.join('-') : 'javascript:');
+        checkAll(ck);
     })
     .on('click', '.J-collects', function () {
-        $(this).attr('href') == 'javascript:' && nHas();
+        var $shows = checks();
+        if (!$shows.length) {
+            nHas();
+            return 0;
+        }
+
     })
     .on('click', '.J-shows', function () {
         var $shows = checks();
@@ -48,20 +60,12 @@ $joblist.on('click', check, function (ev) {
     var $self = $(this);
     setTimeout(function () {
         var $check = $joblist.find(check),
-            ck = $self.prop('checked'),
-            cks, url = [];
+            ck = $self.prop('checked');
 
         $self[(ck ? 'add' : 'remove') + 'Class']('checked');
         $jobbottom.find('.selectAll').prop('checked', ck && $check.length == $check.filter('.checked').length);
 
-
-        // 显示选中职位 url拼接;
-        cks = checks();
-        cks.each(function () {
-            var $me = $(this);
-            url.push($me.data('id'));
-        });
-        $('.J-shows').attr('href', cks.length ? '/job_search/job_show/' + url.join('-') : 'javascript:')
+        checkAll(ck);
     });
     ev.stopPropagation();
 });
