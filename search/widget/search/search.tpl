@@ -1,5 +1,5 @@
-{%function name="searchFormItem" pla="" vid="" run="" item=!1 hide=!1%}
-    <span control="select" class="select" data-v="{%$vid%}" {%if $item%}drop-item="{%$item%}"{%/if%} {%if $hide%}style="display:none"{%/if%}>
+{%function name="searchFormItem" pla="" vid="" run="" item=false hide=false%}
+    <span control="select" class="select {%if $run!=0%}isSet{%/if%}" data-v="{%$vid%}" {%if $item%}drop-item="{%$item%}"{%/if%} {%if $hide%}style="display:none"{%/if%}>
         <i pla="{%$pla%}">{%if $run!=0%}{%$DROPDATA_INDEX[$vid][$run]%}{%else%}{%$pla%}{%/if%}</i>
         <em></em>
         <input type="hidden" name="{%$vid%}" value="{%$run%}">
@@ -27,12 +27,20 @@
                 <i class="line"></i>
 
                 <div class="form-box">
+                    {%*
                     {%call name="searchFormItem" pla="行业类别" vid="company_industry" run=$data.company_industry item="company_type"%}
                     {%call name="searchFormItem" pla="企业类型" vid="company_type" run=$data.company_type item="star_level"%}
-                    {%call name="searchFormItem" pla="星级" vid="star_level" run=$data.star_level hide=true%}
+                    {%call name="searchFormItem" pla="星级"    vid="star_level" run=$data.star_level%}
+                    *%}
+                    {%call name="searchFormItem" pla="行业类别" vid="company_industry" item="company_type"%}
+                    {%call name="searchFormItem" pla="企业类型" vid="company_type" item="star_level"%}
+                    {%call name="searchFormItem" pla="星级"    vid="star_level"%}
                     <i class="clear"></i>
 
-                    {%call name="searchFormItem" pla="工作经验" vid="work_year_min" run=$data.work_year_min%}
+
+                    {%call name="searchFormItem" pla="工作经验" vid="work_year" run=$data.work_year%}
+                    <input type="hidden" name="work_year_min" value="{%if $data.work_year_min!=0%}{%$data.where.work_year_min%}{%/if%}">
+
                     {%call name="searchFormItem" pla="月薪范围" vid="salary" run=$data.salary%}
                     <input type="hidden" name="salary_min" value="{%if $data.salary_min!=0%}{%$data.where.salary_min%}{%/if%}">
                     <input type="hidden" name="salary_max" value="{%if $data.salary_max!=1000000%}{%$data.where.salary_max%}{%/if%}">
@@ -42,6 +50,7 @@
                     {%call name="searchFormItem" pla="食宿情况" vid="rations_quarters" run=$data.rations_quarters%}
                     {%call name="searchFormItem" pla="学历要求" vid="degree_id" run=$data.degree_id%}
                     <i class="clear"></i>
+
 
                     <div class="work-mode">
                         职位性质：

@@ -62,16 +62,15 @@ api.create = function (data, filter) {
         $tmp;
 
     for (var i = 0, len = data.length; i < len; i++) {
-        if (!filter || $.inArray(data[i][0], filter) >= 0) {
+        if (data[i][0] == 0 || !filter || $.inArray(data[i][0], filter) >= 0) {
             $tmp = $('<li class="ellipsis">');
             $tmp.text(data[i][1])
                 .attr('value', data[i][0]);
-            data[i][2] != undefined && $tmp.attr('drop-item', data[i][2]);
+            data[i][2] != undefined && $tmp.attr('dropItem', data[i][2]);
 
             $ul.append($tmp);
         }
     }
-
 
     this.tpl = $tpl;
     return this;
@@ -186,10 +185,13 @@ $body.on('mouseenter', li, function () {
         me = cachelist[v],
         $i = me.$me.children('i'),
         val = $self.attr('value'),
-        item = $self.attr('drop-item');
+        item = $self.attr('dropItem'),
+        zero = (!val || val == '0');
 
     $self.addClass('active').siblings().removeClass('active');
-    $i.text((!val || val == '0') ? $i.attr('pla') : $self.text()).siblings().val($self.attr('value'));
+
+    $i.text(zero ? $i.attr('pla') : $self.text()).siblings().val($self.attr('value'));
+    me.$me[(zero ? 'remove' : 'add') + 'Class']('isSet');
 
     me.callback ? me.callback(val, item) : null;
 });

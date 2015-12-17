@@ -11,7 +11,17 @@ var H = require('common:widget/helper/helper.js'),
     $doc = $(document);
 
 
+
+
+
+
+
+
+
 $keywork
+/**
+ * 神奇的弹出窗
+ */
     .on('click', '.kwbtn[data-name]', function () {
         var $this = $(this),
             data = $this.data();
@@ -29,6 +39,10 @@ $keywork
         });
     })
 
+
+/**
+ * 搜索关键字类型
+ */
     .on('click', '.search-type', function (ev) {
         $(this).toggleClass('active');
         ev.stopPropagation();
@@ -40,6 +54,28 @@ $keywork
             .find('.keyword_scope').val($me.data('name'))
             .siblings('span').html($me.html());
         ev.stopPropagation();
+    })
+
+
+/**
+ * 历史纪录和联想
+ */
+    .on('focus', '.search-val', function () {
+        var $me = $(this);
+
+        $.ajax({
+            url: 'http://search1.veryeast.cn/job_search/getHistory',
+            method: 'post',
+            dataType: 'json',
+            success: function (data) {
+                var i, len, list = [];
+
+                for (i = 0, len = data.message.length; i < len; i++) {
+                    list.push(data.message[i].value);
+                }
+
+            }
+        });
     });
 
 

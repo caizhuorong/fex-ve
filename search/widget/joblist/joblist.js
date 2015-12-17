@@ -18,6 +18,7 @@ var tpl = require('common:components/tpl/tpl.js'),
 
 
 tpl.helper('inArray', $.inArray);
+tpl.helper('parseInt', parseInt);
 
 renderMod = tpl.compile(tmpl);
 pagesMod = tpl.compile(pages);
@@ -35,6 +36,7 @@ function asyncRender(data) {
     $list.find('.job-child .attr .brief').each(function () {
         var $self = $(this);
         $self.html(H.substring($self.html(), 220));
+        //$self.html(H.substring($self.text(), 220).replace(RegExp('(' + _ARR_KEY_WORDS.join('|') + ')', 'g'), '<b>$1</b>'));
     });
     $joblist.find('.joblist').html('').append($list);
 }
@@ -158,7 +160,11 @@ function collect($jobs) {
             job_id: job_id
         },
         success: function (data) {
-            console.log(data);
+            try {
+                layer.message(data.message, {title: data.message.title});
+                $joblist.find(data.message.successIds.join().replace(/(\d+)/, '.job-child[data-id=$1]')).find('.collect').addClass('active');
+            } catch (e) {
+            }
         }
     });
 }
@@ -190,14 +196,21 @@ $joblist.on('mouseenter', '.job-child', function () { // 鼠标移入展开
  })*/;
 
 
+var keyWord = RegExp('(' + _ARR_KEY_WORDS.join('|') + ')', 'g')
 /**
  *  超长文本截断
  */
 // 多行
 $joblist.find('.attr .brief').each(function () {
     var $self = $(this);
-    $self.html(H.substring($self.text(), 220));
+    $self.html(H.substring($self.text(), 220).replace(keyWord, '<b>$1</b>'));
 });
+
+$joblist.find('.job a').each(function () {
+    var $self = $(this);
+    $self.html($self.html().replace(keyWord, '<b>$1</b>'));
+});
+
 
 // 低版本单行兼容
 if (!$('body').css('maxWidth')) {
@@ -356,15 +369,8 @@ $joblist
         var $self = $(this);
 
         if (!$self.hasClass('action')) {
-            ajax({
-                url: '/pop/collection_job',
-                data: {
-                    job_id: $self.closest('.job-child').data('id')
-                }
-            }, function (data) {
-                $self.addClass('active');
-                layer.message(data.message, {title: data.message.title});
-            });
+            //console.log($self.closest('.job-child'));
+            collect($self.closest('.job-child'));
         }
     });
 

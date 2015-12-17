@@ -41,11 +41,12 @@ $jobbottom
     })
     .on('click', '.J-collects', function () {
         var $shows = checks();
-        if (!$shows.length) {
+        if ($shows.length) {
+            //console.log( $(this).data('jobs') );
+            joblist.collect($shows)
+        } else {
             nHas();
-            return 0;
         }
-
     })
     .on('click', '.J-shows', function () {
         var $shows = checks();
@@ -64,7 +65,6 @@ $joblist.on('click', check, function (ev) {
 
         $self[(ck ? 'add' : 'remove') + 'Class']('checked');
         $jobbottom.find('.selectAll').prop('checked', ck && $check.length == $check.filter('.checked').length);
-
         checkAll(ck);
     });
     ev.stopPropagation();
