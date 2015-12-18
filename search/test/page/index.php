@@ -47,7 +47,7 @@ $fis_data = array_merge($public_data, [
             ]
         ],
         [
-            'title' => ['t' => '<i>实现</i>不凡价值', 'p' => '到最满意的城市去工作'],
+            'title' => ['t' => '<i>实现</i>不凡价值', 'p' => '创造平凡岗位里的不平凡'],
             'tpl' => 'list-b',
             'list' => [
                 [

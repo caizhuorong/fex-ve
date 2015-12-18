@@ -251,8 +251,7 @@ var ajax = function (opt, data) {
     }
 
     // 回掉函数
-    success = opt.success ? opt.success : typeof args[args - 1] == "function" ? args[args - 1] : null;
-
+    success = opt.success ? opt.success : typeof args[args.length - 1] == "function" ? args[args.length - 1] : null;
 
     layer.load(2, {shade: .1});
 
@@ -286,7 +285,7 @@ var ajax = function (opt, data) {
  */
 $joblist.on('click', '.base .job .call', function () {
     ajax('/pop/show_tel', {job_id: $(this).closest('.job-child').data('id')}, function (data) {
-        //console.log(data);
+        console.log(data);
         layer.message('<p>欢迎来电应聘/咨询：<strong>' + data.message.contact_telephone + '</strong><br>咨询时间：' + (data.message.contact_time == '00:00-00:00' ? '24 x 7' : data.message.contact_time) + '</p>', 2, {title: '电话直聘'});
     });
 });
@@ -322,9 +321,7 @@ var selectletter = __inline('view/selectletter.tmpl');
 
 $joblist
     .on('click', '.apply', function (ev) { // 立即申请
-        ajax('/pop/apply_job', {job_id: $(this).closest('.job-child').data('id')}, function (data) {
-            console.log(data);
-        });
+        ajax('/pop/apply_job', {job_id: $(this).closest('.job-child').data('id')}, function (data) {});
     }).on('click', '.pop span', function (ev) {
         var $child = $(this).closest('.job-child');
 

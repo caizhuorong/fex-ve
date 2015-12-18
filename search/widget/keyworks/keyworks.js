@@ -8,14 +8,12 @@ var H = require('common:widget/helper/helper.js'),
         area: require('base:widget/cock/area.js')
     },
     $keywork = $('.w-keyworks'),
-    $doc = $(document);
+    $doc = $(document),
 
-
-
-
-
-
-
+    his = __inline('view/history.tmpl'),
+    hisCache = {},
+    $ass = $keywork.find('.J_search-ass'),
+    cache = {};
 
 
 $keywork
@@ -60,23 +58,74 @@ $keywork
 /**
  * 历史纪录和联想
  */
-    .on('focus', '.search-val', function () {
+    .on('keyup.rapid', '.search-val', function () {
         var $me = $(this);
+        $ass[$me.val() == '' ? 'show' : 'hide']();
+    })
 
+    .on('focus', '.search-val', function () {
+        $keywork.find('.search-val').trigger('keyup.rapid');
+    })
+    .on('blur', '.search-val', function () {
+        cache.timer = setTimeout(function () {
+            $keywork.find('.search-rapid').hide()
+        }, 0);
+    })
+    .on('mousedown', '.search-rapid', function () {
+        setTimeout(function () {
+            clearTimeout(cache.timer)
+        }, 0)
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+if (list.exist == '1') {
+    if (opsCache[list.id]) {
+        fillOps(opsCache[list.id]);
+    } else {
         $.ajax({
-            url: 'http://search1.veryeast.cn/job_search/getHistory',
-            method: 'post',
+            url: '/api/opskeyword',
+            type: 'post',
             dataType: 'json',
-            success: function (data) {
-                var i, len, list = [];
-
-                for (i = 0, len = data.message.length; i < len; i++) {
-                    list.push(data.message[i].value);
-                }
-
+            data: {id: list.id},
+            success: function(response) {
+                opsCache[list.id] = response.data;
+                fillOps(opsCache[list.id]);
             }
         });
-    });
+    }
+}
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 $doc.on('click', function () {

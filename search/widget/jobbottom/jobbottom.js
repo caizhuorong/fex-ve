@@ -27,7 +27,7 @@ function checkAll (ck) {
 
 
 function nHas() {
-    layer.message({right: '<h4>你没有选中如何职位！</h4>', icon: 2});
+    layer.message({right: '<h4>收藏失败</h4><span>您没有选中任何职位哦！</span>', icon: 2});
 }
 
 
