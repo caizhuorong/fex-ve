@@ -24,13 +24,14 @@
         </span>
 
 
-        <div class="search-rapid J_search-ass">
+        <div class="search-rapid J_search-his">
             <ul class="sb-list">
                 {%foreach from=$data.history item="item"%}
                     <li><a class="ellipsis " href="/job_search/job_list?s=history&p={%$item.value%}">{%$item.word%}</a></li>
                 {%/foreach%}
             </ul>
         </div>
+
 
 
         <input type="text" class="search-val" placeholder="输入职位名或者关键字" name="key_words" value="{%$data.key_words%}" autocomplete="off">
@@ -40,8 +41,6 @@
     <span class="search-more" class="action">更多搜索条件<b></b></span>
 </div>
 
-
-<div class="autocomplete-wrap auto-complete-hot hide"><ul class="autocomplete-list"></ul></div>
 
 
 {%script%}
