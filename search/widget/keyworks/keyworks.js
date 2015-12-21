@@ -117,7 +117,7 @@ $input.autocomplete({
             dataType: 'json',
             data: {keywords: task.keyword},
             success: function (data) {
-                callback(data.message); // todo 可能需要改成 message 暂时不确定
+                callback(data.message);
             }
         });
     },
@@ -169,7 +169,7 @@ $input.autocomplete('bind', 'hover', function ($ele, data) {
                 dataType: 'json',
                 data: {id: list.id},
                 success: function (data) {
-                    opsCache[list.id] = data.message; // todo 可能需要改成 message 暂时不确定
+                    opsCache[list.id] = data.message;
                     fillOps(opsCache[list.id]);
                 }
             });
