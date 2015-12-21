@@ -93,6 +93,7 @@
     width: 252px;
     padding: 11px 10px;
     font-size: 16px;
+    border-left: 1px solid #dedede;
     -webkit-transition: .5s;
     -moz-transition: .5s;
     -o-transition: .5s;
@@ -142,18 +143,18 @@
       width: 369px;
     }
     .search-rapid {
-      width: 391px;
+      width: 390px;
     }
   }
 
   .search-rapid {
-    width: 273px;
+    width: 272px;
     background: #fff;
     border: 1px solid #dedede;
     font-size: 12px;
     color: #737373;
     position: absolute;
-    left: 105px;
+    left: 106px;
     top: 44px;
     -webkit-transition: width .5s;
     -moz-transition: width .5s;
@@ -227,18 +228,19 @@
   _top: 34px;
   width: 334px;
   *width: 336px;
-  border: 1px solid #c5c5c5;
-  background: #fff
+  border: 1px solid #dedede;
+  background: #fff;
+  font-size: 12px;
 }
 .auto-complete-hot2{
   margin:-10px 0 0 -35px;
 }
 .auto-complete-hot .autocomplete-list li {
   position: relative;
-  width: 334px;
   height: 25px;
   line-height: 25px;
-  margin-top: 3px
+  padding: 0 8px;
+  margin-top: 3px;
 }
 
 .auto-complete-hot .autocomplete-list li em {
@@ -253,26 +255,27 @@
 .auto-complete-hot .autocomplete-list li .ops-list {
   position: absolute;
   top: 0;
-  right: 1px;
+  right: 0;
   z-index: 5;
   width: 155px;
   padding-left: 10px;
-  background: #f4f4f4;
-  display: none
+  background: #f6f6f6;
+  display: none;
 }
 
 .auto-complete-hot .autocomplete-list li .ops-list a {
   display: block;
   float: left;
-  margin: 15px 15px 0 0;
+  margin: 5px 0;
   padding: 5px 6px;
-  border: 1px solid #cdcdcd;
+  border: 1px solid #dedede;
   background: #fff;
-  text-decoration: none
+  text-decoration: none;
+  color: #737373;
 }
 
 .auto-complete-hot .autocomplete-list li .ops-list a:hover,.auto-complete-hot .autocomplete-list li .ops-list a.hover {
-  border: 1px solid #ef8318;
+  border: 1px solid #dedede;
   color: #ef8318
 }
 
@@ -282,7 +285,7 @@
 }
 
 .auto-complete-hot .autocomplete-list li.hover .ops-list {
-  display: block
+  display: block;
 }
 
 .auto-complete-hot .autocomplete-list li.hover em {
@@ -315,13 +318,13 @@
 }
 
 .auto-complete-hot .auto-highlight {
-  color: #333
+  color: #737373
 }
 
 .auto-complete-hot ul.autocomplete-list {
-  width: 334px;
   height: auto;
-  text-align: left
+  text-align: left;
+  margin: 0;
 }
 
 

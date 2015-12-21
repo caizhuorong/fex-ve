@@ -2,7 +2,7 @@
  * Created by TC-62 on 2015/11/24.
  */
 
-    require('common:components/autocomplete/autocomplete.js');
+require('common:components/autocomplete/autocomplete.js');
 
 var H = require('common:widget/helper/helper.js'),
     KW = {
@@ -12,6 +12,7 @@ var H = require('common:widget/helper/helper.js'),
     $keywork = $('.w-keyworks'),
     $doc = $(document),
     $his = $keywork.find('.J_search-his'),
+    hisCache,
 
     cache = {};
 
@@ -60,8 +61,30 @@ $keywork
  */
     .on('keyup.rapid', '.search-val', function () {
         var $me = $(this),
-            hasVal = $me.val() != '';
-        $his[hasVal ? 'hide' : 'show']();
+            nVal = $me.val() != '';
+
+        if (nVal) {
+            $his.hide();
+        } else if (hisCache) {
+            $his.show();
+        } else {
+            $.ajax({
+                url: 'http://search1.veryeast.cn/job_search/getHistory',
+                method: 'post',
+                dataType: 'json',
+                success: function (data) {
+                    var i = 0, len = data.message.length, item, html = '';
+
+                    for (; i < len; i++) {
+                        item = data.message[i];
+                        html += '<li><a class="ellipsis " href="/job_search/job_list?s=history&p=' + encodeURIComponent(item.value) + '">' + item.word + '</a></li>';
+                    }
+                    $keywork.find('.J_search-his').show().find('.sb-list').html(html);
+                    hisCache = html;
+                }
+            });
+        }
+
     })
 
     .on('focus', '.search-val', function () {
@@ -79,7 +102,6 @@ $keywork
     });
 
 
-
 /** ************************************* **/
 var $input = $('.search-val'), opsCache = {};
 
@@ -88,36 +110,34 @@ $input.autocomplete({
     show: 10,
     key: 'keyword',
     className: 'auto-complete-hot',
-    request: function(task, callback) {
+    request: function (task, callback) {
         $.ajax({
-            url: 'api/autocomplete',
+            url: '/api/autocomplete',
             type: 'post',
             dataType: 'json',
             data: {keywords: task.keyword},
-            success: function(response) {
-                callback(response.data); // todo 可能需要改成 message 暂时不确定
+            success: function (data) {
+                callback(data.message); // todo 可能需要改成 message 暂时不确定
             }
         });
     },
-    render: function(data, keyword) {
+    render: function (data, keyword) {
         var me = this, content = '';
-        $.each(data, function(k, v) {
-            content += '<li>' + me.highlight(v[me.key], keyword) + (v.exist == 1 ? '<em></em>' : '') +'</li>';
+        $.each(data, function (k, v) {
+            content += '<li>' + me.highlight(v[me.key], keyword) + (v.exist == 1 ? '<em></em>' : '') + '</li>';
         });
-
-        console.log( content );
         return content;
     }
 });
 
-$input.autocomplete('bind', 'hover', function($ele, data) {
+$input.autocomplete('bind', 'hover', function ($ele, data) {
     var index = $ele.index(), list = data[index], opts = this, $list = opts.element.$list, $opsWrap;
     $list.height('auto');
 
-    var fillOps = function(opsList) {
+    var fillOps = function (opsList) {
         var str = '<div class="ops-list">';
-        for(var key in opsList) {
-            str += '<a href="http://job.veryeast.cn/'+opsList[key].c_userid+'" target="_self">'+opsList[key].company_name+'</a>'
+        for (var key in opsList) {
+            str += '<a href="http://job.veryeast.cn/' + opsList[key].c_userid + '" target="_self">' + opsList[key].company_name + '</a>'
         }
         str += "</div>";
         $opsWrap = $(str).appendTo($ele);
@@ -127,16 +147,16 @@ $input.autocomplete('bind', 'hover', function($ele, data) {
         position($opsWrap);
     };
 
-    var position = function($opsWrap) {
+    var position = function ($opsWrap) {
         var width = Math.max($opsWrap.height(), $list.height());
-        $opsWrap.css('top', -1*$ele.index()*($ele.outerHeight()+3));
+        $opsWrap.css('top', -1 * $ele.index() * ($ele.outerHeight() + 3));
         $opsWrap.height(width);
         $list.height(width);
     };
 
     if ($ele.attr('ops-loaded') == '1') {
         position($ele.find('.ops-list'));
-        return ;
+        return;
     }
 
     if (list.exist == '1') {
@@ -144,12 +164,12 @@ $input.autocomplete('bind', 'hover', function($ele, data) {
             fillOps(opsCache[list.id]);
         } else {
             $.ajax({
-                url: 'api/opskeyword',
+                url: '/api/opskeyword',
                 type: 'post',
                 dataType: 'json',
                 data: {id: list.id},
-                success: function(response) {
-                    opsCache[list.id] = response.data; // todo 可能需要改成 message 暂时不确定
+                success: function (data) {
+                    opsCache[list.id] = data.message; // todo 可能需要改成 message 暂时不确定
                     fillOps(opsCache[list.id]);
                 }
             });
@@ -157,17 +177,20 @@ $input.autocomplete('bind', 'hover', function($ele, data) {
     }
 });
 
-$input.autocomplete('bind', 'show', function() {
-    this.element.$list.height('auto');
+
+
+
+var $bar = $keywork.find('.search-bar');
+$input.autocomplete('bind', 'show', function () {
+    this.element.$list.height('auto').find('li').eq(0).css('margin-top', 0);
+    this.element.$wrap.css({
+        top: $bar.offset().top + $bar.height() + 2,
+        left: this.$input.offset().left,
+        width: this.$input.outerWidth()
+    });
 });
 
 /** ************************************* **/
-
-
-
-
-
-
 
 
 

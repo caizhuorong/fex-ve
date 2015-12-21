@@ -25,11 +25,7 @@
 
 
         <div class="search-rapid J_search-his">
-            <ul class="sb-list">
-                {%foreach from=$data.history item="item"%}
-                    <li><a class="ellipsis " href="/job_search/job_list?s=history&p={%$item.value%}">{%$item.word%}</a></li>
-                {%/foreach%}
-            </ul>
+            <ul class="sb-list"></ul>
         </div>
 
 
