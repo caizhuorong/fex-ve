@@ -1,7 +1,10 @@
+<!-- @require ./im/style.css -->
+
+
 <section class="w-recommend">
     <div class="rec-title">
         <h3>{%$data.title.t|escape:none%}</h3>
-        <p>{%$data.title.p%}</p>
+        <p class="icomoon">{%$data.title.p%}</p>
     </div>
     <div class="rec-main">
         {%if $data.tpl eq 'list'%}
