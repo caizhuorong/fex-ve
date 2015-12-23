@@ -20,16 +20,18 @@
 
     {%* 使用body插件替换body标签，主要为可控制加载JS资源 *%}
     {%body%}
+        {%widget name="widget/ltie8/ltie8.tpl"%}
+
         <div class="layout">
-            {%widget name='base:widget/top/top.tpl'%}
+            {%widget name='widget/top/top.tpl'%}
             {%block name="content"%}{%/block%}
-            {%widget name='base:widget/footer/footer.tpl'%}
+            {%widget name='widget/footer/footer.tpl'%}
         </div>
 
         <!--[if lte IE 9]><script src="{%uri name='common:static/jquery/1.11.3.js'%}"></script><![endif]-->
         {%'<!--[if !IE]><!-->'%}<script src="{%uri name='common:static/jquery/2.1.4.js'%}"></script><!--<![endif]-->
 
-        <!--[if lt IE 6]><script src="{%uri name='common:static/DD_belatedPNG.js'%}"></script><script>DD_belatedPNG.fix('.png_bg,label,background')</script><![endif]-->
+        <!--[if lte IE 6]><script src="{%uri name='common:static/DD_belatedPNG.js'%}"></script><script>DD_belatedPNG.fix('.png_bg,label,background')</script><![endif]-->
     {%/body%}
 
 {%/html%}

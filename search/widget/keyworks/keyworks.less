@@ -35,8 +35,11 @@
     }
   }
 
+
   .search-bar {
-    display: inline-block;
+    display:inline-block;
+    *zoom:1;
+    *display:inline;
     width: 498px;
     height: 44px;
     border: 2px solid #ef8217;
@@ -212,14 +215,6 @@
 
 }
 
-
-
-
-
-
-
-
-
 .auto-complete-hot {
   position: absolute;
   top: 32px;
@@ -232,9 +227,11 @@
   background: #fff;
   font-size: 12px;
 }
-.auto-complete-hot2{
-  margin:-10px 0 0 -35px;
+
+.auto-complete-hot2 {
+  margin: -10px 0 0 -35px;
 }
+
 .auto-complete-hot .autocomplete-list li {
   position: relative;
   height: 25px;
@@ -274,7 +271,7 @@
   color: #737373;
 }
 
-.auto-complete-hot .autocomplete-list li .ops-list a:hover,.auto-complete-hot .autocomplete-list li .ops-list a.hover {
+.auto-complete-hot .autocomplete-list li .ops-list a:hover, .auto-complete-hot .autocomplete-list li .ops-list a.hover {
   border: 1px solid #dedede;
   color: #ef8318
 }
