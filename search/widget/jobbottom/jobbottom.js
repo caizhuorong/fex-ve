@@ -41,16 +41,21 @@ $jobbottom
     })
     .on('click', '.J-collects', function () {
         var $shows = checks();
-        if ($shows.length) {
-            //console.log( $(this).data('jobs') );
-            joblist.collect($shows)
+
+        if (USER_INFO.status == 1 && USER_INFO.message.userType == 2) {
+            if ($shows.length) {
+                //console.log( $(this).data('jobs') );
+                joblist.collect($shows)
+            } else {
+                nHas();
+            }
         } else {
-            nHas();
+            layer.message({right: '<h4>收藏失败！</h4><span>抱歉，您是企业用户，不能收藏职位哦！</span>', icon: 2});
         }
     })
     .on('click', '.J-shows', function () {
         var $shows = checks();
-        !$shows.length && nHas();
+        !$shows.length && layer.message({right: '<h4>啊哦，不能显示</h4><span>您没有选中任何职位哦！</span>', icon: 2});
     });
 
 

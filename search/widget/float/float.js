@@ -5,6 +5,8 @@
 
 
 
+
+/** ****************** **/
 var $float = $('.w-float'),
     $doc = $(document),
     $win = $(window),
@@ -24,16 +26,9 @@ $float.on('click', 'img', function () {
         btn: false,
         success: function (layero) {
             this.layero = layero;
-            $.ajax({
-                url: '/api/getLoginUserInfo',
-                method: 'get',
-                dataType: 'json',
-                success: function (data) {
-                    if (data.status == 1) {
-                        layero.find('[name=email]').val(data.message.email);
-                    }
-                }
-            })
+            if (USER_INFO.status == 1) {
+                layero.find('[name=email]').val(USER_INFO.message.email);
+            }
         },
         yes: function () {
             $.ajax({
@@ -58,4 +53,4 @@ $float.on('click', 'img', function () {
             })
         }
     });
-})
+});

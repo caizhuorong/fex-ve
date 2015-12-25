@@ -12,7 +12,7 @@ var SSO_Controller = require('common:widget/sso/sso.js'),
  * iframe 延迟加载
  */
 function lazyload() {
-    var $imgbtn = $('.top_bch_imgbtn')
+    var $imgbtn = $('.top_bch_imgbtn');
     function load () {
         var $self = $(this);
         if (!$self.attr('src')) {

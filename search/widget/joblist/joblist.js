@@ -281,10 +281,33 @@ var ajax = function (opt, data) {
 
 
 /**
+ * 获取用户基本信息
+ */
+$.ajax({
+    url: '/api/getLoginUserInfo',
+    method: 'get',
+    dataType: 'json',
+    success: function (data) {
+        window.USER_INFO = data;
+    }
+});
+/**
+ * 用户类型确认
+ */
+function userTypeVerDoAjax() {
+    if (USER_INFO && USER_INFO.status == 1 && USER_INFO.message.userType == 2) {
+        ajax.apply(this, arguments);
+    } else {
+        layer.message({right: "<h4>操作失败！</h4><span>抱歉，企业用户不能进行此操作哦！</span>", icon: 2, title: "申请失败"});
+    }
+}
+
+
+/**
  * 电话直聘
  */
 $joblist.on('click', '.base .job .call', function () {
-    ajax('/pop/show_tel', {job_id: $(this).closest('.job-child').data('id')}, function (data) {
+    userTypeVerDoAjax('/pop/show_tel', {job_id: $(this).closest('.job-child').data('id')}, function (data) {
         console.log(data);
         layer.message('<p>欢迎来电应聘/咨询：<strong>' + data.message.contact_telephone + '</strong><br>咨询时间：' + (data.message.contact_time == '00:00-00:00' ? '24 x 7' : data.message.contact_time) + '</p>', 2, {title: '电话直聘'});
     });
@@ -321,11 +344,11 @@ var selectletter = __inline('view/selectletter.tmpl');
 
 $joblist
     .on('click', '.apply', function (ev) { // 立即申请
-        ajax('/pop/apply_job', {job_id: $(this).closest('.job-child').data('id')}, function (data) {});
+        userTypeVerDoAjax('/pop/apply_job', {job_id: $(this).closest('.job-child').data('id')}, function (data) {});
     }).on('click', '.pop span', function (ev) {
         var $child = $(this).closest('.job-child');
 
-        ajax('/pop/choose_resume', {job_id: $(this).closest('.job-child').data('id')}, function (data) {
+        userTypeVerDoAjax('/pop/choose_resume', {job_id: $(this).closest('.job-child').data('id')}, function (data) {
             // 求职信列表数据
             var i, len, letterList = data.message.letterList;
             jsldata = {list: [], all: {}};
