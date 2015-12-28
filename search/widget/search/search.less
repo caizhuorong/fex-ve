@@ -73,18 +73,34 @@
   }
 
   .form-bottom {
-    text-align: center;
+    width: 645px;
+    text-align: right;
     padding-top: 32px;
+    &.action {
+      .submit {
+        -webkit-transition: .5s .2s;
+        -moz-transition: .5s .2s;
+        -o-transition: .5s .2s;
+        transition: .5s .2s;
+        width: 168px;
+        padding: auto;
+      }
+    }
   }
 
   .submit {
-    width: 168px;
+    width: 0;
+    padding: auto 0;
     height: 48px;
     background: #ef8217;
     font-size: 20px;
     color: #fff;
     border: 0;
     margin-right: 20px;
+    -webkit-transition: .5s;
+    -moz-transition: .5s;
+    -o-transition: .5s;
+    transition: .5s;
   }
 
   .clear-form {

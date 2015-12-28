@@ -29,7 +29,6 @@
         </div>
 
 
-
         <input type="text" class="search-val" placeholder="输入职位名或者关键字" name="key_words" value="{%$data.key_words%}" autocomplete="off">
         <a href="javascript:" class="search-btn single" target="_self">找工作</a>
     </div>
