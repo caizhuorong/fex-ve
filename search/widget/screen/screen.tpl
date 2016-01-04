@@ -30,6 +30,5 @@
 
 
 {%script%}
-    window.DROPDATA_FILTER = {%json_encode($DROPDATA_FILTER)%};
     require('screen');
 {%/script%}

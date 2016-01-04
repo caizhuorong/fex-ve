@@ -14,7 +14,25 @@ var H = require('common:widget/helper/helper.js'),
     $his = $keywork.find('.J_search-his'),
     hisCache,
 
-    cache = {};
+    cache = {},
+
+    data = {
+        area: require('base:widget/cock/data/area_zh-cn.js'),
+        post: require('base:widget/cock/data/post_zh-cn.js')
+    };
+
+$keywork.find('.kwbtn').each(function () {
+    var $me = $(this),
+        name = $me.data('name'),
+        $input = $me.find('input[type=hidden]'),
+        val = $input.val().split(','),
+        i = 0, len = val.length, list = [], tmp;
+    for (; i < len; i++) {
+        tmp = data[name].raw[val[i]] || data[name].type[val[i]];
+        tmp && list.push(tmp);
+    }
+    list.length && $me.find('span').html(list.join('+'));
+});
 
 
 $keywork
@@ -69,7 +87,7 @@ $keywork
             $his.show();
         } else {
             $.ajax({
-                url: 'http://search1.veryeast.cn/job_search/getHistory',
+                url: '/job_search/getHistory',
                 method: 'post',
                 dataType: 'json',
                 success: function (data) {
@@ -176,8 +194,6 @@ $input.autocomplete('bind', 'hover', function ($ele, data) {
         }
     }
 });
-
-
 
 
 var $bar = $keywork.find('.search-bar');

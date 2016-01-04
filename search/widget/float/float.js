@@ -2,7 +2,20 @@
  * Created by TC-62 on 2015/11/30.
  */
 
-
+/**
+ * 获取用户基本信息
+ */
+$.ajax({
+    url: '/api/getLoginUserInfo',
+    method: 'get',
+    dataType: 'json',
+    success: function (data) {
+        window.USER_INFO = data;
+    }
+});
+$('.login-logout').on('click', function () {
+    USER_INFO.status = 2
+});
 
 
 

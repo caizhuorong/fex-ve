@@ -39,11 +39,11 @@
 
 
                     {%call name="searchFormItem" pla="工作经验" vid="work_year" run=$data.work_year%}
-                    <input type="hidden" name="work_year_min" value="{%if $data.work_year_min!=0%}{%$data.where.work_year_min%}{%/if%}">
+                    <input type="hidden" name="work_year_min" value="{%if $data.work_year_min!=0%}{%$data.work_year_min%}{%/if%}">
 
                     {%call name="searchFormItem" pla="月薪范围" vid="salary" run=$data.salary%}
-                    <input type="hidden" name="salary_min" value="{%if $data.salary_min!=0%}{%$data.where.salary_min%}{%/if%}">
-                    <input type="hidden" name="salary_max" value="{%if $data.salary_max!=1000000%}{%$data.where.salary_max%}{%/if%}">
+                    <input type="hidden" name="salary_min" value="{%if $data.salary_min!=0%}{%$data.salary_min%}{%/if%}">
+                    <input type="hidden" name="salary_max" value="{%if $data.salary_max!=1000000%}{%$data.salary_max%}{%/if%}">
 
                     {%call name="searchFormItem" pla="筹建状态" vid="is_construct" run=$data.is_construct%}
                     {%call name="searchFormItem" pla="性别要求" vid="gender_id" run=$data.gender_id%}
@@ -73,6 +73,7 @@
 
 {%script%}
     window.DROPDATA = {%json_encode($DROPDATA)%};
+    window.DROPDATA_FILTER = {%json_encode($DROPDATA_FILTER)%};
 
     function array_index ( dp ) {
         var data = {},

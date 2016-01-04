@@ -280,25 +280,15 @@ var ajax = function (opt, data) {
 };
 
 
-/**
- * 获取用户基本信息
- */
-$.ajax({
-    url: '/api/getLoginUserInfo',
-    method: 'get',
-    dataType: 'json',
-    success: function (data) {
-        window.USER_INFO = data;
-    }
-});
+
 /**
  * 用户类型确认
  */
 function userTypeVerDoAjax() {
-    if (USER_INFO && USER_INFO.status == 1 && USER_INFO.message.userType == 2) {
-        ajax.apply(this, arguments);
-    } else {
+    if (USER_INFO && USER_INFO.status == 1 && USER_INFO.message.userType == 1) {
         layer.message({right: "<h4>操作失败！</h4><span>抱歉，企业用户不能进行此操作哦！</span>", icon: 2, title: "申请失败"});
+    } else {
+        ajax.apply(this, arguments);
     }
 }
 

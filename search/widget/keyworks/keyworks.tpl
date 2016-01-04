@@ -1,7 +1,7 @@
 <div class="w-keyworks">
     <a class="kwbtn" data-name="post" data-placeholder="请选择职位" data-title="职位" title="职位">
         <span class="ellipsis">请选择职位</span>
-        <input type="hidden" name="funtype" value="{%$data.funtype%}{%*{%join($data.job_type_id, ',')%}*%}">
+        <input type="hidden" name="funtype" value="{%join($data.job_post_id, ',')%}">
         <b></b>
     </a>
     <a class="kwbtn" data-name="area" data-tip="请选择工作地点" data-placeholder="请选择地点" data-title="地点" title="地点">
@@ -27,7 +27,7 @@
             <ul class="sb-list"></ul>
         </div>
 
-        <input type="text" class="search-val" placeholder="输入职位名或者关键字" name="key_words" value="{%$data.key_words%}" autocomplete="off">
+        <input type="text" class="search-val" placeholder="输入职位名或者关键字" maxlength="99" name="key_words" value="{%$data.key_words%}" autocomplete="off">
         <a href="javascript:" class="search-btn single" target="_self">找工作</a>
     </div>
 
