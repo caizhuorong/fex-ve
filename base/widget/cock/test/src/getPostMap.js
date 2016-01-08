@@ -7,8 +7,8 @@ var fs = require('fs'),
     post = require('../data/zh-cn/post-data.json'),
     post_cn = {},
 
-    postTxt = fs.readFileSync('../post.txt').toString(),
-    postHot = fs.readFileSync('../post-hot.txt').toString(),
+    postTxt = fs.readFileSync('../data/zh-cn/post.txt').toString(),
+    postHot = fs.readFileSync('../data/zh-cn/post-hot.txt').toString(),
 
     tmp, i;
 

@@ -3,7 +3,7 @@
         <h4>已选职位：</h4>
         <div class="ck-std-list">
             {{each hit as item}}
-            {{if item!=''}}<label><input type="checkbox" value="{{item}}" checked>{{type[item]||raw[item]}}</label>{{/if}}
+            {{if item!=''}}<label><input type="checkbox" {{if type[item]}}class="isTitle"{{/if}} value="{{item}}" checked>{{type[item]||raw[item]}}</label>{{/if}}
             {{/each}}
         </div>
     </div>
@@ -18,7 +18,7 @@
                         <th rowspan="{{ceil(child[1].length/3)}}">{{child[0]}}：</th>
                         {{each child[1] as item index}}
                             {{if index > 0 && index % 3 == 0}}</tr>{{if index < child[1].length - 1}}<tr>{{/if}}{{/if}}
-                            <td><label><input type="checkbox" value="{{item}}" {{if inArray(item, hit) >= 0}}checked{{/if}}>{{raw[item]}}</label></td>
+                            <td><label><input type="checkbox" {{if type[item]}}class="isTitle"{{/if}} value="{{item}}" parent="{{item.substr(0,2)}}00" {{if inArray(item, hit) >= 0}}checked{{/if}}>{{raw[item]}}</label></td>
                             {{if index == child[1].length - 1 && (index+1) % 3 > 0}}<td colspan="{{3-(index+1)%3}}"></td>{{/if}}
                         {{/each}}
                     </tr>

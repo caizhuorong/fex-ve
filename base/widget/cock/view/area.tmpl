@@ -3,7 +3,7 @@
         <h4>已选地点：</h4>
         <div class="ck-std-list">
             {{each hit as item}}
-            {{if item!=''}}<label><input type="checkbox" value="{{item}}" checked>{{type[item]||raw[item]}}</label>{{/if}}
+            {{if item!=''}}<label><input type="checkbox" {{if type[item]}}class="isTitle"{{/if}} value="{{item}}" checked>{{type[item]||raw[item]}}</label>{{/if}}
             {{/each}}
         </div>
     </div>
@@ -16,7 +16,7 @@
             {{if ps % h_col.length == 0}}<tr>{{/if}}
                 <th>{{child[0]}}</th>
                 {{each child[1] as item index}}
-                <td><label><input type="checkbox" value="{{item}}" {{if inArray(item, hit) >= 0}}checked{{/if}}>{{raw[item]}}</label></td>
+                <td><label><input type="checkbox" {{if type[item]}}class="isTitle"{{/if}} value="{{item}}" parent="{{item.substr(0,2)}}0000" {{if inArray(item, hit) >= 0}}checked{{/if}}>{{raw[item]}}</label></td>
                 {{if index == child[1].length - 1 && (index+1) % h_col[ps%h_col.length] > 0}}<td colspan="{{h_col[ps%h_col.length]-(index+1)%h_col[ps%h_col.length]}}"></td>{{/if}}
                 {{/each}}
             {{if ps % h_col.length == h_col.length - 1}}</tr>{{/if}}

@@ -120,15 +120,22 @@ Cock = {
                     data = me.cache($main.attr('name')),
                     $label = $this.closest('label'),
                     i, ls = [];
+
                 for (i in data.emp) {
-                    ls.push(i)
-                }
+                    ls.push(i);
+                } // 地点页面主要城市标红加粗的城市
+
+                console.log( data );
 
                 if (checked) {
                     // 当前选项选中
                     if (data.multi) {
-                        // 多选
-                        console.log($label);
+                        // 多选 hit
+                        //console.log( data.hit.push[val], data.multi );
+                        if ($this.hasClass('isTitle')) {
+
+                        }
+
                         if ($clist.find('label').length < data.multi) {
                             $clist.append($label.clone(true).removeClass(ls.join(' ')));
                             $label.closest('table').find(($label.parent().get(0).tagName == 'TH' ? 'td' : 'th') + ' input').prop('checked', false).trigger('change.cock-i');
