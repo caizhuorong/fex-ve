@@ -6,6 +6,9 @@
 {%/block%}
 
 {%block name='content'%}
+    {%script%}
+        window._DATA = {%json_encode($data)%}; //arr_result
+    {%/script%}
 
     {%widget name='search:widget/header/header.tpl'%}
     {%widget name='base:widget/nav/nav.tpl' call='nav' data=$nav%}
@@ -22,8 +25,8 @@
         </div>
 
         <div class="m-right">
-            {%foreach from=$spot key="key" item="item"%}
-                <a href="{%$item.link%}" class="{%if not $spot[$key+1]%}last{%/if%}" target="_blank"><img src="{%$item.img%}" alt="{%$item.alt%}"></a>
+            {%foreach from=$data.ad key="key" item="item"%}
+                <a href="{%$item->ADLink%}" class="{%if not $data.ad[$key+1]%}last{%/if%}" target="_blank"><img src="{%$item->ADSrc%}" alt="{%$item->ADAlt%}"></a>
             {%/foreach%}
         </div>
         <i class="clear"></i>

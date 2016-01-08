@@ -13,7 +13,7 @@
 
     <div class="search-bar">
         <span class="search-type">
-            <span>{%if $data.keyword_scope eq 'company_name'%}公司名{%elseif $data.keyword_scope eq all%}全 文{%else%}职位名{%/if%}</span>
+            <span>{%if $data.search_scope eq 'company_name'%}公司名{%elseif $data.search_scope eq 'all'%}全 文{%else%}职位名{%/if%}</span>
             <b class="arrows"></b>
             <input type="hidden" name="keyword_scope" class="keyword_scope" value="{%$data.keyword_scope%}">
             <ul class="search-list">

@@ -15,7 +15,7 @@
 
     <div class="drops">
         <form>
-            {%call name="searchScreenItem" pla="发布日期" vid="job_add_time"%}
+            {%call name="searchScreenItem" pla="更新日期" vid="job_update_time"%}
             {%call name="searchScreenItem" pla="工作经验" vid="work_year_min"%}
             {%call name="searchScreenItem" pla="月薪范围" vid="salary"%}
             {%call name="searchScreenItem" pla="学历要求" vid="degree_id"%}

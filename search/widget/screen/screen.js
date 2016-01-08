@@ -29,8 +29,8 @@ function where_second() {
     for (i = 0, len = vals.length; i < len; i++) {
         name = vals[i]['name'];
         value = vals[i]['value'];
-        if (name == 'job_add_time') {
-            // 发布日期
+        if (name == 'job_update_time') {
+            // 更新日期
             if (value && value != 0) {
                 arr_where_filter_second += name + ' >-s||' + getTimer(-value) + '*';
             }
@@ -87,17 +87,17 @@ function changeKeyWork() {
 $screen
     .on('click', '.screen .btn-n1', function () {
         var $input = $(this).siblings('input'),
-            val = $input.val().trim();
+            val = $.trim($input.val());
         if ($child.find('span').length == 4) {
             layer.tips('最多只支持4个关键字！', $child, tipsConfig);
-        } else if (val == '') {
+        } else if (val == '' || val == $input.attr('placeholder')) {
             layer.tips('这里什么都木有！', $input, tipsConfig);
         } else {
             /**
              *  添加关键字
              */
             $input.val('');
-            $child.append($('<span>' + val + '<i></i></span>').data('item', val));
+            $child.append($('<span>' + H.substring(val, 8) + '<i></i></span>').data('item', val));
             changeKeyWork();
         }
         $input.focus();

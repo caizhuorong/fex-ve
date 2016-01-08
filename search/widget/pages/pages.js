@@ -17,9 +17,12 @@ $('.w-tabmenu .tabright .w-page-inner').clone().appendTo('.funright');
 
 $pages = $('.w-page-inner:not(.nojs)');
 
+var allpage = $pages.data('allpage');
+
 $pages
     .on('click', '.page-btn', function () {
-        joblist.where('page', parseInt($(this).siblings('.page-text').val()), true);
+        var page = parseInt($(this).siblings('.page-text').val());
+        joblist.where('page', page > allpage ? allpage : page < 1 ? 1 : page, true);
     })
     .on('keydown', '.page-text', function (ev) {
         ev.keyCode == 13 && $pages.find('.page-btn').click();

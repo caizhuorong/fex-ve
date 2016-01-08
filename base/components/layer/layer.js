@@ -25,6 +25,11 @@ layer.message = function (content, icon, option) {
         $.extend(data, content, {icon: content.icon * -90 || 0});
         //option = icon
     }
+
+    if (typeof icon == 'object') {
+        option = icon
+    }
+
     index = layer.open($.extend({
         type: 1,
         title: '系统消息',

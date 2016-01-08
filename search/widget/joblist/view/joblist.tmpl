@@ -24,13 +24,13 @@
                        href="http://www.veryeast.cn/AdsShow/product/job/EvaluateIndex" target="_blank" title="雇主指数" class="compnum">{{$item.employer_index}}</a>
                 </li>
                 <li class="area">
-                    <span>{{$item.job_province}}{{if $item.job_city}}{{'-' + $item.job_city}}{{/if}}</span>
+                    <span>{{$item.job_province.replace(/[省市县区镇乡村]$/, '')}}{{if $item.job_city}}{{'-' + $item.job_city.replace(/[省市县区镇乡村]$/, '')}}{{/if}}</span>
                 </li>
                 <li class="timer">
                     <span>{{$item.job_update_time}}</span>
                 </li>
                 <li class="craze">
-                    <i class="p{{$item.job_apply_num <=10 ? 0 : $item.job_apply_num > 30 ? 2 : 1}}" title="{{$item.job_apply_num}}"></i>
+                    <i class="p{{$item.job_apply_num <=10 ? 0 : $item.job_apply_num > 30 ? 2 : 1}}" title="已有{{$item.job_apply_num}}人申请"></i>
                 </li>
             </ul>
 

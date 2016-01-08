@@ -38,6 +38,7 @@ function asyncRender(data) {
         $self.html(H.substring($self.html(), 220));
         //$self.html(H.substring($self.text(), 220).replace(RegExp('(' + _ARR_KEY_WORDS.join('|') + ')', 'g'), '<b>$1</b>'));
     });
+    keyOut($list);
     $joblist.find('.joblist').html('').append($list);
 }
 
@@ -152,21 +153,36 @@ function collect($jobs) {
 
     job_id = job_id.join('||');
 
-    $.ajax({
-        url: '/pop/collection_job',
-        method: 'post',
-        dataType: 'json',
-        data: {
-            job_id: job_id
-        },
-        success: function (data) {
-            try {
-                layer.message(data.message, {title: data.message.title});
-                $joblist.find(data.message.successIds.join().replace(/(\d+)/, '.job-child[data-id=$1]')).find('.collect').addClass('active');
-            } catch (e) {
-            }
+
+    ajax({url: '/pop/collection_job', auto: false}, {
+        job_id: job_id
+    }, function (data) {
+        try {
+            layer.message(data.message, {title: data.message.title});
+            $joblist.find(data.message.successIds.join().replace(/(\d+)/, '.job-child[data-id=$1]')).find('.collect').addClass('active');
+        } catch (e) {
         }
     });
+
+    /*
+     var load = layer.load(2, {shade: .1});
+     $.ajax({
+     url: '/pop/collection_job',
+     method: 'post',
+     dataType: 'json',
+     data: {
+     job_id: job_id
+     },
+     success: function (data) {
+     layer.close(load);
+     try {
+     layer.message(data.message, {title: data.message.title});
+     $joblist.find(data.message.successIds.join().replace(/(\d+)/, '.job-child[data-id=$1]')).find('.collect').addClass('active');
+     } catch (e) {
+     }
+     }
+     });
+     */
 }
 
 exports.collect = collect;
@@ -196,19 +212,14 @@ $joblist.on('mouseenter', '.job-child', function () { // 鼠标移入展开
  })*/;
 
 
-var keyWord = RegExp('(' + _ARR_KEY_WORDS.join('|') + ')', 'g')
+var keyWord = RegExp('(' + _ARR_KEY_WORDS.join('|') + ')', 'g');
 /**
  *  超长文本截断
  */
 // 多行
 $joblist.find('.attr .brief').each(function () {
-    var $self = $(this);
-    $self.html(H.substring($self.text(), 220).replace(keyWord, '<b>$1</b>'));
-});
-
-$joblist.find('.job a').each(function () {
-    var $self = $(this);
-    $self.html($self.html().replace(keyWord, '<b>$1</b>'));
+    var $me = $(this);
+    $me.html(H.substring($me.text(), 220));
 });
 
 
@@ -223,6 +234,18 @@ if (!$('body').css('maxWidth')) {
         $hotel.html(H.substring($hotel.html(), 24));
     });
 }
+
+
+/**
+ * 关键字标红
+ */
+function keyOut($list) {
+    $list.find('.job a, .hotel a, .attr .brief').each(function () {
+        var $me = $(this);
+        $me.html($me.html().replace(keyWord, '<b>$1</b>'));
+    });
+}
+keyOut($joblist);
 
 
 /**
@@ -245,25 +268,28 @@ var ajax = function (opt, data) {
     var success, args = arguments;
     if (typeof opt == 'string') {
         opt = {
-            url: opt,
-            data: data
+            auto: true,
+            url: opt
         };
     }
+
+    $.extend(opt, {data: $.extend({returnType: 'json'}, data)});
 
     // 回掉函数
     success = opt.success ? opt.success : typeof args[args.length - 1] == "function" ? args[args.length - 1] : null;
 
     layer.load(2, {shade: .1});
 
-    $.ajax($.extend({}, {
+    $.ajax($.extend({
         method: 'post',
         dataType: 'json',
         success: function (data) {
             layer.closeAll();
             var status = data.status;
+
             if (status == 2) {
                 location.href = 'http://i.veryeast.cn/user/login?redirect=' + encodeURIComponent(location.href);
-            } else if (status == 0 || (data.message && data.message.right)) {
+            } else if (status == 0 || (opt.auto && data.message && data.message.right)) {
                 var msg = data.message;
                 layer.message({right: msg.right, bottom: msg.bottom || undefined, icon: msg.icon || 0}, {title: msg.title});
             } else if (status == 1) {
@@ -278,7 +304,6 @@ var ajax = function (opt, data) {
         }
     }, opt));
 };
-
 
 
 /**
@@ -298,7 +323,6 @@ function userTypeVerDoAjax() {
  */
 $joblist.on('click', '.base .job .call', function () {
     userTypeVerDoAjax('/pop/show_tel', {job_id: $(this).closest('.job-child').data('id')}, function (data) {
-        console.log(data);
         layer.message('<p>欢迎来电应聘/咨询：<strong>' + data.message.contact_telephone + '</strong><br>咨询时间：' + (data.message.contact_time == '00:00-00:00' ? '24 x 7' : data.message.contact_time) + '</p>', 2, {title: '电话直聘'});
     });
 });
@@ -334,7 +358,8 @@ var selectletter = __inline('view/selectletter.tmpl');
 
 $joblist
     .on('click', '.apply', function (ev) { // 立即申请
-        userTypeVerDoAjax('/pop/apply_job', {job_id: $(this).closest('.job-child').data('id')}, function (data) {});
+        userTypeVerDoAjax('/pop/apply_job', {job_id: $(this).closest('.job-child').data('id')}, function (data) {
+        });
     }).on('click', '.pop span', function (ev) {
         var $child = $(this).closest('.job-child');
 
@@ -359,14 +384,18 @@ $joblist
                 yes: function () {
                     var apl_id = this.layero.find('[name=apply_letter_id]').val();
 
-                    ajax('/pop/apply_job', {
-                        job_id: $child.data('id'),
-                        use_letter: 1,
-                        apply_letter_id: apl_id,
-                        apply_letter_title: jsldata.all[apl_id].title,
-                        apply_letter_content: this.layero.find('[name=apply_letter_content]').val()
-                    }, function (data) {
-                    });
+                    if (apl_id == '') {
+                        layer.message('<p>请选择求职信哦！</p>', 2, {shade: .1});
+                    } else {
+                        ajax('/pop/apply_job', {
+                            job_id: $child.data('id'),
+                            use_letter: 1,
+                            apply_letter_title: apl_id,
+                            apply_letter_title_value: jsldata.all[apl_id].title,
+                            apply_letter_content: this.layero.find('[name=apply_letter_content]').val()
+                        }, function (data) {
+                        });
+                    }
                 }
             });
         });

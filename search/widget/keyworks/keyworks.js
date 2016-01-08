@@ -95,7 +95,7 @@ $keywork
 
                     for (; i < len; i++) {
                         item = data.message[i];
-                        html += '<li><a class="ellipsis " href="/job_search/job_list?s=history&p=' + encodeURIComponent(item.value) + '">' + item.word + '</a></li>';
+                        html += '<li><a class="ellipsis " href="/job_search/job_list?s=history&p=' + encodeURIComponent(item.value) + '" title="' + item.word + '">' + item.word + '</a></li>';
                     }
                     $keywork.find('.J_search-his')[html == '' ? 'hide' : 'show']().find('.sb-list').html(html);
                     hisCache = html;

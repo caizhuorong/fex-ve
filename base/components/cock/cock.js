@@ -128,6 +128,7 @@ Cock = {
                     // 当前选项选中
                     if (data.multi) {
                         // 多选
+                        console.log($label);
                         if ($clist.find('label').length < data.multi) {
                             $clist.append($label.clone(true).removeClass(ls.join(' ')));
                             $label.closest('table').find(($label.parent().get(0).tagName == 'TH' ? 'td' : 'th') + ' input').prop('checked', false).trigger('change.cock-i');
@@ -146,7 +147,7 @@ Cock = {
                 me.check(val, checked);
             })
 
-            // todo: 头部已选择的label点击后删除
+            // 头部已选择的label点击后删除
             .on('click', '.ve-w-cock .ck-std-list label', function () {
                 var $this = $(this),
                     val = $this.find('input').val();
@@ -217,9 +218,10 @@ Cock = {
 
         if (!god) {
             god = this.cache(opt.name, $.extend({
-                $main: this.render(opt.tpl, $.extend({hit: opt.hit || []}, opt.data)).attr('name', opt.name).append('<div class="item-cache"></div>')
+                $main: this.render(opt.tpl, $.extend({hit: opt.hit || []}, opt.data))
+                        .attr('name', opt.name)[(window.screen.availHeight < 732 ? 'add' : 'remove') + 'Class']('mini-ms')
+                        .append('<div class="item-cache"></div>')
             }, opt));
-
             for (i in god.emp) {
                 god.$main.find('.J_ck-hot').find(god.emp[i].join(',').replace(/(\d+)/g, 'input[value=$1]')).parent().addClass(i);
             }

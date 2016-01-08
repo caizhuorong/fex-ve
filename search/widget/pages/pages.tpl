@@ -1,7 +1,7 @@
 {%function name="pages" page=1 all=1 base=''%}
     {%if not $page%}{%$page=1%}{%/if%}
 
-    <div class="w-page-inner">
+    <div class="w-page-inner" data-allpage="{%$all%}">
         {%if $page gt 1%}<a href="{%$base%}{%$page - 1%}" class="page-start">{%$page - 1%}</a>{%/if%}
 
         {%if $page gt 1%}<a href="{%$base%}1">1</a>{%/if%}
