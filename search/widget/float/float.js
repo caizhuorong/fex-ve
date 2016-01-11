@@ -13,6 +13,7 @@ $.ajax({
     url: '/api/getLoginUserInfo',
     method: 'get',
     dataType: 'json',
+    cache: false,
     success: function (data) {
         window.USER_INFO = data;
     }
@@ -36,10 +37,15 @@ $win.scroll(function () {
 
 
 $float.on('click', 'img', function () {
-    if (USER_INFO.status == 2) {
+    if (USER_INFO && USER_INFO.status == 2) {
         location.href = 'http://i.veryeast.cn/user/login?redirect=' + encodeURIComponent(location.href);
-        return;
+    } else {
+        feedback();
     }
+});
+
+
+function feedback() {
     layer.open({
         title: '意见反馈',
         content: selectletter,
@@ -92,4 +98,4 @@ $float.on('click', 'img', function () {
             })
         }
     });
-});
+}

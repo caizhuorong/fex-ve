@@ -1,13 +1,11 @@
-{%extends file="base/page/layout.tpl"%}
+{%extends file="base/page/tidy.tpl"%}
 
 {%block name='block_head_static'%}
-    <!--[if lt IE 9]>
-    <script src="/lib/js/html5.js"></script>
-    <![endif]-->
+    {%widget name='widget/markdown/markdown.tpl'%}
 {%/block%}
 
 {%block name='content'%}
-    <div class="layout">
-        {%widget name="demo:widget/alert/alert.tpl"%}
+    <div id="wmd-preview" class="wmd-preview wmd-preview-full-reader">
+        {%widget name="widget/cock/cock.tpl"%}
     </div>
 {%/block%}

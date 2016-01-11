@@ -121,9 +121,10 @@ Cock = {
                     $label = $this.closest('label'),
                     i, ls = [];
 
+                // 地点页面主要城市标红加粗的城市
                 for (i in data.emp) {
                     ls.push(i);
-                } // 地点页面主要城市标红加粗的城市
+                }
 
                 if (checked) {
                     // 当前选项选中
@@ -221,8 +222,8 @@ Cock = {
         if (!god) {
             god = this.cache(opt.name, $.extend({
                 $main: this.render(opt.tpl, $.extend({hit: opt.hit || []}, opt.data))
-                        .attr('name', opt.name)[(window.screen.availHeight < 732 ? 'add' : 'remove') + 'Class']('mini-ms')
-                        .append('<div class="item-cache"></div>')
+                    .attr('name', opt.name)[(window.screen.availHeight < 732 ? 'add' : 'remove') + 'Class']('mini-ms')
+                    .append('<div class="item-cache"></div>')
             }, opt));
             for (i in god.emp) {
                 god.$main.find('.J_ck-hot').find(god.emp[i].join(',').replace(/(\d+)/g, 'input[value=$1]')).parent().addClass(i);

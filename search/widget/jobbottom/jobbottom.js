@@ -20,7 +20,9 @@ function checkAll(ck) {
         url.push($(this).data('id'));
     });
 
-    $jobbottom.find('.J-shows').attr('href', ck ? '/job_search/job_show/' + url.join('-') : 'javascript:');
+    $jobbottom.find('.J-shows')
+        .attr('href', ck ? '/job_search/job_show/' + url.join('-') : 'javascript:')
+        .attr('target', ck ? '_blank' : '');// 解决ie9一下兼容问题
     $jobbottom.find('.J-collects').data('jobs', url.join('-'));
 }
 

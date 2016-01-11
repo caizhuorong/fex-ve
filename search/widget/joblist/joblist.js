@@ -311,7 +311,7 @@ var ajax = function (opt, data) {
  */
 function userTypeVerDoAjax() {
     if (USER_INFO && USER_INFO.status == 1 && USER_INFO.message.userType == 1) {
-        layer.message({right: "<h4>操作失败！</h4><span>抱歉，企业用户不能进行此操作哦！</span>", icon: 2, title: "申请失败"});
+        layer.message({right: "<h4>操作失败！</h4><span>抱歉，企业用户不能进行此操作哦！</span>", icon: 2, title: "操作失败"});
     } else {
         ajax.apply(this, arguments);
     }
