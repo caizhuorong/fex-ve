@@ -125,20 +125,15 @@ Cock = {
                     ls.push(i);
                 } // 地点页面主要城市标红加粗的城市
 
-                console.log( data );
-
                 if (checked) {
                     // 当前选项选中
                     if (data.multi) {
                         // 多选 hit
-                        //console.log( data.hit.push[val], data.multi );
-                        if ($this.hasClass('isTitle')) {
-
-                        }
+                        $clist.find('input[value=' + $this.attr('parent') + ']').closest('label').click(); // 这是一行价值伍佰元的代码
+                        $label.closest('table').find(($label.parent().get(0).tagName == 'TH' ? 'td' : 'th') + ' input').prop('checked', false).trigger('change.cock-i');
 
                         if ($clist.find('label').length < data.multi) {
                             $clist.append($label.clone(true).removeClass(ls.join(' ')));
-                            $label.closest('table').find(($label.parent().get(0).tagName == 'TH' ? 'td' : 'th') + ' input').prop('checked', false).trigger('change.cock-i');
                         } else {
                             $this.prop('checked', false);
                             layer.tips('您最多能选择' + data.multi + '项', $clist, {tips: [3, '#FF9900'], time: 2400});
