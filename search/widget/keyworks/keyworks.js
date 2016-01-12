@@ -20,9 +20,10 @@ var H = require('common:widget/helper/helper.js'),
 
     cache = {};
 
+
 $keywork.find('.kwbtn').each(function () {
     var $me = $(this),
-        name = $me.data('name'),
+        name = $me.data('name').split('-')[0],
         $input = $me.find('input[type=hidden]'),
         val = $input.val().split(','),
         i = 0, len = val.length, list = [], tmp;
@@ -44,7 +45,7 @@ $keywork
 
         data.hit = $this.find('input').val().split(',');
 
-        KW[$this.data('name')](data, function (list) {
+        KW[$this.data('name').split('-')[0]](data, function (list) {
             var value = list.v.join(','),
                 text = list.t.join('+');
 

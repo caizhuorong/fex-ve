@@ -20,9 +20,8 @@ $('.demo-w-cock')
 
         data.hit = $this.find('input').val().split(',');
 
-        console.log( data );
-
-        KW[$this.data('name')](data, function (list) {
+        KW[$this.data('name').split('-')[0]](data, function (list) {
+            console.log(list);
             var value = list.v.join(','),
                 text = list.t.join('+');
 
@@ -34,7 +33,7 @@ $('.demo-w-cock')
     })
     .find('.kwbtn').each(function () {
         var $me = $(this),
-            name = $me.data('name'),
+            name = $me.data('name').split('-')[0],
             $input = $me.find('input[type=hidden],input[type=text]'),
             val = $input.val().split(','),
             i = 0, len = val.length, list = [], tmp;

@@ -1,5 +1,5 @@
-{%function name="searchFormItem" pla="" vid="" run="" item=false hide=false%}
-    <span control="select" class="select {%if $run!=0%}isSet{%/if%}" data-v="{%$vid%}" {%if $item%}drop-item="{%$item%}"{%/if%} {%if $hide%}style="display:none"{%/if%}>
+{%function name="searchFormItem" pla="" vid="" run="" item=false hide=false disabl=false%}
+    <span control="select" class="select {%if $run!=0%}isSet{%elseif $disabl==true%}disabled{%/if%}" data-v="{%$vid%}" {%if $item%}drop-item="{%$item%}"{%/if%} {%if $hide%}style="display:none"{%/if%}>
         <i pla="{%$pla%}">{%if $run!=0%}{%$DROPDATA_INDEX[$vid][$run]%}{%else%}{%$pla%}{%/if%}</i>
         <em></em>
         <input type="hidden" name="{%$vid%}" value="{%$run%}">
@@ -27,14 +27,14 @@
                 <i class="line"></i>
 
                 <div class="form-box">
-                    {%*
+
                     {%call name="searchFormItem" pla="行业类别" vid="company_industry" run=$data.company_industry item="company_type"%}
-                    {%call name="searchFormItem" pla="企业类型" vid="company_type" run=$data.company_type item="star_level"%}
-                    {%call name="searchFormItem" pla="星级"    vid="star_level" run=$data.star_level%}
-                    *%}
-                    {%call name="searchFormItem" pla="行业类别" vid="company_industry" item="company_type"%}
+                    {%call name="searchFormItem" pla="企业类型" vid="company_type"     run=$data.company_type     disabl=true item="star_level"%}
+                    {%call name="searchFormItem" pla="星级"    vid="star_level"       run=$data.star_level       disabl=true%}
+
+                    {%*{%call name="searchFormItem" pla="行业类别" vid="company_industry" item="company_type"%}
                     {%call name="searchFormItem" pla="企业类型" vid="company_type" item="star_level"%}
-                    {%call name="searchFormItem" pla="星级"    vid="star_level"%}
+                    {%call name="searchFormItem" pla="星级"    vid="star_level"%}*%}
                     <i class="clear"></i>
 
 

@@ -65,7 +65,7 @@ api.create = function (data, filter) {
         if (data[i][0] == 0 || !filter || $.inArray(data[i][0], filter) >= 0) {
             $tmp = $('<li class="ellipsis">');
             $tmp.text(data[i][1])
-                .attr('value', data[i][0]);
+                .data('value', data[i][0]);
             data[i][2] != undefined && $tmp.attr('dropItem', data[i][2]);
 
             $ul.append($tmp);
@@ -184,13 +184,13 @@ $body.on('mouseenter', li, function () {
         v = $self.closest('.cw-droplist-i').attr('dropid'),
         me = cachelist[v],
         $i = me.$me.children('i'),
-        val = $self.attr('value'),
+        val = $self.data('value'),
         item = $self.attr('dropItem'),
         zero = (!val || val == '0');
 
     $self.addClass('active').siblings().removeClass('active');
 
-    $i.text(zero ? $i.attr('pla') : $self.text()).siblings().val($self.attr('value'));
+    $i.text(zero ? $i.attr('pla') : $self.text()).siblings().val($self.data('value'));
     me.$me[(zero ? 'remove' : 'add') + 'Class']('isSet');
 
     me.callback ? me.callback(val, item) : null;

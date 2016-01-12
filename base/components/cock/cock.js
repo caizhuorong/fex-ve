@@ -119,17 +119,19 @@ Cock = {
                     $main = $this.closest('.ve-w-cock'),
                     data = me.cache($main.attr('name')),
                     $label = $this.closest('label'),
-                    i, ls = [];
+                    i, ls = [],
+                    multi = parseInt(data.multi) > 1;
 
                 // 地点页面主要城市标红加粗的城市
                 for (i in data.emp) {
                     ls.push(i);
                 }
 
-                if (checked) {
-                    // 当前选项选中
-                    if (data.multi) {
-                        // 多选 hit
+
+                if (multi) {
+                    // 多选 hit
+                    if (checked) {
+                        // 当前选项选中
                         $clist.find('input[value=' + $this.attr('parent') + ']').closest('label').click(); // 这是一行价值伍佰元的代码
                         $label.closest('table').find(($label.parent().get(0).tagName == 'TH' ? 'td' : 'th') + ' input').prop('checked', false).trigger('change.cock-i');
 
@@ -141,11 +143,15 @@ Cock = {
                             return;
                         }
                     } else {
-                        // todo: 单选
+                        $clist.find('input[value=' + val + ']').closest('label').remove();
                     }
                 } else {
-                    $clist.find('input[value=' + val + ']').closest('label').remove();
+                    // todo: 单选
+                    $clist.find('input[value]').trigger('change.cock-i');
+                    $clist.append($label.prop('checked', false).clone(true).removeClass(ls.join(' ')));
+                    //return 0;
                 }
+
 
                 me.check(val, checked);
             })
@@ -221,7 +227,7 @@ Cock = {
 
         if (!god) {
             god = this.cache(opt.name, $.extend({
-                $main: this.render(opt.tpl, $.extend({hit: opt.hit || []}, opt.data))
+                $main: this.render(opt.tpl, $.extend({hit: opt.hit || [], multi: parseInt(opt.multi)}, opt.data))
                     .attr('name', opt.name)[(window.screen.availHeight < 732 ? 'add' : 'remove') + 'Class']('mini-ms')
                     .append('<div class="item-cache"></div>')
             }, opt));
@@ -241,7 +247,7 @@ Cock = {
 
         layer.open({
             area: '840px',
-            title: opt.tip + (opt.multi > 1 ? ' （您最多能选择' + opt.multi + '项）' : ''),
+            title: (opt.tip || '~') + (opt.multi > 1 ? ' （您最多能选择' + opt.multi + '项）' : ''),
             shift: parseInt(Math.random() * 5 + 1),
             btn: '[确定]',
             closeBtn: 0,
