@@ -15,7 +15,7 @@ tpl | 渲染主界面的模板文件 | null | 1
 data | 对应的数据 | null | 1
 emp | 给指定id添加指定class | null |
 tip | 默认显示的信息 | '~' |
-multi | 最多可选个数 | 0 (单选) |
+multi | 最多可选个数 | 1 (单选) |
 ratio | 二级菜单长宽比 | 999 (不限制) |
 baba | 父级可选 | false |
 
