@@ -1,9 +1,9 @@
 <section class="section zz">
-    {%script%}
+	{%script%}
 
-        var a = require('common:widget/alert/layer.js');
+		var a = require('common:widget/alert/layer.js');
 
-        console.log(a);
+		console.log(a);
 
-    {%/script%}
+	{%/script%}
 </section>
