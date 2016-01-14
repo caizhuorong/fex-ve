@@ -55,7 +55,7 @@
                     <div class="work-mode">
                         职位性质：
                         {%foreach from=$DROPDATA.work_mode key="key" item="item"%}
-                            <span><input type="checkbox" class="hide" name="work_mode[]" value="{%$item[0]%}"> {%$item[1]%}</span>
+                            <span {%if in_array($item[0], $data.work_mode)%}class="active"><input checked{%else%}<span><input{%/if%} type="checkbox" class="hide" name="work_mode[]" value="{%$item[0]%}"> {%$item[1]%}</span>
                         {%/foreach%}
                     </div>
                 </div>

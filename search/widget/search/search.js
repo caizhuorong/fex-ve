@@ -1,3 +1,4 @@
+/* global layer */
 /* global DROPDATA */
 /* global DROPDATA_CHILDREN_MAP */
 /**
@@ -60,7 +61,12 @@ $search
             $sibs = $self;
         }
         $sibs.removeClass('active').children('input').prop('checked', false);
-    }).find('.work-mode span').eq(0).click();
+    });
+
+
+if (!$search.find('.work-mode span.active').length) {
+    $search.find('.work-mode span').eq(0).click();
+}
 
 
 exports.callback = function (data) {
@@ -113,7 +119,7 @@ $search.on('click', '[control=select]', function (ev) {
     if ($self.hasClass('disabled')) {
         return;
     }
-    
+
 
     $tpl = drop({
         $dom: $self,
