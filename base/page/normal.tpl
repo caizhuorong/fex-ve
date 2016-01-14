@@ -5,7 +5,7 @@
     {%head%}
         <meta charset="utf-8"/>
         <meta name="renderer" content="webkit"/>
-        <meta http-equiv="X-UA-Compatible" content="IE=9"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=8"/>
 
         <link rel="dns-prefetch" href="//fex.v.veimg.cn">
         <link rel="dns-prefetch" href="//sso.veryeast.cn">
