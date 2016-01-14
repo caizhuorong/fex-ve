@@ -1,34 +1,28 @@
 fis.require('smarty')(fis);
 
-
 fis.match('*.{js,css,less,sass,scss,png,jpeg,jpg,gif}', {
-    useHash: false,
-    useSprite: false,
-    optimizer: null
+	useHash: false,
+	useSprite: false,
+	optimizer: null
 });
-
 
 //不用发布的目录
 fis.match("{/doc/**,/.idea,/widget/*/test/*}", {
-    release: false
+	release: false
 });
-
 
 fis.match('{*,**/*}.tmpl', {
-    optimizer: fis.plugin('html-compress')
+	optimizer: fis.plugin('html-compress')
 });
-
 
 fis.match('/components/{*,**/*}.{js,css}', {
-    isMod: true
+	isMod: true
 });
-
 
 fis.match('*.png', {
-    // fis-optimizer-png-compressor 插件进行压缩，已内置
-    optimizer: fis.plugin('png-compressor')
+	// fis-optimizer-png-compressor 插件进行压缩，已内置
+	optimizer: fis.plugin('png-compressor')
 });
-
 
 /*
  // 启用 fis-spriter-csssprites 插件
@@ -44,7 +38,6 @@ fis.match('*.png', {
 
  */
 
-
 fis.match('*.{js,css,less,sass,scss,png,jpg,jpeg,gif}', {
-    domain: '//fex.v.veimg.cn'
+	domain: '//fex.v.veimg.cn'
 });

@@ -212,7 +212,7 @@ $joblist.on('mouseenter', '.job-child', function () { // 鼠标移入展开
  })*/;
 
 
-var keyWord = RegExp('(' + _ARR_KEY_WORDS.join('|') + ')', 'g');
+var keyWord = RegExp('(' + _ARR_KEY_WORDS.join('|') + ')', 'ig');
 /**
  *  超长文本截断
  */
