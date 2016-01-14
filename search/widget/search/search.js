@@ -164,21 +164,23 @@ var search = new form('#job-search-form'),
 $search.on('click', '.search-btn, .J_submit', function (ev) {
 	var hasN;
 
-	$inkeys.each(function () {
-		var $me = $(this),
-			v = $me.val();
-		if (v != '' && v != $me.attr('placeholder')) {
-			hasN = true;
-			if ($keyInput.val() == $keyInput.attr('placeholder')) {
-				$keyInput.val('');
+	setTimeout(function () {
+		$inkeys.each(function () {
+			var $me = $(this),
+				v = $me.val();
+			if (v != '' && v != $me.attr('placeholder')) {
+				hasN = true;
+				if ($keyInput.val() == $keyInput.attr('placeholder')) {
+					$keyInput.val('');
+				}
+				search.submit();
+				return false;
 			}
-			search.submit();
-			return false;
+		});
+		if (!hasN) {
+			layer.tips('请输入关键字，或者选择职位类型/工作地点哦！', $search.find('.search-bar'), tipsConfig);
 		}
-	});
-	if (!hasN) {
-		layer.tips('请输入关键字，或者选择职位类型/工作地点哦！', $search.find('.search-bar'), tipsConfig);
-	}
+	}, 100);
 	ev.preventDefault();
 });
 
