@@ -152,6 +152,10 @@ $search.on('click', '[control=select]', function (ev) {
 });
 
 
+
+/**
+ * 表单提交操作
+ */
 var search = new form('#job-search-form'),
 	tipsConfig = { tips: [3, '#FF9900'], time: 2400 },
 	$inkeys = $search.find('[name=funtype],[name=jobarea],[name=key_words]'),
@@ -179,3 +183,10 @@ $search.on('click', '.search-btn, .J_submit', function (ev) {
 });
 
 
+/**
+ * 修复ie下在input中按回车使用默认submit提交的bug
+ */
+$search.on('submit', function (ev) {
+	$search.find('.search-btn, .J_submit').click();
+	ev.preventDefault();
+});
