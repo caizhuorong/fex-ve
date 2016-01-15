@@ -4,13 +4,12 @@
 
 'use strict';
 
-
-require.async('common:components/layer/skin/indigo.js');
-
-var 
+var css = __inline('./skin/layer.less'),
 	layer = require('common:components/layer/layer.js'),
 	atpl = require('common:components/tpl/tpl.js'),
 	messageView = __inline('view/message.tmpl');
+
+	require.loadCss({ content: css });
 
 	messageView = atpl.compile(messageView);
 
