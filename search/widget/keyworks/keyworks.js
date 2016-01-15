@@ -6,7 +6,7 @@ require('common:components/autocomplete/autocomplete.js');
 
 var H = require('common:widget/helper/helper.js'),
     KW = {
-        post: require('base:widget/cock/post.js'),
+        post: require('base:widget/cock/post.js').skin(),
         area: require('base:widget/cock/area.js')
     },
     data = {

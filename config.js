@@ -27,8 +27,13 @@ fis.match('*.png', {
 
 
 fis.match('*/_**.less', {
-	parser: false
+	parser: false,
+	isMod: false
 });
+/*fis.match('*.js', {
+	useSameNameRequire: false
+});*/
+
 /*
  // 启用 fis-spriter-csssprites 插件
  fis.match('::package', {

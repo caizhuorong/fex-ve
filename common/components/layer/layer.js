@@ -25,10 +25,20 @@ var $, win, ready = {
 
     //五种原始层模式
     type: ['dialog', 'page', 'iframe', 'loading', 'tips']
-};
+}, layerSkin;
 
 //默认内置方法。
 var layer = {
+	/**本宝宝拓展 fis3 皮肤支持 */
+	skin: function (skin) {
+		var url = skin == 'indigo' ? __uri('./skin/indigo.less') : __uri('./skin/orange.less');
+		if (url != layerSkin) {
+			layerSkin = url;
+			require.loadCss({ url: url });
+		}
+		return this;
+	},
+	
     v: '2.0',
     ie6: !!window.ActiveXObject&&!window.XMLHttpRequest,
     index: 0,

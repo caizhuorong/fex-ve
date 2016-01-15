@@ -2,7 +2,7 @@
 
 {%block name='block_head_static'%}
     {%require name="search:widget/public/public.less"%}
-    {%script%}require('base:components/layer/layer.js'){%/script%}
+    {%script%}require('base:components/layer/layer.js').skin(){%/script%}
 {%/block%}
 
 {%block name='content'%}

@@ -2,9 +2,11 @@
  * Created by TC-62 on 2016/1/11.
  */
 
+require('base:components/layer/layer.js').skin('indigo');
+
 var H = require('common:widget/helper/helper.js'),
 	KW = {
-		post: require('base:widget/cock/post.js'),
+		post: require('base:widget/cock/post.js').skin('blue'),
 		area: require('base:widget/cock/area.js')
 	},
 	data = {
