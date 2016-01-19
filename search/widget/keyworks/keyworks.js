@@ -87,7 +87,7 @@ $keywork
  */
     .on('keyup.rapid', '.search-val', function () {
         var $me = $(this),
-            nVal = $me.val() != '';
+            nVal = $.trim($me.val()) != '';
 
         if (nVal) {
             $his.hide();

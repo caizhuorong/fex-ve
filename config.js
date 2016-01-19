@@ -30,9 +30,7 @@ fis.match('*/_**.less', {
 	parser: false,
 	isMod: false
 });
-/*fis.match('*.js', {
-	useSameNameRequire: false
-});*/
+
 
 /*
  // 启用 fis-spriter-csssprites 插件
@@ -47,6 +45,8 @@ fis.match('*/_**.less', {
  });
  */
 
-fis.match('*.{js,css,less,sass,scss,png,jpg,jpeg,gif}', {
+fis.match('{*.{js,css,less,sass,scss,png,jpeg,jpg,gif},static/**}', {
 	domain: '//fex.v.veimg.cn'
 });
+
+// fis.set('static', 'fex.v.veimg.cn');

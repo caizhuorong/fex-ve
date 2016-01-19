@@ -167,7 +167,7 @@ $search.on('click', '.search-btn, .J_submit', function (ev) {
 	setTimeout(function () {
 		$inkeys.each(function () {
 			var $me = $(this),
-				v = $me.val();
+				v = $.trim($me.val());
 			if (v != '' && v != $me.attr('placeholder')) {
 				hasN = true;
 				if ($keyInput.val() == $keyInput.attr('placeholder')) {

@@ -14,7 +14,7 @@
 
 	<a class="kwbtn" data-name="post-one" data-placeholder="请选择职位" data-title="请选择职位" title="请选择职位">
 		<span class="ellipsis">请选择职位</span>
-		<input type="text" name="funtype" value="1304,1102">
+		<input type="text" name="funtype" value="1304">
 	</a>
 	<br>
 	<a class="kwbtn" data-name="area-one" data-placeholder="请选择地点" data-title="请选择地点" title="请选择地点">
@@ -25,7 +25,7 @@
 	{%widget name="cock-doc.md"%}
 
 	{%script%}
-		require('cock');
+		require.async('cock');
 		$('html').addClass('theme theme-white');
 	{%/script%}
 </div>

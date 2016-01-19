@@ -201,7 +201,7 @@ $joblist.on('mouseenter', '.job-child', function () { // 鼠标移入展开
  })*/;
 
 
-var keyWord = RegExp('(' + _ARR_KEY_WORDS.join('|') + ')', 'ig');
+var keyWord = _ARR_KEY_WORDS.length ? RegExp('(' + _ARR_KEY_WORDS.join('|') + ')', 'ig') : null;
 /**
  *  超长文本截断
  */
@@ -229,10 +229,12 @@ if (!$('body').css('maxWidth')) {
  * 关键字标红
  */
 function keyOut($list) {
-    $list.find('.job a, .hotel a, .attr .brief').each(function () {
-        var $me = $(this);
-        $me.html($me.html().replace(keyWord, '<b>$1</b>'));
-    });
+	if (keyWord) {
+		$list.find('.job a, .hotel a, .attr .brief').each(function () {
+			var $me = $(this);
+			$me.html($me.html().replace(keyWord, '<b>$1</b>'));
+		});
+	}
 }
 keyOut($joblist);
 
