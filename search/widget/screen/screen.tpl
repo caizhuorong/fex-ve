@@ -6,7 +6,7 @@
 
     <div class="screen">
         共<i class="num">{%$data.result_count%}</i>个职位，在结果中筛选：
-        <input type="text" placeholder="请输入关键字" maxlength="20">
+        <input type="text" placeholder="请输入关键字" maxlength="50">
         <a class="btn-n1" href="javascript:;">排除</a>
     </div>
     <div class="child"></div>

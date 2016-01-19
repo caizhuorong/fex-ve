@@ -45,12 +45,13 @@ $jobbottom
 
         if (USER_INFO.status == 1) {
             if (USER_INFO.message.userType == 2) {
-                if ($shows.length) {
-                    //console.log( $(this).data('jobs') );
-                    joblist.collect($shows)
-                } else {
-                    nHas();
-                }
+                // if ($shows.length) {
+                //     //console.log( $(this).data('jobs') );
+                //     joblist.collect($shows)
+                // } else {
+                //     nHas();
+                // }
+				joblist.collect($shows);
             } else {
                 layer.message({right: '<h4>收藏失败！</h4><span>抱歉，您是企业用户，不能收藏职位哦！</span>', icon: 2});
             }
@@ -80,6 +81,11 @@ $joblist.on('click', check, function (ev) {
     ev.stopPropagation();
 });
 
+
+
+$joblist.on('tplReload', function () {
+	$jobbottom.find('.selectAll').prop('checked', false);
+});
 
 //joblist.collect( $('.w-joblist .job-child') );
 

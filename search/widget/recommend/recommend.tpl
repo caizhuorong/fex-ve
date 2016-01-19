@@ -5,6 +5,7 @@
     <div class="rec-title">
         <h3>{%$data.title.t|escape:none%}</h3>
         <p class="icomoon">{%$data.title.p%}</p>
+		<em></em>
     </div>
     <div class="rec-main">
         {%if $data.tpl eq 'list'%}

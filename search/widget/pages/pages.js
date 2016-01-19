@@ -25,7 +25,7 @@ $pages
         joblist.where('page', page > allpage ? allpage : page < 1 ? 1 : page, true);
     })
     .on('keydown', '.page-text', function (ev) {
-        ev.keyCode == 13 && $pages.find('.page-btn').click();
+        ev.keyCode == 13 && $(this).siblings('.page-btn').click();
     })
     .on('click', 'a', function () {
         joblist.where('page', $(this).html(), true);

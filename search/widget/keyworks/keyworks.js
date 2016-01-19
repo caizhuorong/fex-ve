@@ -21,21 +21,29 @@ var H = require('common:widget/helper/helper.js'),
     cache = {};
 
 
-$keywork.find('.kwbtn').each(function () {
-    var $me = $(this),
-        name = $me.data('name').split('-')[0],
-        $input = $me.find('input[type=hidden]'),
-        val = $input.val().split(','),
-        i = 0, len = val.length, list = [], tmp;
-    for (; i < len; i++) {
-        tmp = data[name].raw[val[i]] || data[name].type[val[i]];
-        tmp && list.push(tmp);
-    }
-    list.length && $me.find('span').html(list.join('+'));
-});
+
 
 
 $keywork
+
+/**
+ * 初始化打开弹出窗的按钮
+ */
+	.find('.kwbtn').each(function () {
+		var $me = $(this),
+			name = $me.data('name').split('-')[0],
+			$input = $me.find('input[type=hidden]'),
+			val = $input.val().split(','),
+			i = 0, len = val.length, list = [], tmp, title;
+		for (; i < len; i++) {
+			tmp = data[name].raw[val[i]] || data[name].type[val[i]];
+			tmp && list.push(tmp);
+		}
+		title = list.join('+');
+		if (list.length) {
+			$me.attr('title', title).find('span').html(title);
+		}
+	}).end()
 /**
  * 神奇的弹出窗
  */
@@ -106,7 +114,9 @@ $keywork
     })
 
     .on('focus', '.search-val', function () {
-        $keywork.find('.search-val').trigger('keyup.rapid');
+		setTimeout(function () {
+        	$keywork.find('.search-val').trigger('keyup.rapid');
+		}, 50);
     })
     .on('blur', '.search-val', function () {
         cache.timer = setTimeout(function () {
@@ -133,7 +143,7 @@ $input.autocomplete({
             url: '/api/autocomplete',
             type: 'post',
             dataType: 'json',
-            data: {keywords: task.keyword},
+            data: { keywords: task.keyword },
             success: function (data) {
                 callback(data.message);
             }
@@ -185,7 +195,7 @@ $input.autocomplete('bind', 'hover', function ($ele, data) {
                 url: '/api/opskeyword',
                 type: 'post',
                 dataType: 'json',
-                data: {id: list.id},
+                data: { id: list.id },
                 success: function (data) {
                     opsCache[list.id] = data.message;
                     fillOps(opsCache[list.id]);

@@ -61,7 +61,6 @@ var wherePx = {
             whole: whole
         });
 
-
         /**
          * 分页
          */
@@ -82,6 +81,13 @@ var wherePx = {
         $('body').animate({'scrollTop': scroll > top ? top : scroll});
 
 
+		/**
+		 * 对外提供一个自定义的事件接口
+		 */
+		$joblist.trigger('tplReload')
+		
+		// $.map(exports.events, function (fn) {fn()});
+		
         wherePx.end();
     },
 
@@ -119,7 +125,7 @@ exports.where = function (name, value, setpage) {
         success: wherePx.render,
         error: function (err) {
             wherePx.end();
-            layer.alert('出错了： ' + err);
+            layer.alert('出错了： ' + H.substring(JSON.stringify(err), 1000));
         }
     });
 
@@ -157,32 +163,15 @@ function collect($jobs) {
     ajax({url: '/pop/collection_job', auto: false}, {
         job_id: job_id
     }, function (data) {
+		console.log(data.message.successIds);
         try {
             layer.message(data.message, {title: data.message.title});
-            $joblist.find(data.message.successIds.join().replace(/(\d+)/, '.job-child[data-id=$1]')).find('.collect').addClass('active');
+            $joblist.find(data.message.successIds.join().replace(/(\d+)/g, '.job-child[data-id=$1]')).find('.collect').addClass('active');
         } catch (e) {
         }
     });
 
-    /*
-     var load = layer.load(2, {shade: .1});
-     $.ajax({
-     url: '/pop/collection_job',
-     method: 'post',
-     dataType: 'json',
-     data: {
-     job_id: job_id
-     },
-     success: function (data) {
-     layer.close(load);
-     try {
-     layer.message(data.message, {title: data.message.title});
-     $joblist.find(data.message.successIds.join().replace(/(\d+)/, '.job-child[data-id=$1]')).find('.collect').addClass('active');
-     } catch (e) {
-     }
-     }
-     });
-     */
+
 }
 
 exports.collect = collect;
@@ -300,7 +289,7 @@ var ajax = function (opt, data) {
         },
         error: function (err) {
             layer.closeAll();
-            layer.alert('未知错误!<br><pre>' + err + '</pre>', {maxWidth: '600px'});
+            layer.alert('未知错误!<br><pre>' + H.substring(JSON.stringify(err), 1000) + '</pre>', {maxWidth: '600px'});
         }
     }, opt));
 };
