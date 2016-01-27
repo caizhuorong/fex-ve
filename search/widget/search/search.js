@@ -5,7 +5,7 @@
  * Created by TC-62 on 2015/10/22.
  */
 
-var form = require('common:widget/form/form.js'),
+var form = require('widget/form/form.js'),
 	drop = require('widget/droplist/droplist.js'),
 	$search = $('.w-search');
 
@@ -178,7 +178,7 @@ $search.on('click', '.search-btn, .J_submit', function (ev) {
 			}
 		});
 		if (!hasN) {
-			layer.tips('请输入关键字，或者选择职位类型/工作地点哦！', $search.find('.search-bar'), tipsConfig);
+			layer.tips('请输入关键字，或者选择职位类型/工作地点哦！', $search.find('.search-bar .search-val'), tipsConfig);
 		}
 	}, 100);
 	ev.preventDefault();

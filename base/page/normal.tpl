@@ -5,9 +5,10 @@
     {%head%}
         <meta charset="utf-8"/>
         <meta name="renderer" content="webkit"/>
-        <meta http-equiv="X-UA-Compatible" content="IE=8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
 
-        <link rel="dns-prefetch" href="//fex.v.veimg.cn">
+		<link rel="dns-prefetch" href="//fis.veimg.cn">
+        <link rel="dns-prefetch" href="//f3.v.veimg.cn">
         <link rel="dns-prefetch" href="//sso.veryeast.cn">
         <title>{%$title%}</title>
         <meta name="keyworks" content="{%$keyworks%}">
@@ -30,8 +31,8 @@
 
         <!--[if lte IE 9]><script src="{%uri name='common:static/jquery/1.11.3.js'%}"></script><![endif]-->
         {%'<!--[if !IE]><!-->'%}<script src="{%uri name='common:static/jquery/2.1.4.js'%}"></script><!--<![endif]-->
-
-        <!--[if lte IE 6]><script src="{%uri name='common:static/DD_belatedPNG.js'%}"></script><script>DD_belatedPNG.fix('.png_bg,label,background')</script><![endif]-->
+		
+		{%widget name="base:widget/ga/ga.tpl"%}
     {%/body%}
 
 {%/html%}

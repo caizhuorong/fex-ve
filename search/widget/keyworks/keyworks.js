@@ -9,10 +9,6 @@ var H = require('common:widget/helper/helper.js'),
         post: require('base:widget/cock/post.js').skin(),
         area: require('base:widget/cock/area.js')
     },
-    data = {
-        area: require('base:widget/cock/data/area_zh-cn.js'),
-        post: require('base:widget/cock/data/post_zh-cn.js')
-    },
     $keywork = $('.w-keyworks'),
     $doc = $(document),
     $his = $keywork.find('.J_search-his'),
@@ -36,7 +32,7 @@ $keywork
 			val = $input.val().split(','),
 			i = 0, len = val.length, list = [], tmp, title;
 		for (; i < len; i++) {
-			tmp = data[name].raw[val[i]] || data[name].type[val[i]];
+			tmp = KW[name].data.raw[val[i]] || KW[name].data.type[val[i]];
 			tmp && list.push(tmp);
 		}
 		title = list.join('+');
@@ -60,7 +56,6 @@ $keywork
             $this.find('input').val(value ? value : '');
             $this.attr('title', text ? text : $this.data('title'));
             $this.find('span').html(text ? text : $this.data('placeholder'));
-
         });
     })
 
@@ -68,9 +63,8 @@ $keywork
 /**
  * 搜索关键字类型
  */
-    .on('click', '.search-type', function (ev) {
-        $(this).toggleClass('active');
-        ev.stopPropagation();
+    .on('mouseover', '.search-type', function (ev) {
+        $(this).addClass('active');
     })
     .on('click', '.search-type li', function (ev) {
         var $me = $(this);
@@ -220,7 +214,22 @@ $input.autocomplete('bind', 'show', function () {
 
 
 
-$doc.on('click', function () {
+$doc.on('click', function (ev) {
+	var $st = $keywork.find('.search-type'),
+		st = $st.get(0),
+		elp = document.elementFromPoint(ev.clientX || 0, ev.clientY || 0);
+	
+	while (true) {
+		if (!elp || elp == st) {
+			return;
+		}
+		if (elp.parentElement) {
+			elp = elp.parentElement	
+		} else {
+			break;
+		}
+	}
+	
     $keywork.find('.search-type').removeClass('active');
 });
 

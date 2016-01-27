@@ -4,7 +4,7 @@
         <input type="hidden" name="funtype" value="{%join($data.job_post_id, ',')%}">
         <b></b>
     </a>
-    <a class="kwbtn" data-name="area" data-multi="5" data-tip="请选择工作地点" data-placeholder="请选择地点" data-title="地点" title="地点">
+    <a class="kwbtn" data-name="area" data-multi="5" data-placeholder="请选择地点" data-title="地点" title="地点">
         <span class="ellipsis">请选择地点</span>
         <input type="hidden" name="jobarea" value="{%join($data.job_city_id, ',')%}">{%* {%$smarty.request.jobarea%} *%}
         <b></b>
@@ -15,7 +15,7 @@
         <span class="search-type">
             <span>{%if $data.search_scope eq 'company_name'%}公司名{%elseif $data.search_scope eq 'all'%}全 文{%else%}职位名{%/if%}</span>
             <b class="arrows"></b>
-            <input type="hidden" name="keyword_scope" class="keyword_scope" value="{%$data.keyword_scope%}">
+            <input type="hidden" name="keyword_scope" class="keyword_scope" value="{%$data.search_scope%}">
             <ul class="search-list">
                 <li data-name="">职位名</li> {%* data-name="job_name" *%}
                 <li data-name="company_name">公司名</li>

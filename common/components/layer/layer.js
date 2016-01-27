@@ -31,7 +31,8 @@ var $, win, ready = {
 var layer = {
 	/**本宝宝拓展 fis3 皮肤支持 */
 	skin: function (skin) {
-		var url = skin == 'indigo' ? __uri('./skin/indigo.less') : __uri('./skin/orange.less');
+		// var url = skin == 'indigo' ? __uri('./skin/indigo.less') : __uri('./skin/orange.less');
+		var url = __uri('./skin').split(/\.js$/)[0] + '/'+ (skin || 'orange') + '.css'
 		if (url != layerSkin) {
 			layerSkin = url;
 			require.loadCss({ url: url });

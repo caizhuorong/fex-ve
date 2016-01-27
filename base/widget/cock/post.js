@@ -4,15 +4,17 @@
 
 'use strict';
 
-var Cock = require('components/cock/cock.js'),
+var 
+	Cock = require('components/cock/cock.js'),
     auto = {
         name: 'post',
         tpl: __inline('view/post.tmpl'),
-        data: require('data/post_zh-cn.js'),
+        data: require('data/post_cn.js'),
         tip: '请选择职位',
         //multi: 1,
         ratio: 12,
-        baba: true // 这是父级可选
+        baba: true, // 这是父级可选
+		mui: {}
     };
 
 
@@ -21,5 +23,7 @@ function Post(option, callback) {
 }
 
 
-module.exports = Post;
 Post.skin = Cock.skin;
+Post.data = auto.data;
+
+module.exports = Post;

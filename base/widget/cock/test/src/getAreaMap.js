@@ -1,8 +1,8 @@
 var fs = require('fs'),
-    area = require('../data/zh-cn/area.json'),
-    areaAll = require('../data/zh-cn/area-all.json'),
-    areaHot = require('../data/zh-cn/area-hot.json'),
-    //areaEmp = require('../data/zh-cn/area-emp.json'),
+    area = require('../data/cn/area.json'),
+    areaAll = require('../data/cn/area-all.json'),
+    areaHot = require('../data/cn/area-hot.json'),
+    //areaEmp = require('../data/cn/area-emp.json'),
     map = {
         raw: area,
         a_ll: areaAll,
@@ -21,5 +21,5 @@ for (i = 0, len = map.hot.length; i < len; i++) {
 }
 
 
-fs.writeFileSync('../../data/area_zh-cn.js', 'module.exports=' + JSON.stringify(map));
+fs.writeFileSync('../../data/area_cn.js', 'module.exports=' + JSON.stringify(map, null, 4));
 

@@ -17,6 +17,10 @@
 	table, td, th {
 		border: 0;
 	}
+	
+	th {
+		font-weight: bold;
+	}
 
 	.ck-table {
 		width: 100%;
@@ -27,7 +31,7 @@
 		th {
 			text-align: left;
 			vertical-align: top;
-			width: 1px;
+			overflow: hidden;
 		}
 	}
 
@@ -44,7 +48,15 @@
 		}
 	}
 
-	label {
+	span, label {
+		-moz-box-sizing: border-box;
+		-webkit-box-sizing: border-box; 
+		box-sizing: border-box;
+		width: 100%;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		
 		&:hover, &.hover {
 			background: @hover;
 			color: @blank;
@@ -68,6 +80,7 @@
 			display: inline-block;
 			padding-right: 5px;
 			margin-right: 20px;
+			width: auto;
 		}
 
 		input {
@@ -96,6 +109,7 @@
 		label {
 			display: block;
 			padding: 0 15px 0 9px;
+			width: initial;
 		}
 
 		input {
@@ -117,16 +131,27 @@
 				border-bottom: 1px dashed @dashedLine;
 			}
 		}
+		
+		th {
+			em {
+				width: 5.2em;
+				display: block;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+		}
 
 		td {
-			width: 30.7%;
+			width: 30.3%;
 			height: 26px;
 			padding-right: 5px;
 		}
 
 		label {
 			display: block;
-			width: 100%;
+			width: 238px;
+			*width: 233px;
 		}
 
 		input {
@@ -142,6 +167,12 @@
 		td {
 			width: 20%;
 			height: 32px;
+			
+			&:last-child {
+				span, label {
+					width: 162px;
+				}
+			}
 		}
 
 		span, label {
@@ -149,11 +180,9 @@
 			margin: 0 2px;
 			padding: 0 4px;
 			line-height: 26px;
+			width: 157px;
 
 			&:hover, &.hover {
-				background: @hover;
-				color: @blank;
-
 				input {
 					display: inline-block;
 				}
@@ -181,13 +210,15 @@
 		}
 
 		td {
-			width: 80px;
+			width: 81px;
 		}
 
 		label {
 			display: block;
 			height: 24px;
 			padding-left: 5px;
+			width: 82px;
+			*width: 77px;
 
 			&:hover, &.hover {
 				input {
@@ -207,7 +238,7 @@
 		th, td {
 			height: 32px;
 			vertical-align: middle;
-			width: 80px;
+			width: 82px;
 		}
 
 		th {
@@ -224,11 +255,9 @@
 			display: block;
 			height: 24px;
 			padding: 0 5px;
+			width: inherit;
 
 			&:hover, &.hover {
-				background: @hover;
-				color: @blank;
-
 				input {
 					display: inline-block;
 				}
@@ -265,7 +294,7 @@
 	top: 5px;
 	right: 0;
 
-	.layui-layer-btn0 {
+	a {
 		color: @blank;
 		font-size: 16px;
 		font-weight: bold;
@@ -275,6 +304,7 @@
 		padding: 0 12px;
 		background: none;
 		border: none;
+		float: right;
 
 		&:hover {
 			background: @hover;

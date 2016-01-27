@@ -60,42 +60,133 @@ baba | 父级可选 | false |
 ```
 
 ```javascript
+require('base:components/layer/layer.js').skin('indigo'); // 设置layer弹窗皮肤，
+
 var H = require('common:widget/helper/helper.js'),
-    KW = {
-        post: require('base:widget/cock/post.js'),
-        area: require('base:widget/cock/area.js')
-    },
-    data = {
-        area: require('base:widget/cock/data/area_zh-cn.js'),
-        post: require('base:widget/cock/data/post_zh-cn.js')
-    };
+	KW = {
+		post: require('base:widget/cock/post.js').skin('blue'),
+		area: require('base:widget/cock/area.js')
+	};
 
 $('.demo-w-cock')
-    .on('click', '.kwbtn[data-name]', function () {
-        var $this = $(this),
-            data = $this.data();
+	.on('click', '.kwbtn[data-name]', function () {
+		var $this = $(this),
+			data = $this.data();
 
-        data.hit = $this.find('input').val().split(',');
+		// 弹窗打开前初始化默认选中的数据
+		data.hit = $this.find('input').val().split(',');
 
-        KW[$this.data('name').split('-')[0]](data, function (list) {
-            var value = list.v.join(','),
-                text = list.t.join('+');
+		KW[$this.data('name').split('-')[0]](data, function (list) {
+			// 点击确认后返回选中的数据
+			console.log(list);
+			var value = list.v.join(','),
+				text = list.t.join('+');
 
-            $this.find('input').val(value ? value : '');
-            $this.attr('title', text ? text : $this.data('title'));
-            $this.find('span').html(text ? text : $this.data('placeholder'));
-        });
-    })
-    .find('.kwbtn').each(function () {
-        var $me = $(this),
-            name = $me.data('name').split('-')[0],
-            $input = $me.find('input[type=hidden],input[type=text]'),
-            val = $input.val().split(','),
-            i = 0, len = val.length, list = [], tmp;
-        for (; i < len; i++) {
-            tmp = data[name].raw[val[i]] || data[name].type[val[i]];
-            tmp && list.push(tmp);
-        }
-        list.length && $me.find('span').html(list.join('+'));
-    });
+			$this.find('input').val(value ? value : '');
+			$this.attr('title', text ? text : $this.data('title'));
+			$this.find('span').html(text ? text : $this.data('placeholder'));
+		});
+	})
+	
+	// 初始化赋值，搜索功能可无视此处
+	.find('.kwbtn').each(function () {
+		var $me = $(this),
+			name = $me.data('name').split('-')[0],
+			$input = $me.find('input[type=hidden],input[type=text]'),
+			val = $input.val().split(','),
+			i = 0, len = val.length, list = [], tmp;
+		for (; i < len; i++) {
+			tmp = KW[name].data.raw[val[i]] || KW[name].data.type[val[i]];
+			tmp && list.push(tmp);
+		}
+		list.length && $me.find('span').html(list.join('+'));
+	});
+```
+
+#### fis外调用
+```html
+<!-- 如果和seajs 同时使用，请放在seajs后面 -->
+<script src="//fis.veimg.cn/common/mod_sea.js"></script>
+```
+```javascript
+var _this = this,
+	filter = { // 可以通过id做一些表单验证，等的判断，对应下方调用，和本插件无关，只是一个demo
+		post_number: {
+			onFocus: function (me) {
+				_this.form.formatInput('job_post_number');
+			},
+			onBlur: function (me) {
+				_this.form.validate('job_post_number');
+				_this.fillDescriptionHelp();
+			}
+		},
+		work_place: {
+			onFocus: function (me) {
+				_this.form.formatInput('work_place');
+			},
+			onBlur: function (me) {
+				_this.form.validate('work_place');
+			}
+		}
+	},
+	mods = 'common:widget/helper/helper.js,'+
+			'base:components/layer/layer.js,'+
+			'base:widget/cock/post.js,'+
+			'base:widget/cock/area.js';
+
+
+$.ajax({
+	url: 'http://fex.veryeast.cn/resource/getDeps?s=' + mods,
+	dataType: 'jsonp',
+	success: function (map) {
+		// 请先加载 mod_sea.js
+		window.require.resourceMap(map);
+
+		window.require.async(mods.split(','), function (H, layer, post, area) {
+			layer.skin('indigo');
+
+			var KW = {
+				post: post.skin('blue'),
+				area: area
+			};
+
+			$('#form')
+				.on('click', '.kwbtn[data-name]', function () {
+					var $this = $(this),
+						data = $this.data();
+					
+					try{filter[$this.attr('id')].onFocus()}catch(err){} // 对应上面的filter，和本插件无关，只是一个demo
+					
+					// 选中的id
+					data.hit = $this.find('input').val().split(',');
+
+					KW[$this.data('name').split('-')[0]](data, function (list) {
+						// 对选中数据做处理并插入到dom中
+						var value = list.v.join(','),
+							text = list.t.join('+');
+
+						$this.find('input').val(value ? value : '');
+						$this.attr('title', text ? text : $this.data('title'));
+						$this.find('span').html(text ? H.substring(text, 24) : $this.data('placeholder'));
+						
+						try{filter[$this.attr('id')].onBlur()}catch(err){} // 对应上面的filter，和本插件无关，只是一个demo
+					});
+				})
+				
+				// 初始化赋值，搜索功能可无视此处
+				.find('.kwbtn').each(function () {
+					var $me = $(this),
+						name = $me.data('name').split('-')[0],
+						$input = $me.find('input[type=hidden],input[type=text]'),
+						val = $input.val().split(','),
+						i = 0, len = val.length, list = [], tmp;
+					for (; i < len; i++) {
+						tmp = KW[name].data.raw[val[i]] || KW[name].data.type[val[i]];
+						tmp && list.push(tmp);
+					}
+					list.length && $me.find('span').html(list.join('+'));
+				});
+		})
+	}
+});
 ```

@@ -14,14 +14,16 @@ function _getStr(){
 }
 
 
+$cityId_postId = $GLOBALS['fcData']['job_city_id_text'] . ' ' . $GLOBALS['fcData']['job_post_id_text'];
+
 $fis_data = array_merge($public_data, [
     'data' => $GLOBALS['fcData'],
 
     '_GET_TEXT' => _getStr(),
 
-    'title' => '酒店餐饮旅游职位搜索_最佳东方',
-    'keyworks' => '职位搜索,高级搜索,找工作',
-    'description' => '最佳东方职位搜索专为个人提供最全最新最准确的酒店、餐饮、旅游企业职位招聘信息的高级搜索服务，方便个人进行职位搜索，体验到职位搜索的快捷性和高匹配性。',
+    'title' => $cityId_postId . ' ' . $GLOBALS['fcData']['key_words'] . ' 最新' . $GLOBALS['fcData']['job_post_id_text'] . '招聘/求职信息 – 最佳东方',
+    'keyworks' => '最佳东方' . $cityId_postId . '找工作详情页，每天更新大量' . $cityId_postId . '最新招聘/求职信息满足广大用户需求，解决您的后顾之忧。',
+    'description' => $cityId_postId . '招聘, 最新' . $cityId_postId . '招聘信息, ' . $cityId_postId,
 
     'recommend' => [
         /**

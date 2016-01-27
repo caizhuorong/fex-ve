@@ -1,2 +1,1 @@
-require('../config.js');
-fis.set('namespace', 'search');
+require('../config.js')('search');

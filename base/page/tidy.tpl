@@ -7,6 +7,7 @@
         <meta name="renderer" content="webkit"/>
         <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
 
+		<link rel="dns-prefetch" href="//fis.veimg.cn">
         <link rel="dns-prefetch" href="//f3.v.veimg.cn">
         <link rel="dns-prefetch" href="//sso.veryeast.cn">
         <title>{%$title%}</title>
@@ -25,6 +26,7 @@
         <!--[if lte IE 9]><script src="{%uri name='common:static/jquery/1.11.3.js'%}"></script><![endif]-->
         {%'<!--[if !IE]><!-->'%}<script src="{%uri name='common:static/jquery/2.1.4.js'%}"></script><!--<![endif]-->
 
+		{%widget name="base:widget/ga/ga.tpl"%}
     {%/body%}
 
 {%/html%}

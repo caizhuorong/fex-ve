@@ -4,11 +4,11 @@ var timen = (new Date).valueOf();
 
 var fs = require('fs'),
     util = require('util'),
-    post = require('../data/zh-cn/post-data.json'),
+    post = require('../data/cn/post-data.json'),
     post_cn = {},
 
-    postTxt = fs.readFileSync('../data/zh-cn/post.txt').toString(),
-    postHot = fs.readFileSync('../data/zh-cn/post-hot.txt').toString(),
+    postTxt = fs.readFileSync('../data/cn/post.txt').toString(),
+    postHot = fs.readFileSync('../data/cn/post-hot.txt').toString(),
 
     tmp, i;
 
@@ -95,12 +95,12 @@ console.log(allpost);
 // console.log(items(postTxt));
 
 
-fs.writeFileSync('../../data/post_zh-cn.js', 'module.exports=' + JSON.stringify({
+fs.writeFileSync('../../data/post_cn.js', 'module.exports=' + JSON.stringify({
         all: allpost,   // 所有职位的分类 （必选且结构固定）
         raw: post,      // key对应文本的数据源 （必选且结构固定）
         hot: postHot,   // 热门职位
-        type: require('../data/zh-cn/post-type.json')
-    })/*.replace(/\"(\w)\"\:/g, "$1:")*/);
+        type: require('../data/cn/post-type.json')
+    }, null, 4)/*.replace(/\"(\w)\"\:/g, "$1:")*/);
 
 
 console.log((new Date).valueOf() - timen + 'ms', 'done!');

@@ -4,19 +4,21 @@
 
 'use strict';
 
-var Cock = require('components/cock/cock.js'),
+var 
+	Cock = require('components/cock/cock.js'),
     auto = {
         name: 'area',
         tpl: __inline('view/area.tmpl'),
-        data: require('data/area_zh-cn.js'),
-        emp: {
+        data: require('data/area_cn.js'),
+        emp: { // 自定义class
             "item-hot": ["050100", "061300", "050500", "230300"],
             "item-bold": ["010000", "070100", "030000", "070200"]
         },
         tip: '请选择工作地点',
         //multi: 1,
-        ratio: 3,
-        baba: true // 这是父级可选
+        ratio: 3, // 二级菜单长宽比率
+        baba: true, // 这是父级可选
+		mui: {}
     },
     i, key;
 
@@ -40,5 +42,7 @@ function Post(option, callback) {
 }
 
 
-module.exports = Post;
 Post.skin = Cock.skin;
+Post.data = auto.data;
+
+module.exports = Post;

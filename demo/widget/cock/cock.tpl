@@ -21,11 +21,24 @@
 		<span class="ellipsis">请选择地点</span>
 		<input type="text" name="jobarea" value="">
 	</a>
+	
+	<hr>
+	
+	<a class="kwbtn" data-name="class" data-multi="5" data-placeholder="请选择职位" data-title="请选择职位" title="请选择职位">
+		<span class="ellipsis">请选择职位</span>
+		<input type="text" name="funtype" value="">
+	</a>
+	<br>
+	<a class="kwbtn" data-name="class" data-multi="5" data-placeholder="请选择地点" data-title="请选择地点" title="请选择地点">
+		<span class="ellipsis">请选择地点</span>
+		<input type="text" name="jobarea" value="">
+	</a>
+	
 
 	{%widget name="cock-doc.md"%}
 
 	{%script%}
-		require.async('cock');
+		require.async('cock.js');
 		$('html').addClass('theme theme-white');
 	{%/script%}
 </div>
