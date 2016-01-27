@@ -141,7 +141,7 @@ Cock = {
                             $clist.append($label.clone().removeClass(ls.join(' ')));
                         } else {
                             $this.prop('checked', false);
-                            layer.tips('您最多能选择' + data.multi + '项', $clist, {tips: [3, '#FF9900'], time: 2400});
+                            layer.tips('您最多能选择' + data.multi + '项', $clist, {tips: 3, time: 2400});
                             return;
                         }
                     } else {
@@ -286,7 +286,8 @@ Cock = {
     },
 
     skin: function (skin) {
-		var url = skin == 'blue' ? __uri('./skin/blue.less') : __uri('./skin/orange.less');
+		// var url = skin == 'blue' ? __uri('./skin/blue.less') : __uri('./skin/orange.less');
+		var url = __uri('./skin').split(/\.js$/)[0] + '/'+ (skin || 'orange') + '.css'
 		if (url != layerSkin) {
 			layerSkin = url;
 			require.loadCss({ url: url });

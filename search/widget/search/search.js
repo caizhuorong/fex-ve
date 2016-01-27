@@ -5,7 +5,7 @@
  * Created by TC-62 on 2015/10/22.
  */
 
-var form = require('common:widget/form/form.js'),
+var form = require('widget/form/form.js'),
 	drop = require('widget/droplist/droplist.js'),
 	$search = $('.w-search');
 

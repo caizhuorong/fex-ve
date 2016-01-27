@@ -23,7 +23,7 @@
 							<a href="http://www.veryeast.cn/AdsShow/product/job/EvaluateIndex" target="_blank" title="雇主指数" class="compnum">{%$item.employer_index%}</a>
 						</li>
 						<li class="area">
-							<span>{%preg_replace("/[省市县区镇乡村]$/u", '', $item.job_province)%}{%if $item.job_city%}{%'-'|cat:preg_replace("/[省市县区镇乡村]$/u", '', $item.job_city)%}{%/if%}</span>
+							<span class="ellipsis">{%preg_replace("/[省市县区镇乡村]$/u", '', $item.job_province)%}{%if $item.job_city%}{%'-'|cat:preg_replace("/[省市县区镇乡村]$/u", '', $item.job_city)%}{%/if%}</span>
 						</li>
 						<li class="timer">
 							<span>{%$item.job_update_time|truncate:10:''%}</span>
@@ -36,7 +36,7 @@
 						<div class="attr">
 							经验：<i>{%if $item.work_year_min%}{%$item.work_year_min|cat:'年以上'%}{%else%}不限{%/if%}</i>
 							学历：<i>{%$DROPDATA_INDEX.degree_id[$item.degree_id]%}</i>
-							薪资：<i>{%if $item.salary_min%}{%$item.salary_min|cat:'-'|cat:$item.salary_max%}{%else%}面议{%/if%}</i>
+							薪资：<i>{%if $item.salary_min or $item.salary_max%}{%$item.salary_min|cat:'-'|cat:$item.salary_max%}{%else%}面议{%/if%}</i>
 							食宿：<i>{%$DROPDATA_INDEX.rations_quarters[$item.rations_quarters]%}</i>
 							企业性质：<i>{%$DROPDATA_INDEX.company_type[$item.company_type]%}{%if $item.star_level%}{%'('|cat:$DROPDATA_INDEX.star_level[$item.star_level]|cat:')'%}{%/if%}</i>
 							<div class="brief">{%$item.job_description|escape:none%}</div>

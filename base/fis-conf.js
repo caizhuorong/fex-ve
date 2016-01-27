@@ -1,2 +1,1 @@
-require('../config.js');
-fis.set('namespace', 'base');
+require('../config.js')('base');

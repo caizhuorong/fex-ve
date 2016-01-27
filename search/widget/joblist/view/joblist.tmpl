@@ -24,7 +24,7 @@
                        href="http://www.veryeast.cn/AdsShow/product/job/EvaluateIndex" target="_blank" title="雇主指数" class="compnum">{{$item.employer_index}}</a>
                 </li>
                 <li class="area">
-                    <span>{{$item.job_province.replace(/[省市县区镇乡村]$/, '')}}{{if $item.job_city}}{{'-' + $item.job_city.replace(/[省市县区镇乡村]$/, '')}}{{/if}}</span>
+                    <span class="ellipsis">{{$item.job_province.replace(/[省市县区镇乡村]$/, '')}}{{if $item.job_city}}{{'-' + $item.job_city.replace(/[省市县区镇乡村]$/, '')}}{{/if}}</span>
                 </li>
                 <li class="timer">
                     <span>{{$item.job_update_time}}</span>
@@ -38,7 +38,7 @@
                 <div class="attr">
                     经验：<i>{{if $item.work_year_min}}{{$item.work_year_min + '年以上'}}{{else}}不限{{/if}}</i>
                     学历：<i>{{$DROPDATA_INDEX.degree_id[$item.degree_id]}}</i>
-                    薪资：<i>{{if $item.salary_min}}{{$item.salary_min + '-' + $item.salary_max}}{{else}}面议{{/if}}</i>
+                    薪资：<i>{{if $item.salary_min!=0 || $item.salary_max!=0}}{{$item.salary_min + '-' + $item.salary_max}}{{else}}面议{{/if}}</i>
                     食宿：<i>{{$DROPDATA_INDEX.rations_quarters[$item.rations_quarters]}}</i>
                     企业性质：<i>{{$DROPDATA_INDEX.company_type[$item.company_type]}}{{if $item.star_level}}{{'(' + $DROPDATA_INDEX.star_level[$item.star_level] + ')'}}{{/if}}</i>
                     <div class="brief">{{=$item.job_description}}</div>

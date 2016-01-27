@@ -40,5 +40,7 @@ function Post(option, callback) {
 }
 
 
-module.exports = Post;
 Post.skin = Cock.skin;
+Post.data = auto.data;
+
+module.exports = Post;

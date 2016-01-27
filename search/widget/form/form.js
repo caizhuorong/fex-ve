@@ -50,7 +50,7 @@ fn.submit = function (callback) {
 
     $.each($form.serializeArray(), function (key, item) {
         // 数值为空不显示
-        if (item.value && item.value != '0') {
+        if (item.value && (item.value != '0' || item.name == 'key_words')) {
             if (item.name.match(/(?:\[\])$/)) {
                 var i = item.name.match(/(.*)(?:\[\])$/)[1];
                 if (!data[i]) {

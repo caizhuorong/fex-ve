@@ -9,10 +9,6 @@ var H = require('common:widget/helper/helper.js'),
         post: require('base:widget/cock/post.js').skin(),
         area: require('base:widget/cock/area.js')
     },
-    data = {
-        area: require('base:widget/cock/data/area_zh-cn.js'),
-        post: require('base:widget/cock/data/post_zh-cn.js')
-    },
     $keywork = $('.w-keyworks'),
     $doc = $(document),
     $his = $keywork.find('.J_search-his'),
@@ -36,7 +32,7 @@ $keywork
 			val = $input.val().split(','),
 			i = 0, len = val.length, list = [], tmp, title;
 		for (; i < len; i++) {
-			tmp = data[name].raw[val[i]] || data[name].type[val[i]];
+			tmp = KW[name].data.raw[val[i]] || KW[name].data.type[val[i]];
 			tmp && list.push(tmp);
 		}
 		title = list.join('+');

@@ -15,7 +15,7 @@
         <span class="search-type">
             <span>{%if $data.search_scope eq 'company_name'%}公司名{%elseif $data.search_scope eq 'all'%}全 文{%else%}职位名{%/if%}</span>
             <b class="arrows"></b>
-            <input type="hidden" name="keyword_scope" class="keyword_scope" value="{%$data.keyword_scope%}">
+            <input type="hidden" name="keyword_scope" class="keyword_scope" value="{%$data.search_scope%}">
             <ul class="search-list">
                 <li data-name="">职位名</li> {%* data-name="job_name" *%}
                 <li data-name="company_name">公司名</li>

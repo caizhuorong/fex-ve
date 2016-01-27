@@ -8,10 +8,6 @@ var H = require('common:widget/helper/helper.js'),
 	KW = {
 		post: require('base:widget/cock/post.js').skin('blue'),
 		area: require('base:widget/cock/area.js')
-	},
-	data = {
-		area: require('base:widget/cock/data/area_zh-cn.js'),
-		post: require('base:widget/cock/data/post_zh-cn.js')
 	};
 
 $('.demo-w-cock')
@@ -38,7 +34,7 @@ $('.demo-w-cock')
 			val = $input.val().split(','),
 			i = 0, len = val.length, list = [], tmp;
 		for (; i < len; i++) {
-			tmp = data[name].raw[val[i]] || data[name].type[val[i]];
+			tmp = KW[name].data.raw[val[i]] || KW[name].data.type[val[i]];
 			tmp && list.push(tmp);
 		}
 		list.length && $me.find('span').html(list.join('+'));

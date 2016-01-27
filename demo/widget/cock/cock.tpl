@@ -25,7 +25,7 @@
 	{%widget name="cock-doc.md"%}
 
 	{%script%}
-		require.async('cock');
+		require.async('cock.js');
 		$('html').addClass('theme theme-white');
 	{%/script%}
 </div>
