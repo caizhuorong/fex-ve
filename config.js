@@ -1,27 +1,15 @@
-fis.require('smarty')(fis)
+fis.require('smarty')(fis);
 
-
-
-fis.match('*.{js,css,less}', {
-	useHash: false
+fis.match('*.{js,css,less,sass,scss,png,jpeg,jpg,gif}', {
+	useHash: false,
+	useSprite: false,
+	optimizer: null
 });
-fis.match('::image', {
-	useHash: false
-});
-fis.match('*.js', {
-	optimizer: false
-});
-
-
-
 
 //不用发布的目录
-fis.match("{/doc/**,/.idea,/widget/**/test/**}", {
+fis.match("{/doc/**,/.idea,/widget/*/test/*}", {
 	release: false
 });
-
-
-
 
 fis.match('{*,**/*}.tmpl', {
 	optimizer: fis.plugin('html-compress')
@@ -31,6 +19,12 @@ fis.match('/components/{*,**/*}.{js,css}', {
 	isMod: true
 });
 
+fis.match('*.png', {
+	// fis-optimizer-png-compressor 插件进行压缩，已内置
+	optimizer: fis.plugin('png-compressor')
+});
+
+
 
 fis.match('*/_**.less', {
 	parser: false,
@@ -39,48 +33,20 @@ fis.match('*/_**.less', {
 
 
 /*
-// 启用 fis-spriter-csssprites 插件
-fis.match('::package', {
-	spriter: fis.plugin('csssprites')
-});
-// 对 CSS 进行图片合并
-fis.match('*.{less,css,sass,scss}', {
-	// 给匹配到的文件分配属性 `useSprite`
-	useSprite: true,
-	packTo: '/pkg/all.css'
-});
-*/
-
-
-
-
-/**
- * 资源发布目录
+ // 启用 fis-spriter-csssprites 插件
+ fis.match('::package', {
+ spriter: fis.plugin('csssprites')
+ });
+ // 对 CSS 进行图片合并
+ fis.match('*.{less,css,sass,scss}', {
+ // 给匹配到的文件分配属性 `useSprite`
+ useSprite: true,
+ packTo: '/pkg/all.css'
+ });
  */
-module.exports = function (nameSpace) {
-	fis.set('namespace', nameSpace);
-	
-	// fis.set('static', nameSpace == 'common' ? '' : 've');
 
-	// fis.match('*', {
-	// 	domain: '//fis.veimg.cn',
-	// 	deploy: fis.plugin('local-deliver', {
-	// 		to: 'e:/wwwroot/veryeast/fex/fis.veimg.cn'
-	// 	})
-	// });
+fis.match('{*.{js,css,less,sass,scss,png,jpeg,jpg,gif},static/**}', {
+	domain: '//fex.v.veimg.cn'
+});
 
-	// fis.match('{/(**.tpl),' +
-	// 	'/{plugin/**.*,smarty.conf,domain.conf,**.php},' +
-	// 	'server.conf,' +
-	// 	'/(test)/(**),' +
-	// 	'/(config)/(**),' +
-	// 	'${namespace}-map.json,' +
-	// 	'*.sh}', {
-	// 		domain: false,
-	// 		deploy: fis.plugin('local-deliver', {
-	// 			to: 'e:/wwwroot/veryeast/fex/fex_tpl_veryeast'
-	// 		})
-	// 	});
-	
-	return this;
-}
+// fis.set('static', 'fex.v.veimg.cn');

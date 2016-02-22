@@ -1,13 +1,10 @@
-require('../config.js')('demo');
+require('../config.js');
+fis.set('namespace', 'demo');
 
-
-fis.match('(widget/**.md)', {
+fis.match('(**.md)', {
 	parser: fis.plugin('marked'),
 	rExt: 'tpl',
 	release: '/${template}/${namespace}/$1',
 	url: '${namespace}/$1',
-	useMap: true,
-	// deploy: fis.plugin('local-deliver', {
-	// 	to: 'E:/wwwroot/veryeast/fex/fex_tpl_veryeast'
-	// })
+	useMap: true
 });
