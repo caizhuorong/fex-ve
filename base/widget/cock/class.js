@@ -4,7 +4,7 @@
 
 'use strict';
 
-var i, x, tmp,
+var i, x, tmp = {},
 	Cock = require('components/cock/cock.js'),
     auto = {
         name: 'post',
@@ -15,24 +15,30 @@ var i, x, tmp,
         ratio: 12,
         baba: true, // 这是父级可选
 		mui: {}
-    };
+    }, key;
 
 
-console.log(auto.data.all_z);
 
-// for (i = 0; i < auto.data.all.length; i++) {
-// 	tmp = auto.data.all[i];
-// 	if (tmp.length == 2) {
-// 		tmp[1] = auto.data.all_z[tmp[1]];
-// 		for (x = 0; x < tmp[1].length; x++) {
-// 			if ($.isArray(tmp[1][x])) {
-// 				tmp[1][x] = tmp[1][x][0];
-// 			}
-// 		}
-// 	}
-// }
+auto.data.type = {};
+auto.data.all = [];
+for (i = 0; i < auto.data.a_ll.length; i++) {
+    key = auto.data.a_ll[i];
+    auto.data.type[ key ] = auto.data.raw[ key ];
+    tmp[key] = i;
+    auto.data.all.push([key, []]);
+}
 
-// console.log(auto.data);
+
+for (i in auto.data.raw) {
+    key = i.match(/\d{2}/) + '00';
+    if (!/0{2}$/.test(i)) {
+        auto.data.all[tmp[key]][1].push(i);
+    }
+}
+
+
+
+//console.log(auto.data);
 
 
 function Post(option, callback) {

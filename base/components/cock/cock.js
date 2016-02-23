@@ -83,7 +83,7 @@ Cock = {
 
                 //判断cache是否存在，如果不存在，则创建
                 if (!$item.length) {
-                    $item = me.render(itemTpl, $.extend({}, data.data, {hit: hit, index: index, baba: data.baba, cols: data.ratio}));
+                    $item = me.render(itemTpl, $.extend({}, data.data, {hit: hit, index: index, baba: data.baba, cols: data.ratio, multi: data.multi}));
                     $itemCache.append($item);
                 }
                 $item.show().siblings().hide();
