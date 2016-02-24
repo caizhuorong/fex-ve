@@ -9,7 +9,7 @@ var i, x, tmp = {},
     auto = {
         name: 'post',
         tpl: __inline('view/class.tmpl'),
-        data: require('data/class_cn.js'),
+        data: require('data/class_en.js'),
         tip: '请选择职位',
         //multi: 1,
         ratio: 12,
