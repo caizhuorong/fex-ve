@@ -21,6 +21,8 @@ var Cock = require('components/cock/cock.js'),
     },
     i, key;
 
+auto.data.lang = require('lang/en.js');
+
 
 auto.data.type = {};
 auto.data.all = [];

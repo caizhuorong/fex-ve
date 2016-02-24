@@ -17,6 +17,8 @@ var
 		mui: {}
     };
 
+auto.data.lang = require('lang/cn.js');
+
 
 function Post(option, callback) {
     Cock.run($.extend({}, auto, option), callback);

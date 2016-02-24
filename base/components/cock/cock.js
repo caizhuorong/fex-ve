@@ -1,17 +1,19 @@
 /**
  * Created by TC-62 on 2015/12/7.
+ * 这个插件很复杂，看不懂是正常现象 !^ _ ^!
  */
 
 
 var layer = require('components/layer/layer.js'),
     tpl = require('common:components/tpl/tpl.js'),
     itemTpl = __inline('view/item.tmpl'),
+    stdTpl = __inline('view/std.tmpl'),
     $win = $(window),
     cache = {},
     Cock,
     action,
     $me,
-	layerSkin;
+    layerSkin;
 
 
 // 在模板中挂咋需要使用到的方法
@@ -48,6 +50,9 @@ Cock = {
     },
 
 
+    /**
+     * 通过id修改指定选项的选中状态
+     */
     check: function (val, check) {
         $('.ve-w-cock .ck-table input[value=' + val + ']').prop('checked', check);
     },
@@ -83,7 +88,7 @@ Cock = {
 
                 //判断cache是否存在，如果不存在，则创建
                 if (!$item.length) {
-                    $item = me.render(itemTpl, $.extend({}, data.data, {hit: hit, index: index, baba: data.baba, cols: data.ratio, multi: data.multi}));
+                    $item = me.render(itemTpl, $.extend({}, data.data, { hit: hit, index: index, baba: data.baba, cols: data.ratio, multi: data.multi }));
                     $itemCache.append($item);
                 }
                 $item.show().siblings().hide();
@@ -93,11 +98,11 @@ Cock = {
                 // ofs = me.offset(me.offset($this.offset(), $main.parent().offset()), {top: $this.height() + 1}, '+');
                 var zleft = $this.offset().left + $itemCache.outerWidth() + 10,
                     zwidth = $win.width(),
-                    ztop = $this.offset().top + $itemCache.outerHeight() + 10,
+                    ztop = $this.offset().top + $itemCache.outerHeight() + 10 - $(document).scrollTop(),
                     zheight = $win.height(),
                     offsetLeft = zleft > zwidth ? zleft - zwidth : 0,
                     offsetTop = ztop > zheight ? ztop - zheight : 0;
-                ofs = me.offset(me.offset($this.offset(), $main.parent().offset()), {left: offsetLeft, top: offsetTop});
+                ofs = me.offset(me.offset($this.offset(), $main.parent().offset()), { left: offsetLeft, top: offsetTop });
                 $itemCache.css(ofs);
             })
 
@@ -134,6 +139,7 @@ Cock = {
                     // 多选 hit
                     if (checked) {
                         // 当前选项选中
+                        // 子集和父级不能同时被选中
                         $clist.find('input[value=' + $this.attr('parent') + ']').closest('label').click(); // 这是一行价值伍佰元的代码
                         $label.closest('table').find(($label.parent().get(0).tagName == 'TH' ? 'td' : 'th') + ' input').prop('checked', false).trigger('change.cock-i');
 
@@ -141,14 +147,14 @@ Cock = {
                             $clist.append($label.clone().removeClass(ls.join(' ')));
                         } else {
                             $this.prop('checked', false);
-                            layer.tips('您最多能选择' + data.multi + '项', $clist, {tips: [3, '#FF9900'], time: 2400});
+                            layer.tips(data.data.lang.multi.replace('<%multi%>', data.multi), $clist, { tips: 3, time: 2400 });
                             return;
                         }
                     } else {
                         $clist.find('input[value=' + val + ']').closest('label').remove();
                     }
                 } else {
-                    // todo: 单选
+                    // 单选
                     $clist.find('input[value]').prop('checked', false).click();
                     $this.prop('checked', checked = true);
                     $clist.append($label.clone().removeClass(ls.join(' ')));
@@ -227,12 +233,13 @@ Cock = {
 
 
     biu: function (opt) {
-        var god = this.cache(opt.name), i;
+        var me = this,
+            god = me.cache(opt.name), i;
         opt.data.ratio = opt.ratio || 999;
 
         if (!god) {
-            god = this.cache(opt.name, $.extend({
-                $main: this.render(opt.tpl, $.extend({hit: opt.hit || [], multi: parseInt(opt.multi)}, opt.data))
+            god = me.cache(opt.name, $.extend({
+                $main: me.render(opt.tpl, $.extend({ multi: opt.multi }, opt.data))
                     .attr('name', opt.name)[(window.screen.availHeight < 732 ? 'add' : 'remove') + 'Class']('mini-ms')
                     .append('<div class="item-cache"></div>')
             }, opt));
@@ -246,24 +253,35 @@ Cock = {
 
 
     run: function (opt, callback) {
-        var god = this.biu(opt);
+        var me = this,
+            god = me.biu(opt);
         action = true;
 
 
         layer.open({
             area: '840px',
-            title: (opt.tip || '~') + (opt.multi > 1 ? ' （您最多能选择' + opt.multi + '项）' : ''),
+            title: (opt.tip || '~') + (opt.multi > 1 ? ' （' + opt.data.lang.multi.replace('<%multi%>', opt.multi) + '）' : ''),
             shift: parseInt(Math.random() * 5 + 1),
-            btn: '[确定]',
+            btn: ['[' + opt.data.lang.ok + ']', '[' + opt.data.lang.clean + ']'],
             closeBtn: 0,
             skin: 've-w-cock-box',
             success: function ($layero, index) {
                 $me = $layero;
                 $layero.children('.layui-layer-content').append(god.$main);
                 $win.resize();
+
+                // 已选中职位（以后有机会可以一下这里的触发机制现在是每次都触发）
+                me.render(stdTpl, $.extend({ hit: opt.hit || [] }, opt.data)).find('label').appendTo($layero.find('.ck-std .ck-std-list').find('label').click().end());
+                $layero.find('.ck-table').find(opt.hit.join(',').replace(/(\d+)/g, 'input[value=$1]')).prop('checked', true);
+
+                // 清除按钮
+                if (!opt.clean) {
+                    $layero.find('>.layui-layer-btn>.layui-layer-btn1').css('display', 'none');
+                    window.hello = god.$main
+                }
             },
             yes: function (index) {
-                var list = {v: [], t: []},
+                var list = { v: [], t: [] },
                     tow = [];
 
                 $me.find('.ve-w-cock .ck-std-list label').each(function () {
@@ -272,7 +290,7 @@ Cock = {
                         text = $this.text();
                     list.v.push(val);
                     list.t.push(text);
-                    tow.push({value: val, text: text});
+                    tow.push({ value: val, text: text });
                 });
 
                 god.$main.remove();
@@ -280,18 +298,25 @@ Cock = {
                 action = false;
                 $me = false;
 
+                god.$main.find('.item-cache').hide();
+
                 callback && callback(list, tow);
+            },
+            cancel: function (index) {
+                $me.find('.ve-w-cock .ck-std-list label').click();
+                return false;
             }
         })
     },
 
-    skin: function (skin) {
-		var url = skin == 'blue' ? __uri('./skin/blue.less') : __uri('./skin/orange.less');
-		if (url != layerSkin) {
-			layerSkin = url;
-			require.loadCss({ url: url });
-		}
-		return this;
+    skin: function (skin, lang) {
+        // var url = skin == 'blue' ? __uri('./skin/blue.less') : __uri('./skin/orange.less');
+        var url = __uri('./ski') + 'n/' + (skin || 'orange') + '.css'
+        if (url != layerSkin) {
+            layerSkin = url;
+            require.loadCss({ url: url });
+        }
+        return this;
     }
 
 };

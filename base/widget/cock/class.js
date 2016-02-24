@@ -17,6 +17,7 @@ var i, x, tmp = {},
 		mui: {}
     }, key;
 
+auto.data.lang = require('lang/cn.js');
 
 
 auto.data.type = {};

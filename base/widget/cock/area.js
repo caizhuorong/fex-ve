@@ -22,6 +22,8 @@ var
     },
     i, key;
 
+auto.data.lang = require('lang/cn.js');
+
 
 auto.data.type = {};
 auto.data.all = [];
