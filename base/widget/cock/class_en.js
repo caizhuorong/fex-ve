@@ -7,7 +7,7 @@
 var i, x, tmp = {},
     Cock = require('components/cock/cock.js'),
     auto = {
-        name: 'post',
+        name: 'class',
         tpl: __inline('view/class.tmpl'),
         data: require('data/class_en.js'),
         tip: '请选择职位',
