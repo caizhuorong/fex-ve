@@ -1,6 +1,6 @@
 var i,
 	fs = require('fs'),
-    class_cn = require('../data/cn/class.json');
+    class_cn = require('../data/cn/class.js');
 
 
 

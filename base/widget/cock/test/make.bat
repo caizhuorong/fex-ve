@@ -7,6 +7,7 @@ node getPostMap_en.js
 node getAreaMap_en.js
 
 node getClassMap.js
+node getClassMap_en.js
 
 cd ./..
 pause
