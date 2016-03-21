@@ -31,9 +31,10 @@
       }
     }
     p {
-      font-size: 18px;
+      font-size: 20px;
       color: #aaa;
-      //font-weight: bold;
+	  text-shadow: 0 0 1px;
+      *font-weight: bold;
     }
     em {
       // content: '';
@@ -41,11 +42,6 @@
       width: 10px;
       height: 10px;
       background: #f0841f;
-      -webkit-transform: rotate(45deg);
-      -moz-transform: rotate(45deg);
-      -ms-transform: rotate(45deg);
-      -o-transform: rotate(45deg);
-      transform: rotate(45deg);
 	  -webkit-border-radius: 8px;
 	  -moz-border-radius: 8px;
 	  border-radius: 8px;
@@ -61,7 +57,9 @@
     padding: 29px 0 16px 20px;
   }
 
-  .list {
+
+  ////////////////////////////////
+  .list-a {
     overflow: hidden;
     a {
       float: left;
@@ -92,6 +90,8 @@
       }
     }
   }
+  
+  ////////////////////////////////
   .list-b {
     overflow: hidden;
     h4 {
@@ -137,4 +137,25 @@
       }
     }
   }
+  
+  ////////////////////////////////
+  .rec-main-hot {
+	  border-right:solid 1px #eee;
+	  overflow: hidden;
+  }
+  .list-c {
+    width: 745px; margin: 0;
+    li { padding:25px 24px 40px 24px; position:relative; float:left; border-left:solid 1px #eee; border-bottom:solid 1px #eee;}
+    li .bbwb_li_a{ width:196px; height:126px; clear:both; overflow:hidden; display:block; border:solid 1px #eee; text-align:center;}
+    li .bbwb_li_a img{margin:0 auto; max-height:126px; max-width:196px;display:block;height:100%;}
+    li .body_bwb_txtbox{ width:198px; margin:10px 0; overflow: hidden }
+    li .body_bwb_txtbox li{ width:198px; padding:0px; border:none; float:left;}
+    li .body_bwb_txtbox li a{ line-height:24px; color:#666; float:left; width:100%; overflow: hidden;text-overflow: ellipsis; white-space: nowrap; font-size: 12px; }
+    li .body_bwb_txtbox li a:hover{ color:#ef8217;}
+    li .body_bwb_txtbox li span{ float:right; line-height:24px;}
+    li .body_bwb_bottom{ bottom:0px; left:0px; text-align:right; width:100%; background:#f8f8f8; position: absolute; }
+    li .body_bwb_bottom .body_bwb_botxt{ margin:0 0 0 25px; line-height:40px; float:left;}
+    li .body_bwb_bottom a{ line-height:40px; padding-right:25px; color:#ef8217;}
+  }
+   
 }

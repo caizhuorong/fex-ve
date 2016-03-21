@@ -16,7 +16,7 @@ $fis_data = array_merge($public_data, [
          */
         [
             'title' => ['t' => '<i>爱</i>上一份工作', 'p' => '找到最适合自己的工作'],
-            'tpl' => 'list',
+            'tpl' => 'list-a',
             'list' => [
                 ['link' => '/job_search/job_list?s=searcher&p=hurry', 'text' => '急聘职位', 'skin' => ''],
                 ['link' => '/job_search/job_list?s=searcher&p=clear_salary', 'text' => '明确薪资职位', 'skin' => 'sign'],
@@ -34,7 +34,7 @@ $fis_data = array_merge($public_data, [
         ],
         [
             'title' => ['t' => '<i>恋</i>上一座城市', 'p' => '到最满意的城市去工作'],
-            'tpl' => 'list',
+            'tpl' => 'list-a',
             'skin' => 'big', // 加大标签间距
             'list' => [
                 ['link' => '/job_search/job_list?s=searcher&p=city&key=happiness', 'text' => '幸福感最强城市职位', 'skin' => ''],
@@ -82,6 +82,11 @@ $fis_data = array_merge($public_data, [
                     ]
                 ]
             ]
+        ],
+		[
+            'title' => ['t' => '<i>热门</i>企业', 'p' => ''],
+            'tpl' => 'list-c',
+            'list' => $GLOBALS['fcData']['hot']
         ]
     ],
 

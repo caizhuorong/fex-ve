@@ -17,7 +17,7 @@ emp | 给指定id添加指定class | null |
 tip | 默认显示的信息 | '~' |
 multi | 最多可选个数 | 1 (单选) |
 ratio | 二级菜单长宽比 | 999 (不限制) |
-baba | 父级可选 | false |
+parent | 父级可选 | false |
 
 
 ```javascript
@@ -32,7 +32,7 @@ baba | 父级可选 | false |
     tip: '请选择工作地点',
     multi: 5,
     ratio: 3,
-    baba: true
+    parent: true
 }
 ```
 

@@ -5,10 +5,9 @@
  *
  * https://github.com/fex-team/mod
  */
-var require, define;
 
 (function(global) {
-    if (require) return; // 避免重复加载而导致已定义模块丢失
+    if (global.require) return; // 避免重复加载而导致已定义模块丢失
 
     var head = document.getElementsByTagName('head')[0],
         loadingMap = {},
@@ -90,20 +89,20 @@ var require, define;
 	/**
 	 * 兼容 seajs 做了改写
 	 */
-	if (define && seajs) {
+	if (global.define && global.seajs) {
 		var seaDefine = define;
-		define = function () {
+		global.define = function () {
 			var args = arguments;
 			(args.length == 2 && typeof args[0] == 'string' && args[0].match(/^\w*:\w/) ? modDefine : seaDefine).apply(this, args);
 		}
 		define.cmd = seaDefine.cmd;
 	} else {
-		define = modDefine;
+		global.define = modDefine;
 	}
 	
 	
 
-    require = function(id) {
+    global.require = function(id) {
 
         // compatible with require([dep, dep2...]) syntax.
         if (id && id.splice) {

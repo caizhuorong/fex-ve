@@ -1,2 +1,0 @@
-// 这个文件是对js下的 __uri() 做hack操作的
-// var url = __uri('./ski')+'n/' + (skin || 'orange') + '.css'

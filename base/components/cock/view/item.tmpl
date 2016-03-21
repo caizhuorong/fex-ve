@@ -1,10 +1,10 @@
 <table cellpadding="0" cellspacing="0" border="0" class="ck-table" id="item-{{index}}" runjs-var="{{cols=colsp(all[index][1].length, ratio)}}">
     <tr>
         <th colspan="{{cols}}">
-            {{if baba}}
-            <label><input {{multi}} type="{{if multi > 1}}checkbox{{else}}radio{{/if}}" class="isTitle" value="{{all[index][0]}}" {{if inArray(all[index][0], hit)>=0}}checked{{/if}}>{{type[all[index][0]]}}</label>
+            {{if parent}}
+            <label><input type="{{if multi > 1}}checkbox{{else}}radio{{/if}}" class="isTitle" value="{{all[index][0]}}" {{if inArray(all[index][0], hit)>=0}}checked{{/if}}>{{type[all[index][0]]}}</label>
             {{else}}
-                {{type[all[index][0]]}}
+                <em style="padding-left:9px">{{type[all[index][0]]}}</em>
             {{/if}}
         </th>
     </tr>

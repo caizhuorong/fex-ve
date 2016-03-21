@@ -2,10 +2,12 @@ fis.require('smarty')(fis)
 
 
 
-fis.match('*.{js,css,less}', {
+
+
+fis.match('::image', {
 	useHash: false
 });
-fis.match('::image', {
+fis.match('*.{js,css,less}', {
 	useHash: false
 });
 fis.match('*.js', {
@@ -27,12 +29,12 @@ fis.match('{*,**/*}.tmpl', {
 	optimizer: fis.plugin('html-compress')
 });
 
-fis.match('/components/{*,**/*}.{js,css}', {
+fis.match('/{components,lib}/{*,**/*}.{js,css}', {
 	isMod: true
 });
 
 
-fis.match('*/_**.less', {
+fis.match('*/{_,.}**.less', {
 	parser: false,
 	isMod: false
 });
@@ -60,6 +62,7 @@ fis.match('*/_**.less', {
 module.exports = function (nameSpace) {
 	fis.set('namespace', nameSpace);
 
+	/*
 	fis.set('static', nameSpace == 'common' ? '' : 've');
 
 	fis.match('*', {
@@ -81,6 +84,7 @@ module.exports = function (nameSpace) {
 			to: 'e:/wwwroot/veryeast/fex/fex_tpl_veryeast'
 		})
 	});
+	*/
 
 	return this;
 }

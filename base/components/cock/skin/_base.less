@@ -62,6 +62,10 @@
 			color: @blank;
 		}
 	}
+	
+	input {
+		height: auto;
+	}
 
 	.item-hot {
 		color: @hot;
@@ -97,6 +101,7 @@
 		border: 1px solid @hover;
 		padding: 0 0 6px;
 		display: none;
+		box-shadow: 0 0 24px rgba(254,153,1,.1);
 
 		td, th {
 			text-align: left;
@@ -106,7 +111,7 @@
 			white-space: nowrap;
 		}
 
-		label {
+		label, em {
 			display: block;
 			padding: 0 15px 0 9px;
 			width: initial;

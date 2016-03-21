@@ -21,7 +21,7 @@ var allpage = $pages.data('allpage');
 
 $pages
     .on('click', '.page-btn', function () {
-        var page = parseInt($(this).siblings('.page-text').val());
+        var page = parseInt($(this).siblings('.page-text').val(), 10);
         joblist.where('page', page > allpage ? allpage : page < 1 ? 1 : page, true);
     })
     .on('keydown', '.page-text', function (ev) {

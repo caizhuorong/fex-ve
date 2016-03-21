@@ -7,7 +7,7 @@
 
 {%block name='content'%}
     {%script%}
-        window._DATA = {%json_encode($data)%}; //arr_result
+        window._postData = {%json_encode($data.postData)%};
 
         {%* 本地实际与服务器时间的偏移量（时间校正） *%}
         _SERVER_TIME_OFFSET = {%time() + 2%}000;

@@ -1,5 +1,5 @@
 <div class="w-keyworks">
-    <a class="kwbtn" data-name="post" data-multi="5" data-placeholder="请选择职位" data-title="职位" title="职位">
+    <a class="kwbtn" data-name="post" data-multi="5" data-placeholder="请选择职位" data-title="职位" title="职位" data-parent="0" data-allowed="0402,0403">
         <span class="ellipsis">请选择职位</span>
         <input type="hidden" name="funtype" value="{%join($data.job_post_id, ',')%}">
         <b></b>

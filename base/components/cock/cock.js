@@ -78,7 +78,7 @@ Cock = {
             .on('click.cock', '.ve-w-cock .J_ck-all span', function () {
                 var $this = $(this),
                     $main = $this.closest('.ve-w-cock'),
-                    index = $this.data('index'), // 二级菜单的缓存ID
+                    index = parseInt($this.data('index'), 10), // 二级菜单的缓存ID
                     data = me.cache($main.attr('name')), // 大弹窗缓存（数据）
                     $itemCache = $main.find('>.item-cache').show(), // 二级菜单div（缓存就在里面）
                     $item = $itemCache.find('>#item-' + index),
@@ -88,7 +88,7 @@ Cock = {
 
                 //判断cache是否存在，如果不存在，则创建
                 if (!$item.length) {
-                    $item = me.render(itemTpl, $.extend({}, data.data, { hit: hit, index: index, baba: data.baba, cols: data.ratio, multi: data.multi }));
+                    $item = me.render(itemTpl, $.extend({}, data.data, { hit: hit, index: index, parent: data.parent, cols: data.ratio, multi: data.multi }));
                     $itemCache.append($item);
                 }
                 $item.show().siblings().hide();
@@ -127,7 +127,7 @@ Cock = {
                     data = me.cache($main.attr('name')),
                     $label = $this.closest('label'),
                     i, ls = [],
-                    multi = parseInt(data.multi) > 1;
+                    multi = parseInt(data.multi,10) > 1;
 
                 // 地点页面主要城市标红加粗的城市
                 for (i in data.emp) {
@@ -231,7 +231,11 @@ Cock = {
         return $(tpl.compile(tmpl)(data));
     },
 
-
+	
+	
+	/**
+	 * 获取弹窗主体（判断是否有缓存，如果有，则读缓存）
+	 */
     biu: function (opt) {
         var me = this,
             god = me.cache(opt.name), i;
@@ -252,6 +256,9 @@ Cock = {
     },
 
 
+	/**
+	 * 入口
+	 */
     run: function (opt, callback) {
         var me = this,
             god = me.biu(opt);
@@ -261,7 +268,7 @@ Cock = {
         layer.open({
             area: '840px',
             title: (opt.tip || '~') + (opt.multi > 1 ? ' （' + opt.data.lang.multi.replace('<%multi%>', opt.multi) + '）' : ''),
-            shift: parseInt(Math.random() * 5 + 1),
+            shift: parseInt(Math.random() * 5 + 1, 10),
             btn: ['[' + opt.data.lang.ok + ']', '[' + opt.data.lang.clean + ']'],
             closeBtn: 0,
             skin: 've-w-cock-box',
@@ -309,12 +316,23 @@ Cock = {
         })
     },
 
+
+	/**
+	 * 指定皮肤和语言
+	 */
     skin: function (skin, lang) {
         // var url = skin == 'blue' ? __uri('./skin/blue.less') : __uri('./skin/orange.less');
-        var url = __uri('./ski') + 'n/' + (skin || 'orange') + '.css'
-        if (url != layerSkin) {
-            layerSkin = url;
-            require.loadCss({ url: url });
+        // var url = __uri('./ski') + 'n/' + (skin || 'orange') + '.css'
+        var uri = 'base:components/cock/skin/' + (skin || 'orange') + '.less';
+		if (!layerSkin) {
+			layerSkin = skin;
+			$.ajax({
+				url: 'http://fex.veryeast.cn/resource/getDeps?s=' + uri,
+				dataType: 'jsonp',
+				success: function (data) {
+					require.loadCss({ url: data.res[uri].url });
+				}
+			})
         }
         return this;
     }

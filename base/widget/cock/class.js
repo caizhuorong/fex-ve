@@ -13,7 +13,7 @@ var i, x, tmp = {},
         tip: '请选择职位',
         //multi: 1,
         ratio: 12,
-        baba: true, // 这是父级可选
+        parent: true, // 这是父级可选
 		mui: {}
     }, key;
 
@@ -39,7 +39,7 @@ for (i in auto.data.raw) {
 
 
 
-//console.log(auto.data);
+// console.log(auto);
 
 
 function Post(option, callback) {

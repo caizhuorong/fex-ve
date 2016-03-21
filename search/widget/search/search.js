@@ -102,8 +102,21 @@ function disable($me, item, unSetItem) {
  */
 function disableInit($me) {
 	// 获取 $me 的下级下拉框
-	var $item = $me.siblings('[data-v=' + $me.attr('drop-item') + ']').attr('isDropItem', ''),
-		itemv = DROPDATA[$me.data('v')][$me.find('input[type=hidden]').val()];
+	var i,
+		$item = $me.siblings('[data-v=' + $me.attr('drop-item') + ']').attr('isDropItem', ''),
+		itemv;
+	
+	i = 0
+	while (true) {
+		if (DROPDATA[$me.data('v')][i][0] == $me.find('input[type=hidden]').val()) {
+			itemv = DROPDATA[$me.data('v')][i]
+			break;
+		}
+		if (i++ > DROPDATA[$me.data('v')].length) {
+			break;
+		};
+	}
+	
 
 	if ($item.length && itemv && itemv.length > 2) {
 		$item.removeClass('disabled').data('dropItem', itemv[2]);

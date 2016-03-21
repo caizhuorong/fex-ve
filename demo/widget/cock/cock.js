@@ -19,7 +19,6 @@ $('.demo-w-cock')
 		data.hit = $this.find('input').val().split(',');
 
 		KW[$this.data('name').split('-')[0]](data, function (list) {
-			console.log(list);
 			var value = list.v.join(','),
 				text = list.t.join('+');
 

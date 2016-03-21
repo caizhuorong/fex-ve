@@ -66,6 +66,9 @@ $keywork
     .on('mouseover', '.search-type', function (ev) {
         $(this).addClass('active');
     })
+	.on('mouseout', '.search-type', function (ev) {
+        $(this).removeClass('active');
+    })
     .on('click', '.search-type li', function (ev) {
         var $me = $(this);
         $keywork

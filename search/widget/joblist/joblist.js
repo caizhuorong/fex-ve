@@ -69,8 +69,8 @@ var wherePx = {
             page_max = data.message.pager.page_max || 1;
         $page.filter('.nojs').children('a').html(page + '/' + page_max);
         $page.filter(':not(.nojs)').html(pagesMod({
-            $page: parseInt(page),
-            $all: parseInt(page_max)
+            $page: parseInt(page, 10),
+            $all: parseInt(page_max, 10)
         }));
 
         /**
@@ -118,10 +118,10 @@ exports.where = function (name, value, setpage) {
     !setpage && delete _FILTER_POST.page;
 
     $.ajax({
-        url: window.location.href,
+        url: location.href,
         method: 'post',
         dataType: 'json',
-        data: _FILTER_POST,
+        data: $.extend({}, _postData, _FILTER_POST),
         success: wherePx.render,
         error: function (err) {
             wherePx.end();
@@ -331,7 +331,7 @@ $(document).on('click', '.w-joblist-sl [control=select]', function (ev) {
             $dom: $self,
             data: jsldata.list,
             skin: 'w-joblist-drop',
-            zIndex: parseInt($self.closest('.layui-layer').css('zIndex')) + 1,
+            zIndex: parseInt($self.closest('.layui-layer').css('zIndex'), 10) + 1,
             cache: false
         }, function (val) {
             var $sl = $('.layui-layer .w-joblist-sl');

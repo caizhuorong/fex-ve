@@ -31,12 +31,18 @@ var $, win, ready = {
 var layer = {
 	/**本宝宝拓展 fis3 皮肤支持 */
 	skin: function (skin) {
-		// var url = skin == 'indigo' ? __uri('./skin/indigo.less') : __uri('./skin/orange.less');
-		var url = __uri('./skin').split(/\.js$/)[0] + '/'+ (skin || 'orange') + '.css'
-		if (url != layerSkin) {
-			layerSkin = url;
-			require.loadCss({ url: url });
-		}
+		// 不要觉得实现方式恶心，为了兼容老项目我也是被逼的
+		var uri = 'common:components/layer/skin/' + (skin || 'orange') + '.less';
+		if (!layerSkin) {
+			layerSkin = skin;
+			$.ajax({
+				url: 'http://fex.veryeast.cn/resource/getDeps?s=' + uri,
+				dataType: 'jsonp',
+				success: function (data) {
+					require.loadCss({ url: data.res[uri].url });
+				}
+			})
+        }
 		return this;
 	},
 	
@@ -78,7 +84,7 @@ var layer = {
         }
         //轮询加载就绪
         ;(function poll() {
-            ;(iscss ? parseInt($('#'+id).css('width')) === 1989 : layer[readyMethod||id]) ? function(){
+            ;(iscss ? parseInt($('#'+id).css('width'), 10) === 1989 : layer[readyMethod||id]) ? function(){
                 fn && fn();
                 try { iscss || head.removeChild(node); } catch(e){};
             }() : setTimeout(poll, 100);
@@ -439,14 +445,14 @@ Class.pt.move = function(){
     var that = this, config = that.config, conf = {
         setY: 0,
         moveLayer: function(){
-            var layero = conf.layero, mgleft = parseInt(layero.css('margin-left'));
-            var lefts = parseInt(conf.move.css('left'));
+            var layero = conf.layero, mgleft = parseInt(layero.css('margin-left'), 10);
+            var lefts = parseInt(conf.move.css('left'), 10);
             mgleft === 0 || (lefts = lefts - mgleft);
             if(layero.css('position') !== 'fixed'){
                 lefts = lefts - layero.parent().offset().left;
                 conf.setY = 0;
             }
-            layero.css({left: lefts, top: parseInt(conf.move.css('top')) - conf.setY});
+            layero.css({left: lefts, top: parseInt(conf.move.css('top'), 10) - conf.setY});
         }
     };
 
@@ -613,7 +619,7 @@ Class.pt.openLayer = function(){
             layer.zIndex++;
             layero.css('z-index', layer.zIndex + 1);
         };
-        layer.zIndex = parseInt(layero[0].style.zIndex);
+        layer.zIndex = parseInt(layero[0].style.zIndex, 10);
         layero.on('mousedown', setZindex);
         return layer.zIndex;
     };
