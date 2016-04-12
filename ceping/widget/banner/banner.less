@@ -1,0 +1,60 @@
+.w-banner {
+	height:332px;
+	background:url(ve-banner.jpg) no-repeat center;
+	background-size: cover;
+	.xz & {
+		background-image: url(xz-banner.jpg);
+	}
+	
+	@media (max-width:640px) {
+		height: 166px;
+		background-image: url(xz-banner.jpg);
+	}
+	
+	&-box {
+		padding: 68px 0 0 72px;
+		width: 480px;
+		.xz & {
+			padding-left: 24px;
+		}
+		@media (max-width:640px) {
+			width: 240px;
+			padding: 30px 0 0 15px;
+		}
+	}
+	
+	&-text {
+		height: 110px;
+	}
+
+	&-do {
+		text-align: center;
+		margin-top: 36px;
+		a {
+			display: inline-block;
+			width: 190px;
+			font-size: 22px;
+			height: 2.55em;
+			line-height: 2.55em;
+			border-radius: 3px;
+			font-weight: bold;
+			color: #fff;
+			margin-right: 2%;
+		}
+	}
+	
+	@media (max-width:640px) {
+		&-text {
+			width: 100%;
+			height: 55px;
+		}
+		&-do {
+			margin-top: 18px;
+			a {
+				width: 95px;
+				font-size: 11px;
+			}
+		}
+	}
+	
+}

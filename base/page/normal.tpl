@@ -31,6 +31,7 @@
 
         <!--[if lte IE 9]><script src="{%uri name='common:static/jquery/1.11.3.js'%}"></script><![endif]-->
         {%'<!--[if !IE]><!-->'%}<script src="{%uri name='common:static/jquery/2.1.4.js'%}"></script><!--<![endif]-->
+		{%block name="javascript"%}{%/block%}
 		
 		{%widget name="base:widget/ga/ga.tpl"%}
     {%/body%}

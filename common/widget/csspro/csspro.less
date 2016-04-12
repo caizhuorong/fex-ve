@@ -31,3 +31,16 @@ em, i {
   -khtml-user-select: none;
   user-select: none;
 }
+
+
+.justify {
+	text-align: justify;
+	text-justify: inter-ideograph;
+	&:after{
+		content: '';
+		display: inline-block;
+		overflow: hidden;
+		width: 100%;
+		height: 0;
+	}
+}
