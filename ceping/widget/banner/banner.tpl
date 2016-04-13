@@ -11,6 +11,5 @@
 </section>
 
 {%script%}
-require('../cpplay/cpplay')
-$('#ceping-play')
+require('../cpplay/cpplay').cpplay('#ceping-play')
 {%/script%}

@@ -25,7 +25,10 @@
 	</div>
 
 	<div class="cp-dashed-box">
-		<span class="cp-play">其他心仪的岗位~  <a href="#">我要测评</a></span>
+		<span class="cp-play">其他心仪的岗位~  <a href="javascript:;" id="ceping-playall">我要测评</a></span>
 	</div>
 
 </section>
+{%script%}
+require('../cpplayall/cpplayall').cpplayall('#ceping-playall')
+{%/script%}
