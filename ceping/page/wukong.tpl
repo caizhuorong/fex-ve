@@ -8,12 +8,8 @@
 
 {%block name='content'%}
 
-	{%widget name="widget/list/list.tpl"%}
-	
-{%/block%}
+	{%widget name="widget/wukong/wukong.tpl"%}
 
+{%/block%}
 {%block name='javascript'%}
 {%/block%}
-
-
-
