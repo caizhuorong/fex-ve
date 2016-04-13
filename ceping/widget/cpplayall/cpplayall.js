@@ -1,20 +1,18 @@
 'use static';
 
-var tmpl = __inline('cpplay.tmpl');
+var tmpl = __inline('cpplayall.tmpl');
 
 var layer = require('base:components/layer/layer.js').skin();
 
 
 
 
-exports.cpplay = function (dom) {
+exports.cpplayall = function (dom) {
 	$(dom).click(function() {
-
-		layer.open({
+        layer.open({
 			type: 1,
-			// closeBtn: false,
 			title: false,
-			area: '730px',
+			area: '615px',
 			content: tmpl
 		});
 
