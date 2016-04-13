@@ -1,0 +1,34 @@
+<div class="w-cpplay">
+
+	<div class="w-cpplay-top">
+		<div class="w-cpplay-image w-cpplay-ve-0"></div>
+		<div class="w-cpplay-play">
+			<p>您目前的意向职位：<i>{{data.jobname}}</i></p>
+			<p>结合您的意向职位，给您匹配“<i>{{data.pojobname}}</i>”岗位胜任力测评</p>
+			<a id="will" href="info?id={{data.xz_post_id}}&fis_config_namespace=ceping">我要测评</a>
+		</div>
+		<!--<div class="w-cpplay-image w-cpplay-ve-1"></div>
+		<div class="w-cpplay-play">
+			<p><i>抱歉，未能匹配到您的意向岗位胜任力测评！ </i></p>
+			<p>您可以选择其他岗位看看，或许你将得到更多选择其他部门跟匹配的内容一样即可</p>
+		</div>-->
+	</div>
+
+	<div class="w-cpplay-main">
+		<h5>其他人正在测评</h5>
+		<table class="w-cpplay-tab">
+			{{each data.pojob as item index}}
+			<tr>
+				<th>{{item.name}}：</th>
+				<td class="type-box">
+					{{each item.paname as val index}}
+					<a href="info?id={{val.id}}&fis_config_namespace=ceping">{{val.name}}</a>
+					{{/each}}
+				</td>
+			</tr>
+			{{/each}}
+		</table>
+		<p><i>PS：</i>更多岗位胜任力测评持续上线中，敬请期待~</p>
+	</div>
+
+</div>
