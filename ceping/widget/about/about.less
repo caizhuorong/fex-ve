@@ -119,8 +119,9 @@
 			}
 		}
 		.imgbox {
-			width: 200px;
-			height: 118px;
+			font-size: 16px;
+			width: 200/16em;
+			height: 118/16em;
 			background: no-repeat center;
 			background-size: cover;
 			.xz & {
@@ -158,11 +159,53 @@
 			width: 8.2em;
 			line-height: 1.5em;
 			text-align: left;
+			padding-right: 5%;
 			.xz & {
 				padding: 0 26px;
 			}
+			@media (max-width:486px) {
+				.xz & {
+					padding: 0 5px 0 0;
+				}
+			}
+		}
+
+		@media (max-width:486px) {
+			.imgbox {
+				display: none;
+			}
+			img {
+				width: 100%;
+				display: block;
+			}
+			li {
+				width: 48.5%;
+			}
+			.cp-like-box {
+				box-sizing: border-box;
+				width: 100%;
+				padding: 3px 3px 4px;
+			}
+			.diff-box {
+				display: table;
+				width: 100%;
+				i, span {
+					display: table-cell;
+					vertical-align: middle;
+				}
+				i {
+					font-size: 36px;
+				}
+				span {
+					font-size: 14px;
+				}
+				@media (max-width:392px) {
+					span {
+						font-size: 12px;
+					}
+				}
+			}
 		}
 	}
-	
-	
+
 }
