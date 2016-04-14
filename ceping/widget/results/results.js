@@ -125,6 +125,7 @@ var data = [
 
 
 
+
 $('.w-results>.cp-dashed-box').find('#echarts-cs').each(function(index) {
 	option.polar[0].indicator = indicator[index];
 	option.series[0].data = data[index];

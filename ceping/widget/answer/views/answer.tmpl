@@ -1,0 +1,14 @@
+<h4>{{index | pad:2}}. {{ques.title}}【{{type.type}}】</h4>
+<ul>
+	{{each ques.contitem as val index}}
+	<li>
+		<label>
+			<input name="question"
+				   value="{{index | num2str}}"
+				   type="{{type.input}}"
+				>
+			{{val}}
+		</label>
+	</li>
+	{{/each}}
+</ul>
