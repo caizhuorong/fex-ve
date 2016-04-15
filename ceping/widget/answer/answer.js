@@ -7,7 +7,8 @@ var tmpl = __inline('views/answer.tmpl'),
 	tpl = arttpl.compile(tmpl),
 	$answer = $('.w-answer'),
 	$answerList = $('.w-answer-list'),
-	$axis = $('.w-answer-axis');
+	$axis = $('.w-answer-axis'),
+	$wFloat;
 
 
 arttpl.helper('num2str', function (num) {
@@ -29,16 +30,17 @@ var questionTypes = [
 var questionList;
 
 
-// 如果有一天你在维护这段代码，请不要抱怨   - -!
+
 function init(data) {
 	questionList = data.data.list
 	$axis.axis(0, true);
 	render(0);
+	floatbox()
 }
 
 
 var answerSheet = {}
-
+window.answerSheet = answerSheet
 
 // var initAnswer = function() {
 
@@ -77,6 +79,7 @@ function render(index) {
 }
 
 
+
 $answerList.on('change', 'input', function () {
 	var ans = [],
 		cache = $answerList.data();
@@ -91,10 +94,83 @@ $answerList.on('change', 'input', function () {
 		factors_id: cache.factors_id,
 		answer: ans
 	}
-	if (!ans.length && answerSheet[cache.index]) {
+
+	var $float = $('.w-answer-float')
+	if (ans.length) {
+		$float.find('li').eq(cache.index).addClass('action')
+	} else if (answerSheet[cache.index]) {
+		$float.find('li').eq(cache.index).removeClass('action')
 		delete answerSheet[cache.index];
 	}
+	
+	$lis = $float.find('li')
+	var len = Math.round($lis.filter('.action').length * 1000 / $lis.length) / 10
+	$('#subTest').css({ display: len > 99.9 ? 'block' : 'none' });
+	
+	$axis.axis(len, true);
+	
 })
+
+var pagePrev = function () {
+	render(getInfo().index - 1);
+}
+var pageNext = function () {
+	render(getInfo().index + 1);
+}
+
+$left.on('click', pagePrev);
+$right.on('click', pageNext);
+
+
+
+
+
+$(document).on('click', '.w-answer-float li', function () {
+	render($(this).index());
+})
+/**
+ * 浮动题目目录
+ */
+var layer = require('base:components/layer/layer.js').skin(),
+	$floatLayer;
+
+function floatbox() {
+	$wFloat = $('<section class="w-answer-float"><ul>');
+	var $ul = $wFloat.find('ul')
+	for (var i = 0; i < questionList.length; i++) {
+		$ul.append('<li>' + (i + 1) + '</li>');
+	}
+
+	layer.open({
+		type: 1,
+		shade: false,
+		closeBtn: false,
+		title: '答题记录：',
+		success: function ($layer) {
+			$floatLayer = $layer;
+			$floatLayer.css({ top: -9999 })
+			setTimeout(function () {
+				$(window).resize()
+			}, 999)
+		},
+		offset: function () {
+			try {
+				var left = $(window).width() - $floatLayer.width();
+			} catch (err) { };
+			return [56, left];
+		},
+		area: '189px',
+		content: $wFloat.get(0).outerHTML
+	});
+
+
+	$(window.body)
+}
+
+
+
+
+
 
 /*
 {
@@ -113,46 +189,15 @@ $answerList.on('change', 'input', function () {
 }
 */
 
-var pagePrev = function () {
-	render(getInfo().index - 1);
+/*********************************************/
+
+function subform () {
+	console.log( 5400 )
 }
-var pageNext = function () {
-	render(getInfo().index + 1);
-}
-
-$left.on('click', pagePrev);
-$right.on('click', pageNext);
 
 
-
-
-
-/**
- * 浮动题目目录
- */
-var tplFloat = __inline('views/float.tmpl'),
-	layer = require('base:components/layer/layer.js').skin(),
-	$floatLayer;
-
-layer.open({
-	type: 1,
-	shade: false,
-	closeBtn: false,
-	success: function ($layer) {
-		$floatLayer = $layer;
-		$floatLayer.css({ top: -9999 })
-		setTimeout(function () {
-			$(window).resize()
-		}, 999)
-	},
-	offset: function () {
-		try {
-			var left = $(window).width() - $floatLayer.width();
-		} catch (err) { };
-		return [56, left];
-	},
-	area: '189px',
-	content: tplFloat
+$('#subTest').on('click', function () {
+	console.log(answerSheet);
 });
 
 

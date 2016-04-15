@@ -137,11 +137,9 @@
 	
 	
 	&-float {
-		min-height: 50px;
-		background: #fff;
+		background: #70c4e9;
 		border: 1px solid #70c4e9;
 		border-top: 0;
-		background: #70c4e9;		
 		ul {
 			padding: 10px 0 0 9px;
 			background: #fff;
@@ -159,9 +157,13 @@
 			line-height: 28px;
 			text-align: center;
 			color: #aaa;
-			&:hover {
+			&:hover, &.active {
 				cursor: pointer;
 				background: #ddd;
+			}
+			&.action {
+				background: #98c458;
+				color: #fff;
 			}
 		}
 	}

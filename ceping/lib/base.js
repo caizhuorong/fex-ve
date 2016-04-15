@@ -1,7 +1,7 @@
 /**
  * 加载图片
  */
-$('img').map(function() {
+$('img').map(function () {
 	var $this = $(this);
 	$this.prev('.imgbox').css({ backgroundImage: 'url(' + $this.attr('src') + ')' });
 })
@@ -12,7 +12,7 @@ $('img').map(function() {
 /**
  * 进度条
  */
-jQuery.fn.axis = function(percentage, hasTit) {
+jQuery.fn.axis = function (percentage, hasTit) {
 	var i,
 		$axis = this.children('.lib-axis'),
 		$tmp;
@@ -34,9 +34,6 @@ jQuery.fn.axis = function(percentage, hasTit) {
 	$axis.children('.lib-axis-num').width(percentage + '%');
 
 	var $signNum = $axis.find('.lib-axis-signNum');
-	if ((percentage + 4) % 25 < 9) {
-		$signNum.css({ opacity: 0 });
-	} else {
-		$signNum.css({ opacity: 1 }).html(percentage + '%');
-	}
+	$signNum.css({ display: (percentage + 4) % 25 < 9 ? 'none' : 'block' }).html(percentage + '%');
+
 }
