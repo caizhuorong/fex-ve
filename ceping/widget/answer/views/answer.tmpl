@@ -6,6 +6,7 @@
 			<input name="question"
 				   value="{{index | num2str}}"
 				   type="{{type.input}}"
+				   {{index | num2str | quesChecked:sheet.answer}}
 				>
 			{{val}}
 		</label>

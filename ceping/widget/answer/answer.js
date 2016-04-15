@@ -10,11 +10,15 @@ var tmpl = __inline('views/answer.tmpl'),
 	$axis = $('.w-answer-axis');
 
 
-arttpl.helper('num2str', function(num) {
+arttpl.helper('num2str', function (num) {
 	return (num + 10).toString(36);
 })
 
 arttpl.helper('pad', helper.pad)
+
+arttpl.helper('quesChecked', function (item, arr) {
+	return $.inArray(item, arr) >= 0 ? 'checked' : '';
+})
 
 
 var questionTypes = [
@@ -22,32 +26,7 @@ var questionTypes = [
 	{ input: 'checkbox', type: '多选题' }
 ]
 
-var questionList = [
-	{
-		id: '1501',
-		title: '这里是文本格式的题目001？ ',
-		type: '0',
-		contitem: ['选项1', '选项2', '选项3', '选项4']
-	},
-	{
-		id: '1502',
-		title: '这里是文本格式的题目002？ ',
-		type: '1',
-		contitem: ['选项1', '选项2', '选项3', '选项4']
-	},
-	{
-		id: '1503',
-		title: '这里是文本格式的题目003？ ',
-		type: '0',
-		contitem: ['选项1', '选项2', '选项3', '选项4']
-	},
-	{
-		id: '1504',
-		title: '这里是文本格式的题目004？ ',
-		type: '1',
-		contitem: ['选项1', '选项2', '选项3', '选项4']
-	}
-]
+var questionList;
 
 
 // 如果有一天你在维护这段代码，请不要抱怨   - -!
@@ -58,10 +37,7 @@ function init(data) {
 }
 
 
-
-var answerSheet = {
-
-}
+var answerSheet = {}
 
 
 // var initAnswer = function() {
@@ -73,43 +49,74 @@ var $left = $answer.find('.w-answer-pageLeft'),
 	$right = $answer.find('.w-answer-pageRight');
 
 
-var getInfo = function() {
+var getInfo = function () {
 	return $.extend($answerList.data(), { all: questionList.length });
 }
 
-/*
-var render = function(index) {
-	var question = questionList[index],
-		$box = '<h4>' + question.title + '</h4><ul>';
-	$.each(question.item, function(index, item) {
-		$box += '<li><label><input '
-		if ($.inArray(index, answerSheet[question.id]) >= 0) {
-			$box += 'checked'
-		}
-		$box += ' name="question" value="' + index + '" type="' + questionTypes[question.type].input + '">' + item + '</label></li>'
-	});
-	$box += '</ul>';
-	$answerList.data({ index: index, id: question.id }).html($box);
 
-	$left[index > 0 ? 'show' : 'hide']();
-	$right[index + 1 < getInfo().all ? 'show' : 'hide']();
-}
-*/
+
 function render(index) {
 	var question = questionList[index],
-		html = tpl({ type: questionTypes[question.type - 1], ques: question, index: index + 1 });
+		sheet = answerSheet[index],
+		html = tpl({
+			type: questionTypes[question.type - 1],
+			ques: question,
+			sheet: sheet ? sheet : { answer: [] },
+			index: index + 1
+		});
 
-	$answerList.data({ index: index, id: question.id }).html(html);
+
+	$answerList.data({
+		index: index,
+		question_id: question.id,
+		factors_id: question.factors_id
+	}).html(html);
 
 	$left[index > 0 ? 'show' : 'hide']();
 	$right[index + 1 < getInfo().all ? 'show' : 'hide']();
 }
 
 
-var pagePrev = function() {
+$answerList.on('change', 'input', function () {
+	var ans = [],
+		cache = $answerList.data();
+	$answerList.find('input').map(function (index) {
+		if ($(this).prop('checked')) {
+			ans.push($(this).val())
+		}
+	})
+
+	answerSheet[cache.index] = {
+		question_id: cache.question_id,
+		factors_id: cache.factors_id,
+		answer: ans
+	}
+	if (!ans.length && answerSheet[cache.index]) {
+		delete answerSheet[cache.index];
+	}
+})
+
+/*
+{
+    "result": {
+        "list": [
+            { "question_id": "8", "factors_id": "23", "answer": "B" },
+            { "question_id": "9", "factors_id": "23", "answer": "AB" },
+            { "question_id": "14", "factors_id": "24", "answer": "B" }
+        ]
+    },
+    "post_id": 31,
+    "start_time": "",
+    "end_time": "",
+    "submit_type": "1",
+    "site_type": "1"
+}
+*/
+
+var pagePrev = function () {
 	render(getInfo().index - 1);
 }
-var pageNext = function() {
+var pageNext = function () {
 	render(getInfo().index + 1);
 }
 
@@ -120,11 +127,33 @@ $right.on('click', pageNext);
 
 
 
+/**
+ * 浮动题目目录
+ */
+var tplFloat = __inline('views/float.tmpl'),
+	layer = require('base:components/layer/layer.js').skin(),
+	$floatLayer;
 
-
-$answerList.on('change', 'input', function() {
-	console.log($(this).val())
-})
+layer.open({
+	type: 1,
+	shade: false,
+	closeBtn: false,
+	success: function ($layer) {
+		$floatLayer = $layer;
+		$floatLayer.css({ top: -9999 })
+		setTimeout(function () {
+			$(window).resize()
+		}, 999)
+	},
+	offset: function () {
+		try {
+			var left = $(window).width() - $floatLayer.width();
+		} catch (err) { };
+		return [56, left];
+	},
+	area: '189px',
+	content: tplFloat
+});
 
 
 

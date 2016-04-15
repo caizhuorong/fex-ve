@@ -355,10 +355,15 @@ Class.pt.offset = function(){
     var type = typeof config.offset === 'object';
     that.offsetTop = (win.height() - area[1])/2;
     that.offsetLeft = (win.width() - area[0])/2;
+    if (typeof config.offset === 'function') {
+        var tmp = config.offset();
+        that.offsetTop = tmp[0] + 'px'
+        that.offsetLeft = tmp[1] + 'px'
+    }
     if(type){
         that.offsetTop = config.offset[0];
         that.offsetLeft = config.offset[1]||that.offsetLeft;
-    } else if(config.offset !== 'auto'){
+    } else if(config.offset !== 'auto' && typeof config.offset !== 'function'){
         that.offsetTop = config.offset;
         if(config.offset === 'rb'){ //右下角
             that.offsetTop = win.height() - area[1];
