@@ -51,7 +51,7 @@ var option = {
                 }
             },
 			symbol: 'emptyCircle',
-			symbolSize: 4,
+			symbolSize: 3,
 			data: []
 		}
 	],
@@ -60,6 +60,10 @@ var option = {
 	]
 };
 
+
+
+// var indicator = window.__data__.indicator
+// var data = window.__data__.data
 
 
 var indicator = [
@@ -88,7 +92,6 @@ var indicator = [
 		{ text: '工作报告3', max: 3 }
 	]
 ]
-
 var data = [
 	[
 		{
@@ -121,6 +124,7 @@ var data = [
 		}
 	]
 ]
+
 
 
 

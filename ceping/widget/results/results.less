@@ -1,65 +1,98 @@
 .w-results {
 	background: #fff;
+	@media (max-width: 640px) {
+		width: 94%;
+		border: none !important;
+	}
 	h2 {
 		font-size: 36px;
 		line-height: 3.2em;
 		margin: 5px 0 0;
+		@media (max-width: 640px) {
+			font-size: 20px;
+			margin: 0;
+			font-weight: normal;
+		}
 	}
-	
 	&-attrs {
 		font-size: 14px;
 		line-height: 22px;
 		color: #666;
+		@media (max-width: 640px) {
+			font-size: 12px;
+			margin-top: -10px;
+		}
 		i {
 			display: inline-block;
 			width: 28px;
 			height: 10px;
 			background: #7a7a7a;
 			margin-right: 5px;
+			@media (max-width: 640px) {
+				width: 14px;
+				height: 8px;
+			}
 		}
 		padding: 5px 0;
 	}
-	&-attr-0 {
-		 
-	}
+	&-attr-0 {}
 	&-attr-1 {
 		i {
 			background: #599f26;
 		}
 	}
-	
-	
 	#echarts-cs {
 		height: 280px;
 		margin-top: 16px;
 		padding: 20px 0;
+		@media (max-width: 640px) {
+			margin: 0;
+			padding: 0;
+		}
+		@media (max-width:360px) {
+			height: 220px;
+		}
+		@media (max-width:320px) {
+			height: 180px;
+		}
 	}
-	
-
-	
-
 	.echarts-table {
 		display: table;
 		width: 100%;
+		@media (max-width: 640px) {
+			display: block;
+		}
 	}
-	.echarts-box, .recommend-box {
+	.echarts-box,
+	.recommend-box {
 		width: 50%;
 		display: table-cell;
+		@media (max-width: 640px) {
+			display: block;
+			width: 100%;
+		}
 	}
-	
 	.recommend {
 		&-box {
 			vertical-align: middle;
 			font-size: 14px;
-			line-height: 24px;
+			line-height: 1.7143em;
 			padding-top: 16px;
+			@media (max-width: 640px) {
+				font-size: 12px;
+			}
 		}
 		&-item {
-			display: inline-block;
+			// display: inline;
 			background: #f4f4f4;
 			border-radius: 9px;
 			padding: 28px 23px 15px 27px;
 			margin-right: 6%;
+			@media (max-width: 640px) {
+				margin: 0;
+				padding: 10px;
+				border-radius: 5px;
+			}
 		}
 		&-title {
 			display: inline-block;
@@ -68,28 +101,49 @@
 			font-weight: normal;
 			margin: 0;
 			line-height: 1em;
+			@media (max-width: 640px) {
+				font-size: 16px;
+			}
 		}
 		&-record {
 			display: inline-block;
 			float: right;
 			line-height: 1em;
 			margin-top: 12px;
-			.resolve, .reject {
+			em {
+				display: inline-block;
+				width: 2em;
+			}
+			.reject,
+			.resolve {
 				font-weight: bold;
 				color: #76ba12;
 			}
 			.reject {
 				color: #e53b3b;
 			}
+			@media (max-width:640px) {
+				margin-top: 5px;
+				em {
+					width: 0.8em;
+				}
+			}
 		}
 		&-hack {
 			clear: both;
 			height: 25px;
+			@media (max-width: 640px) {
+				height: 10px;
+			}
 		}
 		&-info {
 			color: #666;
 			min-height: 60px;
 			margin: 0 -5px 20px 0;
+			@media (max-width: 640px) {
+				margin: 0 -5px 0 0;
+				min-height: 54px;
+			}
 		}
 		&-learning-resource {
 			color: #666;
@@ -99,28 +153,29 @@
 				margin-top: 0;
 			}
 			a {
+				color: #333;
 				display: block;
 				padding-left: 26px;
-			}
-			a {
-				color: #333;
 				background: left center no-repeat;
+				@media (max-width: 640px) {
+					background-size: auto 80%;
+					padding-left: 20px;
+				}
 				&.important {
 					color: #2a7acc;
 				}
 				&.icon-1 {
-					background-image: url(icon_1.png?__inline);
+					background-image: url("icon_1.png?__inline");
 				}
 				&.icon-2 {
-					background-image: url(icon_2.png?__inline);
+					background-image: url("icon_2.png?__inline");
 				}
 				&.icon-3 {
-					background-image: url(icon_3.png?__inline);
+					background-image: url("icon_3.png?__inline");
 				}
 			}
 		}
 	}
-
 	.display-in-resume {
 		color: #e53b3b;
 		font-size: 14px;
@@ -136,9 +191,54 @@
 		h4 {
 			margin: 5px 0 0;
 		}
+		@media (max-width: 640px) {
+			display: none;
+		}
 	}
-
 	.cp-ordered-lists {
 		padding: 10px 20px 7px 27px;
+	}
+	&-analysis-mobile {
+		background: none !important;
+		display: none;
+		margin: 20px 10px;
+		border: 1px dashed #d2d2d2 !important;
+		position: relative;
+		@media (max-width: 640px) {
+			display: block;
+		}
+		h4 {
+			font-size: 16px;
+			line-height: 1em;
+			font-weight: normal;
+			margin: 0;
+			background: #eee;
+			position: absolute;
+			padding-left: 5px;
+			left: 10px;
+			top: -8px;
+		}
+		.cp-ordered-lists {
+			padding: 12px 8px 0px 37px;
+			font-size: 12px;
+			line-height: 1.715em;
+			strong {
+				display: block;
+			}
+			li {
+				position: relative;
+				margin-bottom: .5em;
+				&:before {
+					position: absolute;
+					left: 5px;
+					top: 1px;
+					width: 16px;
+					height: 16px;
+					line-height: 16px;
+					background: #ffb400;
+					color: #fff;
+				}
+			}
+		}
 	}
 }

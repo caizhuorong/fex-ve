@@ -72,11 +72,11 @@ module.exports = function (nameSpace) {
 		})
 	});
 
-	fis.match('{/(**.tpl),' +
-		'/{plugin/**.*,smarty.conf,domain.conf,**.php},' +
+	fis.match('{/*.tpl,' +
+		'/{plugin/*,smarty.conf,domain.conf,*.php},' +
 		'server.conf,' +
-		'/(test)/(**),' +
-		'/(config)/(**),' +
+		'/test/*,' +
+		'/config/*,' +
 		'${namespace}-map.json,' +
 		'*.sh}', {
 		domain: false,

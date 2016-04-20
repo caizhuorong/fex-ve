@@ -1,6 +1,6 @@
 <div class="w-answer-top">
 	<div class="w-answer-topbox">
-		<div>测评倒计时 <span>90 : 00</span></div>
+		<div>测评倒计时 <span id="countdown">90 : 00</span></div>
 	</div>
 </div>
 
@@ -29,7 +29,7 @@
 	
 	<div class="w-answer-axis"></div>
 	
-	<a class="cp-sub-click" id="subTest" href="results?fis_config_namespace=ceping">提交</a>
+	<a class="cp-sub-click" id="subTest" data-href="results?fis_config_namespace=ceping">提交</a>
 	
 </section>
 

@@ -1,23 +1,23 @@
-body{
+body {
 	font-family: 'Microsoft YaHei', arial, 'STXihei';
 	color: #333;
-	
 	background: #f7f7f7;
+	@media (max-width: 640px) {
+		background: #eee;
+	}
 }
 
-ul, ol {
+ul,
+ol {
 	list-style: none;
 	padding-left: 0;
 }
-
-
 
 .main-box {
 	max-width: 978px;
 	margin: auto;
 	border: 1px solid #d7d9dd;
 }
-
 
 .cp-like-box {
 	border: 1px solid #efefef;
@@ -37,15 +37,12 @@ ul, ol {
 		bottom: 1px;
 	}
 	@media (max-width:640px) {
-		padding-bottom:2px;
+		padding-bottom: 2px;
 		&:after {
 			border-top: 0;
 		}
 	}
 }
-
-
-
 
 .cp-dashed-box {
 	border-top: 1px dashed #d7d9dd;
@@ -53,13 +50,11 @@ ul, ol {
 	padding: 20px 0;
 }
 
-
-
 .lib-axis {
 	height: 6px;
 	background: #d9dbdf;
 	position: relative;
-	&-num  {
+	&-num {
 		width: 0;
 		height: 100%;
 		background: #9ad052;
@@ -72,7 +67,8 @@ ul, ol {
 			bottom: -20px;
 		}
 	}
-	&-sign, &-signNum {
+	&-sign,
+	&-signNum {
 		position: absolute;
 		bottom: -20px;
 		width: 36px;
@@ -88,13 +84,9 @@ ul, ol {
 	}
 }
 
-
-
 h2 {
 	text-align: center;
 }
-
-
 
 .cp-sub-click {
 	display: inline-block;
@@ -104,9 +96,8 @@ h2 {
 	color: #fff;
 	font-size: 24px;
 	text-align: center;
-	box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
-
 
 .cp-ordered-lists {
 	padding: 15px 20px 15px 51px;

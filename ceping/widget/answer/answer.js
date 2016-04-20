@@ -40,7 +40,7 @@ function init(data) {
 
 
 var answerSheet = {}
-window.answerSheet = answerSheet
+// window.answerSheet = answerSheet
 
 // var initAnswer = function() {
 
@@ -102,13 +102,13 @@ $answerList.on('change', 'input', function () {
 		$float.find('li').eq(cache.index).removeClass('action')
 		delete answerSheet[cache.index];
 	}
-	
+
 	$lis = $float.find('li')
 	var len = Math.round($lis.filter('.action').length * 1000 / $lis.length) / 10
 	$('#subTest').css({ display: len > 99.9 ? 'block' : 'none' });
-	
+
 	$axis.axis(len, true);
-	
+
 })
 
 var pagePrev = function () {
@@ -190,15 +190,60 @@ function floatbox() {
 */
 
 /*********************************************/
+/**
+ * site_type:
+ * 1先之PC,
+ * 2先之触屏,
+ * 3先之客户端,
+ * 4最佳东方pc,
+ * 5最佳东方触屏,
+ * 6最佳东方客户端
+ */
+// 5400
+var start_time = (new Date).getTime();
+var end_time = start_time + 5400000;
 
-function subform () {
-	console.log( 5400 )
+var submitting = false;
+function subform(submit_type) {
+	var list = [];
+	var i, tmp;
+	for (i in answerSheet) {
+		tmp = $.extend(true, {}, answerSheet[i]);
+		tmp.answer = tmp.answer.sort().join('');
+		list.push(tmp);
+	}
+	console.log(list);
+
+	// TODO: 请求 
+	// $.ajax({
+	// 	url: ''
+	// })
 }
 
-
 $('#subTest').on('click', function () {
-	console.log(answerSheet);
+	subform(1)
 });
+
+
+
+var $countdown = $('.w-answer-topbox #countdown');
+var timeRun = setInterval(function () {
+	var time = (new Date).getTime();
+	var timer = parseInt((end_time - time) / 1000);
+	var s = timer % 60;
+	var m = parseInt(timer / 60);
+	$countdown.text(m + ' : ' + s)
+	if (m <= 0) {
+		clearInterval(timeRun);
+		subform(2)
+		layer.alert('时间到，自动提交！', {
+			end: function () {
+				location.href = $('#subTest').data('href');
+			}
+		})
+	}
+}, 999)
+
 
 
 

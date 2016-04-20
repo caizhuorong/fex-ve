@@ -5,6 +5,27 @@
 'use strict';
 
 
+var QueryString = {
+    data: {},
+    Initial: function () {
+        var aPairs, aTmp;
+        var queryString = new String(window.location.search);
+        queryString = queryString.substr(1, queryString.length); //remove   "?"    
+        aPairs = queryString.split("&");
+        for (var i = 0; i < aPairs.length; i++) {
+            aTmp = aPairs[i].split("=");
+            this.data[aTmp[0]] = aTmp[1];
+        }
+    },
+    GetValue: function (key) {
+        return this.data[key];
+    }
+}
+QueryString.Initial();
+
+
+
+
 var textBox = 'input[placeholder], textarea[placeholder]',
 
     Helper = {
@@ -19,7 +40,7 @@ var textBox = 'input[placeholder], textarea[placeholder]',
         browser: (function () {
             var kernel = navigator.userAgent.toLowerCase().match(/(msie|chrome|safari|firefox).(\d+)\./) || 0;
             return kernel ? [kernel[1], parseInt(kernel[2], 10)] : [];
-        }()),
+        } ()),
 
 
         /**
@@ -32,12 +53,12 @@ var textBox = 'input[placeholder], textarea[placeholder]',
         substring: function (str, len, flow) {
             if (!str) return str;
             var newLength = 0,
-                str = (typeof(str) != 'string') ? '' : str,
+                str = (typeof (str) != 'string') ? '' : str,
                 newStr = "",
                 chineseRegex = /[^\x00-\xff]/g,
                 singleChar,
                 strLength = str.replace(chineseRegex, "**").length,
-                flow = typeof(flow) == 'undefined' ? '...' : flow;
+                flow = typeof (flow) == 'undefined' ? '...' : flow;
 
             if (strLength <= len + (strLength % 2 == 0 ? 2 : 1))
                 return str;
@@ -153,8 +174,16 @@ var textBox = 'input[placeholder], textarea[placeholder]',
                 exp = new Date;
             exp.setTime(exp.getTime() - 1);
             document.cookie = name + "=;expires=" + exp.toGMTString();
-        }
+        },
 
+
+
+        /**
+         * 获取地址栏GET参数
+         */
+        getValue: function (key) {
+            return QueryString.GetValue(key)
+        }
     };
 
 
