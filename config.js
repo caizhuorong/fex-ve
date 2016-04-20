@@ -41,17 +41,17 @@ fis.match('*/{_,.}**.less', {
 
 
 /*
- // 启用 fis-spriter-csssprites 插件
- fis.match('::package', {
- spriter: fis.plugin('csssprites')
- });
- // 对 CSS 进行图片合并
- fis.match('*.{less,css,sass,scss}', {
- // 给匹配到的文件分配属性 `useSprite`
- useSprite: true,
- packTo: '/pkg/all.css'
- });
- */
+// 启用 fis-spriter-csssprites 插件
+fis.match('::package', {
+	spriter: fis.plugin('csssprites')
+});
+// 对 CSS 进行图片合并
+fis.match('*.{less,css,sass,scss}', {
+	// 给匹配到的文件分配属性 `useSprite`
+	useSprite: true,
+	packTo: '/pkg/all.css'
+});
+*/
 
 
 
@@ -59,10 +59,10 @@ fis.match('*/{_,.}**.less', {
 /**
  * 资源发布目录
  */
-module.exports = function (nameSpace) {
+module.exports = function(nameSpace) {
 	fis.set('namespace', nameSpace);
 
-	/*
+	
 	fis.set('static', nameSpace == 'common' ? '' : 've');
 
 	fis.match('*', {
@@ -79,12 +79,12 @@ module.exports = function (nameSpace) {
 		'/config/*,' +
 		'${namespace}-map.json,' +
 		'*.sh}', {
-		domain: false,
-		deploy: fis.plugin('local-deliver', {
-			to: 'e:/wwwroot/veryeast/fex/fex_tpl_veryeast'
-		})
-	});
-	*/
+			domain: false,
+			deploy: fis.plugin('local-deliver', {
+				to: 'e:/wwwroot/veryeast/fex/fex_tpl_veryeast'
+			})
+		});
+		
 
 	return this;
 }
