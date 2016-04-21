@@ -19,5 +19,7 @@
 		<h3>胜任力要素</h3> 
 		{%widget name="../factor/factor.tpl"%}
 	</div>
+	
+	<a class="cp-sub-click" id="startTest" href="/question/index?fis_config_namespace=ceping">开始评测</a>
 
 </section>
