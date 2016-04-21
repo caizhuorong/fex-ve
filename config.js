@@ -62,7 +62,7 @@ fis.match('*.{less,css,sass,scss}', {
 module.exports = function(nameSpace) {
 	fis.set('namespace', nameSpace);
 
-
+	/*
 	fis.set('static', nameSpace == 'common' ? '' : 've');
 
 	fis.match('*', {
@@ -84,7 +84,7 @@ module.exports = function(nameSpace) {
 				to: 'e:/wwwroot/veryeast/fex/fex_tpl_veryeast'
 			})
 		});
-
+	*/
 
 	return this;
 }

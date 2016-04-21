@@ -9,7 +9,7 @@
 {%block name='content'%}
 
 	{%widget name="widget/results/results.tpl"%}
-	
+
 {%/block%}
 
 {%block name='javascript'%}

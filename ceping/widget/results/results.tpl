@@ -1,6 +1,11 @@
 <section class="main-box w-results">
 
-	<h2>人力资源主管</h2> {%script%} window.__data__ = {%json_encode($data)%} {%/script%} {%foreach from=[1,2,3] key="key" item="item"%}
+	<h2>人力资源主管</h2> 
+	{%script%}
+		window.__data__ = {%json_encode($data)%} 
+	{%/script%}
+	
+	{%foreach from=[1,2,3] key="key" item="item"%}
 	<div class="cp-dashed-box">
 		<div class="echarts-table">
 			<div class="echarts-box">

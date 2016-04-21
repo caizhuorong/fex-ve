@@ -32,7 +32,7 @@ var questionList;
 
 
 function init(data) {
-	questionList = data.data.list
+	questionList = data.list
 	$axis.axis(0, true);
 	render(0);
 	floatbox()

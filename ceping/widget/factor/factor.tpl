@@ -9,7 +9,7 @@
 
 // http://home.9first.com/post/index?id=34
 
-window._factor={%json_encode($factor)%};  // .data.postlist
+window._factor={%json_encode($data)%};  // .data.postlist
 
 require('factor');
 

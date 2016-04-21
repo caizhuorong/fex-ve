@@ -1,4 +1,4 @@
-<section class="main-box w-about">
+<section class="main-box w-about {%if $site_type eq 1%}xz{%/if%}">
 
 	{%widget name="widget/banner/banner.tpl"%}
 

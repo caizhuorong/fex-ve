@@ -11,5 +11,12 @@
 </section>
 
 {%script%}
-require('../cpplay/cpplay').cpplay('#ceping-play')
+var data = {%json_encode($data)%};
+
+{%if $site_type eq 1 or $site_type eq 4%}
+	require('../cpplay/cpplay').cpplay('#ceping-play', data);
+{%else%}
+	console.log('11111111111')
+{%/if%}
+
 {%/script%}

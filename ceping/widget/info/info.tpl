@@ -17,9 +17,14 @@
 
 	<div class="cp-dashed-box">
 		<h3>胜任力要素</h3> 
-		{%widget name="../factor/factor.tpl"%}
+		
+		{%if $site_type eq 1 or $site_type eq 4%}
+			{%widget name="../factor/factor.tpl"%}
+		{%else%}
+			console.log('11111111111')
+		{%/if%}
 	</div>
 	
-	<a class="cp-sub-click" id="startTest" href="/question/index?fis_config_namespace=ceping">开始评测</a>
+	<a class="cp-sub-click" id="startTest" href="/question/index?id={%$GET['id']%}&fis_config_namespace=ceping">开始评测</a>
 
 </section>
