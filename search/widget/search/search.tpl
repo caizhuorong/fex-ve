@@ -1,5 +1,9 @@
+<script type="text/javascript">
+	function runga() { if (window.ga) { ga.apply(this, arguments) } }
+</script>
+
 {%function name="searchFormItem" pla="" vid="" run="" item=false hide=false disabl=false%}
-	<span control="select" class="select {%if $run!=0%}isSet{%elseif $disabl==true%}disabled{%/if%}" data-v="{%$vid%}" {%if $item%}drop-item="{%$item%}"{%/if%} {%if $hide%}style="display:none"{%/if%}>
+	<span control="select" onclick="runga('send','event','search','keyworks','search-more-{%$vid%}')" class="select {%if $run!=0%}isSet{%elseif $disabl==true%}disabled{%/if%}" data-v="{%$vid%}" {%if $item%}drop-item="{%$item%}"{%/if%} {%if $hide%}style="display:none"{%/if%}>
 		<i pla="{%$pla%}">{%if $run!=0%}{%$DROPDATA_INDEX[$vid][$run]%}{%else%}{%$pla%}{%/if%}</i>
 		<em></em>
 		<input type="hidden" name="{%$vid%}" value="{%$run%}">
@@ -54,15 +58,13 @@
 
 					<div class="work-mode">
 						职位性质：
-						{%foreach from=$DROPDATA.work_mode key="key" item="item"%}
-							<span {%if in_array($item[0], $data.work_mode)%}class="active"><input checked{%else%}<span><input{%/if%} type="checkbox" class="hide" name="work_mode[]" value="{%$item[0]%}"> {%$item[1]%}</span>
-						{%/foreach%}
+						{%foreach from=$DROPDATA.work_mode key="key" item="item"%}<span onclick="runga('send','event','search','keyworks','work-mode')"{%if in_array($item[0], $data.work_mode)%}class="active"><input checked {%else%} ><input{%/if%} type="checkbox" class="hide" name="work_mode[]" value="{%$item[0]%}"> {%$item[1]%}</span> {%/foreach%}
 					</div>
 				</div>
 
 				<div class="form-bottom">
-					<input type="submit" class="submit J_submit" value="找工作">
-					<a href="javascript:" class="clear-form">清空搜索条件</a>
+					<input type="submit" onclick="runga('send','event','search','keyworks','search-more-sub')" class="submit J_submit" value="找工作">
+					<a href="javascript:" onclick="runga('send','event','search','keyworks','clear-form')" class="clear-form">清空搜索条件</a>
 				</div>
 			</div>
 
