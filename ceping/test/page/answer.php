@@ -8,3 +8,4 @@ if ( isset($GLOBALS['fcData']) ) {
 	$fis_data = json_decode($fis_data_text, true);
 }
 $fis_data['GET'] = $_GET;
+$fis_data['site_type'] = $_GET['site_type'];

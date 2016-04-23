@@ -1,9 +1,19 @@
 .w-info {
 	background: #fff;
+	@media (max-width: 640px) {
+		width: 94%;
+		border: none !important;
+	}
 	h2 {
 		font-size: 36px;
 		line-height: 3.2em;
 		margin: 5px 0 0;
+		@media (max-width: 640px) {
+			font-size: 20px;
+			line-height: 2.55em;
+			margin: 0;
+			font-weight: normal;
+		}
 	}
 	ol {
 		list-style-type: decimal;
@@ -11,10 +21,6 @@
 		font-size: 14px;
 		line-height: 24px;
 	}
-	
-	
-	
-	
 	h3 {
 		font-size: 18px;
 		color: #fff;
@@ -24,7 +30,6 @@
 		background: #ffae00 url(h3.png) no-repeat center left;
 		margin: 0;
 	}
-	
 	#startTest {
 		width: 234px;
 		height: 64px;

@@ -84,7 +84,7 @@ module.exports = function(nameSpace) {
 				to: 'e:/wwwroot/veryeast/fex/fex_tpl_veryeast'
 			})
 		});
-	*/
+		*/
 
 	return this;
 }

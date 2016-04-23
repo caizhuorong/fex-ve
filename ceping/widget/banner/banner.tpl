@@ -10,13 +10,8 @@
 	
 </section>
 
-{%script%}
-var data = {%json_encode($data)%};
-
 {%if $site_type eq 1 or $site_type eq 4%}
-	require('../cpplay/cpplay').cpplay('#ceping-play', data);
+	{%widget name="../cpplay/cpplay.tpl" data=$data%}
 {%else%}
-	console.log('11111111111')
+	{%widget name="../cpplay-m/cpplay-m.tpl" data=$data%}
 {%/if%}
-
-{%/script%}

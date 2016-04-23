@@ -62,7 +62,7 @@ if ( isset($GLOBALS['fcData']) ) {
 		]
 	);
 	
-	$fis_data['site_type'] = $_GET['site_type'];
 }
 
 $fis_data['GET'] = $_GET;
+$fis_data['site_type'] = $_GET['site_type'];

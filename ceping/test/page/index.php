@@ -6,5 +6,6 @@ if ( isset($GLOBALS['fcData']) ) {
 	$fis_data = $GLOBALS['fcData'];
 } else {
 	$fis_data = json_decode($fis_data_text, true);
-	$fis_data['site_type'] = $_GET['site_type'];
 }
+
+$fis_data['site_type'] = $_GET['site_type'];

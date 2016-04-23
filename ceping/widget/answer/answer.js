@@ -11,21 +11,24 @@ var tmpl = __inline('views/answer.tmpl'),
 	$wFloat;
 
 
-arttpl.helper('num2str', function (num) {
+arttpl.helper('num2str', function(num) {
 	return (num + 10).toString(36);
 })
 
 arttpl.helper('pad', helper.pad)
 
-arttpl.helper('quesChecked', function (item, arr) {
+arttpl.helper('quesChecked', function(item, arr) {
 	return $.inArray(item, arr) >= 0 ? 'checked' : '';
 })
 
 
-var questionTypes = [
-	{ input: 'radio', type: '单选题' },
-	{ input: 'checkbox', type: '多选题' }
-]
+var questionTypes = [{
+	input: 'radio',
+	type: '单选题'
+}, {
+	input: 'checkbox',
+	type: '多选题'
+}]
 
 var questionList;
 
@@ -40,7 +43,7 @@ function init(data) {
 
 
 var answerSheet = {}
-// window.answerSheet = answerSheet
+	// window.answerSheet = answerSheet
 
 // var initAnswer = function() {
 
@@ -51,8 +54,10 @@ var $left = $answer.find('.w-answer-pageLeft'),
 	$right = $answer.find('.w-answer-pageRight');
 
 
-var getInfo = function () {
-	return $.extend($answerList.data(), { all: questionList.length });
+var getInfo = function() {
+	return $.extend($answerList.data(), {
+		all: questionList.length
+	});
 }
 
 
@@ -63,7 +68,9 @@ function render(index) {
 		html = tpl({
 			type: questionTypes[question.type - 1],
 			ques: question,
-			sheet: sheet ? sheet : { answer: [] },
+			sheet: sheet ? sheet : {
+				answer: []
+			},
 			index: index + 1
 		});
 
@@ -80,10 +87,10 @@ function render(index) {
 
 
 
-$answerList.on('change', 'input', function () {
+$answerList.on('change', 'input', function() {
 	var ans = [],
 		cache = $answerList.data();
-	$answerList.find('input').map(function (index) {
+	$answerList.find('input').map(function(index) {
 		if ($(this).prop('checked')) {
 			ans.push($(this).val())
 		}
@@ -105,16 +112,18 @@ $answerList.on('change', 'input', function () {
 
 	$lis = $float.find('li')
 	var len = Math.round($lis.filter('.action').length * 1000 / $lis.length) / 10
-	$('#subTest').css({ display: len > 99.9 ? 'block' : 'none' });
+	$('#subTest').css({
+		display: len > 99.9 ? 'block' : 'none'
+	});
 
 	$axis.axis(len, true);
 
 })
 
-var pagePrev = function () {
+var pagePrev = function() {
 	render(getInfo().index - 1);
 }
-var pageNext = function () {
+var pageNext = function() {
 	render(getInfo().index + 1);
 }
 
@@ -125,12 +134,12 @@ $right.on('click', pageNext);
 
 
 
-$(document).on('click', '.w-answer-float li', function () {
-	render($(this).index());
-})
-/**
- * 浮动题目目录
- */
+$(document).on('click', '.w-answer-float li', function() {
+		render($(this).index());
+	})
+	/**
+	 * 浮动题目目录
+	 */
 var layer = require('base:components/layer/layer.js').skin(),
 	$floatLayer;
 
@@ -146,17 +155,19 @@ function floatbox() {
 		shade: false,
 		closeBtn: false,
 		title: '答题记录：',
-		success: function ($layer) {
+		success: function($layer) {
 			$floatLayer = $layer;
-			$floatLayer.css({ top: -9999 })
-			setTimeout(function () {
+			$floatLayer.css({
+				top: -9999
+			})
+			setTimeout(function() {
 				$(window).resize()
 			}, 999)
 		},
-		offset: function () {
+		offset: function() {
 			try {
 				var left = $(window).width() - $floatLayer.width();
-			} catch (err) { };
+			} catch (err) {};
 			return [56, left];
 		},
 		area: '189px',
@@ -204,6 +215,7 @@ var start_time = (new Date).getTime();
 var end_time = start_time + 5400000;
 
 var submitting = false;
+
 function subform(submit_type) {
 	var list = [];
 	var i, tmp;
@@ -220,14 +232,14 @@ function subform(submit_type) {
 	// })
 }
 
-$('#subTest').on('click', function () {
+$('#subTest').on('click', function() {
 	subform(1)
 });
 
 
 
 var $countdown = $('.w-answer-topbox #countdown');
-var timeRun = setInterval(function () {
+var timeRun = setInterval(function() {
 	var time = (new Date).getTime();
 	var timer = parseInt((end_time - time) / 1000);
 	var s = timer % 60;
@@ -237,7 +249,7 @@ var timeRun = setInterval(function () {
 		clearInterval(timeRun);
 		subform(2)
 		layer.alert('时间到，自动提交！', {
-			end: function () {
+			end: function() {
 				location.href = $('#subTest').data('href');
 			}
 		})

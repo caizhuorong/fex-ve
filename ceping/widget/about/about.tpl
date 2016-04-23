@@ -1,5 +1,9 @@
-<section class="main-box w-about {%if $site_type eq 1%}xz{%/if%}">
+{%if $site_type eq 2 or $site_type eq 5%} 
+	{%widget name="widget/m-top/m-top.tpl" title="岗位胜任力测评"%}
+{%/if%}
 
+<section class="main-box w-about {%if $site_type eq 1%}xz{%/if%}">
+	
 	{%widget name="widget/banner/banner.tpl"%}
 
 
