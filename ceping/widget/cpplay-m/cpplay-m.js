@@ -10,7 +10,10 @@ $btn.click(function(ev) {
 	$cpplay.addClass('action');
 })
 
-$html.on('click', '.w-cpplay-m .w-cpplay-box .w-m-top-left', function() {
+$html.on('click', '.w-cpplay-m .w-cpplay-m-box .w-m-top-left', function() {
 	$html.removeClass('ov-hide');
 	$cpplay.removeClass('action');
-})
+}).on('click', '.w-cpplay-m .w-cpplay-m-box .w-cpplay-m-list>li', function () {
+	var $this = $(this);
+	$this.toggleClass('active');
+});

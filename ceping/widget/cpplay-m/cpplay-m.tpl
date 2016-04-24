@@ -3,15 +3,16 @@
 		{%widget name="widget/m-top/m-top.tpl" href="javascript:;" title="岗位胜任力测评"%}
 	
 		<ul class="w-cpplay-m-list">
+			{%foreach from=$data.pojob key="key" item="item"%}
 			<li>
-				高级管理
+				<span>{%$item.name%}<i></i></span>
+				<ul>
+					{%foreach from=$item.paname key="index" item="val"%}
+					<li><a href="/post/index?id={%$val.id%}&fis_config_namespace=ceping">{%$val.name%}</a></li>
+					{%/foreach%}
+				</ul>
 			</li>
-			<li>
-				中级管理
-			</li>
-			<li>
-				基层管理
-			</li>
+			{%/foreach%}
 		</ul>
 	</div>
 </div>

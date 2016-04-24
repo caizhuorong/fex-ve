@@ -18,10 +18,10 @@
 	<div class="cp-dashed-box">
 		<h3>胜任力要素</h3> 
 		
-		{%if $site_type eq 1 or $site_type eq 4%}
-			{%widget name="../factor/factor.tpl"%}
+		{%if $site_type eq 2 or $site_type eq 5%}
+			{%widget name=""%}
 		{%else%}
-			console.log('11111111111')
+			{%widget name="../factor/factor.tpl"%}
 		{%/if%}
 	</div>
 	
