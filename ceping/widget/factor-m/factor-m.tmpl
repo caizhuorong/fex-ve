@@ -1,0 +1,14 @@
+<div>
+	{{each data.list as item key}}
+	<div class="cp-collapse w-factor-cx">
+		<div class="title">
+			<i>{{item.name}}</i>
+		</div>
+		<ul class="cp-list">
+			{{each item.list as val index}}
+			<li>{{val.name}}</li>
+			{{/each}}
+		</ul>
+	</div>
+	{{/each}}
+</div>

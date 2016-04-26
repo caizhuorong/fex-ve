@@ -58,10 +58,10 @@ var option = {
 
 
 
-// var indicator = window.__data__.indicator
-// var data = window.__data__.data
+var indicator = window.__data__.indicator
+var data = window.__data__.data
 
-
+/*
 var indicator = [
 	[
 		{ text: '目标执行力', max: 3 },
@@ -111,7 +111,7 @@ var data = [
 		value: [2, 1, 3, 2, 3, 2]
 	}]
 ]
-
+*/
 
 
 

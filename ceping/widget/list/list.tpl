@@ -30,5 +30,7 @@
 
 </section>
 {%script%}
-require('../cpplayall/cpplayall').cpplayall('#ceping-playall')
+var Play = require('../cpplayall/cpplayall');
+Play.init('/', {}, 'json');
+Play.cpplayall('#ceping-playall');
 {%/script%}

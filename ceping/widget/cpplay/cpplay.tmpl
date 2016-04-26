@@ -1,17 +1,20 @@
 <div class="w-cpplay">
 
 	<div class="w-cpplay-top">
+		{{if data.jobname}}
 		<div class="w-cpplay-image w-cpplay-ve-0"></div>
 		<div class="w-cpplay-play">
 			<p>您目前的意向职位：<i>{{data.jobname}}</i></p>
 			<p>结合您的意向职位，给您匹配“<i>{{data.pojobname}}</i>”岗位胜任力测评</p>
 			<a id="will" href="/post/index?id={{data.xz_post_id}}&fis_config_namespace=ceping">我要测评</a>
 		</div>
-		<!--<div class="w-cpplay-image w-cpplay-ve-1"></div>
+		{{else}}
+		<div class="w-cpplay-image w-cpplay-ve-1"></div>
 		<div class="w-cpplay-play">
 			<p><i>抱歉，未能匹配到您的意向岗位胜任力测评！ </i></p>
 			<p>您可以选择其他岗位看看，或许你将得到更多选择其他部门跟匹配的内容一样即可</p>
-		</div>-->
+		</div>
+		{{/if}}
 	</div>
 
 	<div class="w-cpplay-main">
