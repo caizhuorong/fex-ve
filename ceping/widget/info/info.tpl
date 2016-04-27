@@ -26,6 +26,9 @@
 		</div>
 	{%/if%}
 	
-	<a class="cp-sub-click" id="startTest" href="/question/index?id={%$GET['id']%}&fis_config_namespace=ceping">开始评测</a>
+	<a class="cp-sub-click" id="startTest" href="/question/index?id={%$GET['id']%}">开始评测</a>
 
 </section>
+
+
+{%script%}require('info.js').init('/cpurl', '人力资源主管', 90);{%/script%}

@@ -1,25 +1,25 @@
 <section class="main-box w-list">
 
 	<div class="cp-dashed-box clear-top-border">
-		<h3>岗位职责</h3>
+		<h3>评测结果列表</h3>
 		<ul>
 			<li>
 				<a href="">
 					<i>“人力资源主管（薪酬福利+绩效）”岗位胜任力测评</i>
-					<span>2016.02.26</span>
 				</a>
+				<span>2016.02.26</span>
 			</li>
 			<li>
 				<a href="">
 					<i>“人力资源主管（招聘与配置）”岗位胜任力测评</i>
-					<span>2016.01.26</span>
 				</a>
+				<span>2016.01.26</span>
 			</li>
 			<li>
 				<a href="">
-					<i>“人力资源主管（招聘与配置）”岗位胜任力测评</i> 
-					<span>2016.01.22</span>
+					<i>“人力资源主管（招聘与配置）”岗位胜任力测评</i>
 				</a>
+				<span>2016.01.22</span>
 			</li>
 		</ul>
 	</div>
@@ -29,8 +29,4 @@
 	</div>
 
 </section>
-{%script%}
-var Play = require('../cpplayall/cpplayall');
-Play.init('/', {}, 'json');
-Play.cpplayall('#ceping-playall');
-{%/script%}
+{%script%} var Play = require('../cpplayall/cpplayall'); Play.init('/', {}, 'json'); Play.cpplayall('#ceping-playall'); {%/script%}

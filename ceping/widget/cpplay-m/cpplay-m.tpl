@@ -4,6 +4,7 @@
 	
 		<ul class="w-cpplay-m-list">
 			{%foreach from=$data.pojob key="key" item="item"%}
+			{%if count($item.paname) gt 0%}
 			<li>
 				<span>{%$item.name%}<i></i></span>
 				<ul>
@@ -12,6 +13,7 @@
 					{%/foreach%}
 				</ul>
 			</li>
+			{{/if}}
 			{%/foreach%}
 		</ul>
 	</div>

@@ -6,7 +6,7 @@
 		<div class="w-cpplay-play">
 			<p>您目前的意向职位：<i>{{data.jobname}}</i></p>
 			<p>结合您的意向职位，给您匹配“<i>{{data.pojobname}}</i>”岗位胜任力测评</p>
-			<a id="will" href="/post/index?id={{data.xz_post_id}}&fis_config_namespace=ceping">我要测评</a>
+			<a id="will" href="/post/index?id={{data.xz_post_id}}">我要测评</a>
 		</div>
 		{{else}}
 		<div class="w-cpplay-image w-cpplay-ve-1"></div>
@@ -21,14 +21,16 @@
 		<h5>其他人正在测评</h5>
 		<table class="w-cpplay-tab">
 			{{each data.pojob as item index}}
+			{{if item.paname.length}}
 			<tr>
 				<th>{{item.name}}：</th>
 				<td class="type-box">
 					{{each item.paname as val index}}
-					<a href="/post/index?id={{val.id}}&fis_config_namespace=ceping">{{val.name}}</a>
+					<a href="/post/index?id={{val.id}}">{{val.name}}</a>
 					{{/each}}
 				</td>
 			</tr>
+			{{/if}}
 			{{/each}}
 		</table>
 		<p><i>PS：</i>更多岗位胜任力测评持续上线中，敬请期待~</p>
